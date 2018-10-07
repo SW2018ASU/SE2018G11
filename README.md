@@ -44,11 +44,11 @@ Team Members :
 1.	Mohamed Erfan Elsayed
 2.	Martin Joseph William 
 3.	Mark Youssef Shohdi 
-4.	Omar Hesham Hanafy
+4.	Mario Hany Ghobrial
 5.	Fatema Abd Elmoniem
-6.	Mario Hany Ghobrial
-7.	Karim Salah Metwali 
-8.	Omar Mohamed Ali
+6.	Karim Salah Metwali
+7.	Omar Mohamed Ali
+8.	Omar Hesham Hanafy
 9.	Omar Nasr Eldin Mohamed 
 
 
