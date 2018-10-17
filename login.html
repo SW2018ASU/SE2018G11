@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="login.master.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CodeGuide</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li> -->
+          </ul>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+          <!-- <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul> -->
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+
+<div class="mx-auto col-sm-4 col-md-3 hide-sm">
+          <div class="rounded-1 text-gray bg-gray-light py-4 px-4 px-md-3 px-lg-4">
+            <form class="home-hero-signup js-signup-form" autocomplete="off" action="/join" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="C5CfnDCZh7rnqAEgUtZ/sCoU9zcT9Tka4atprTh+pX4GP5rjPmvOBNrjlNmB9ASDYSJTlNt1E25dHJHV3DVWpQ==">              <dl class="form-group mt-0">
+                <dt class="input-label">
+                  <label class="form-label f5" for="user[login]">Username</label>
+                </dt>
+                <dd>
+                  <auto-check src="/signup_check/username" csrf="f7ritaiGX69QcwXsNw6hxSCMAwv0oZpKStrPLqDBbRgEvcD814TQzCY54NcSLa6HVcHFF+y8kuyQ4yQA1AHXpw==">
+                    <input type="text" name="user[login]" id="user[login]" class="form-control form-control-lg input-block" placeholder="Pick a username" autofocus="" autocomplete="off" spellcheck="false">
+                  </auto-check>
+                </dd>
+              </dl>
+              <dl class="form-group">
+                <dt class="input-label">
+                  <label class="form-label f5" for="user[email]">Email</label>
+                </dt>
+                <dd>
+                  <auto-check src="/signup_check/email" csrf="7F1A+ze7+51BYar85z/OYEDuipsjmCR177sy4udRV4N+ZfzrmeBNn7Wsygres5FUVK913jTGfW8FkA2Y9oI80Q==">
+                    <input type="text" name="user[email]" id="user[email]" class="form-control form-control-lg input-block js-email-notice-trigger" placeholder="you@example.com" autocomplete="off" spellcheck="false">
+                  </auto-check>
+                </dd>
+              </dl>
+              <password-strength data-minimum-character-count="7" data-beginning-of-sentence="Make sure it's" data-checks="[&quot;at least 7 characters&quot;, &quot;including a number&quot;, &quot;a lowercase letter&quot;]">
+                <dl class="form-group">
+                  <dt class="input-label">
+                    <label class="form-label f5" for="user[password]">Password</label>
+                  </dt>
+                  <dd>
+                    <input type="password" name="user[password]" id="user[password]" class="form-control form-control-lg input-block" placeholder="Create a password">
+                  </dd>
+                  <p class="form-control-note"></p>
+                </dl>
+              </password-strength>
+              <input type="hidden" name="source" class="js-signup-source" value="form-home">
+              <!-- <input type="text" name="required_field_1935" id="required_field_1935" hidden="hidden" class="form-control"> -->
+<!-- <input type="hidden" name="timestamp" value="1539534992076" class="form-control"> -->
+<!-- <input type="hidden" name="timestamp_secret" value="dcbccc9841bfb3623b8d7b026be8bee76ebd360d766a594b1ef2fda42a186bcd" class="form-control"> -->
+
+              <button class="btn-mktg btn-primary-mktg btn-large-mktg f4 btn-block" type="submit" data-ga-click="Signup, Attempt, location:teams;">Sign up</button>
+              <button class="btn-mktg btn-primary-mktg btn-large-mktg f4 btn-block" type="submit" data-ga-click="Signin, Attempt, location:teams;">Sign in</button>
+
+              </p>
+
+</form>          </div>
+        </div>
+
+  </body>
+</html>
