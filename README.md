@@ -31,7 +31,7 @@ Why CodeGuide ?
 How is it built ?
 
 CodeGuide website is built using HTML , CSS , JavaScript & frameworks like Bootstrap & JQuery for Front-End.
-As for Back-End Python is used as well as Django framework & MySQL.
+As for Back-End PHP & MySQL is used .
 
 FeedBack
 
