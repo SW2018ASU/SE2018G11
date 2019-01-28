@@ -1,7 +1,7 @@
 <?php
 class Visitor extends User{
 
-  function sign_in ($email,$password){
+  public static function sign_in ($email,$password){
         $sql = "SELECT email FROM registered_user WHERE email ='$email';"
         $statement = Database::$db->prepare($sql);
         $statement->execute();
@@ -31,20 +31,21 @@ class Visitor extends User{
         else return 0; // login failed
   }
 
-  function sign_up ($email,$password,$FirstName,$LastName){
-    $sql = "SELECT email FROM registered_user WHERE email ='$email';"
+public static function sign_up ($email,$password,$FirstName,$LastName){
+    $sql = "SELECT email FROM user WHERE email ='$email';"
     $statement = Database::$db->prepare($sql);
     $statement->execute();
-    if ($email=$statement)
+  $row = $statement->fetch(PDO::FETCH_ASSOC)
+    if ($email==$row['email'])
     {
         return 0; //signup error
     }
-    $sql = "INSERT INTO registered_user (firstName,LastName,email,Password) VALUES (?,?,?,?)";
+    $sql = "INSERT INTO user (first_name,last_name,email,password) VALUES (?,?,?,?)";
     Database::$db->prepare($sql)->execute([$FirstName,$LastName,$email,$password]);
     return 1; //signup success
   }
 
-  function sign_up_specialist ($email,$password,$FirstName,$LastName,$bankinfo){
+  public static function sign_up_specialist ($email,$password,$FirstName,$LastName,$bankinfo){
     $sql = "SELECT email FROM specialist WHERE email ='$email';"
     $statement = Database::$db->prepare($sql);
     $statement->execute();
