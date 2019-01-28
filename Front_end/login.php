@@ -68,14 +68,14 @@
       <div class="col-lg-4 col-sm-12 bg-form">
         <div class="container">
         <div class="jumbotron">
-          <form>
+          <form method="post" action="/SE2018G11/Controllers/login.php">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email"  name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password">
             </div>
             <button id="submit" type="submit" class="btn btn-primary">Log in</button><br>
             <small >Don't have account ?</small>

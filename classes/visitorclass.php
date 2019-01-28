@@ -3,20 +3,21 @@ include_once('database.php');
 class Visitor extends Database{
 
   public static function sign_in ($email,$password){
-        $sql = "SELECT email FROM user WHERE email ='$email';";
+    Database::connect();
+
+        $sql = "SELECT email,password FROM user WHERE email ='$email';";
         $statement = Database::$db->prepare($sql);
         $statement->execute();
-      $statement=$statement->fetch(PDO::FETCH_ASSOC);
-        if ($email==$statement['email'])
-        {
+      $row=$statement->fetch(PDO::FETCH_ASSOC);
+      if($email==$row['email'])
+      {
+        if ($password==$row['password'])
+            return 1;  //login success registered-user
 
-          $sql ="SELECT Password FROM user WHERE Password ='$password';";
-          $statement = Database::$db->prepare($sql);
-          $statement->execute();
-          if ($password=$statement)
-              return 1;  //login success registered-user
 
-        }
+      }
+        return 0; // login failed
+
         // else if() {
         //   $sql = "SELECT email FROM specialist WHERE email ='$email';";
         //   $statement = Database::$db->prepare($sql);
@@ -30,7 +31,8 @@ class Visitor extends Database{
         //         return 1;   // login success specialist
         //   }
         // }
-        else return 0; // login failed
+
+
   }
 
 public static function sign_up ($email,$password,$FirstName,$LastName){
@@ -72,7 +74,7 @@ class user extends Visitor {
     Database::$db->prepare($sql)->execute([$this->FirstName,$this->LastName, $this->email]);
   }
 
-  function
+
 
   public static function userid($email) {
     $sql = "SELECT * FROM user where email='$email'";

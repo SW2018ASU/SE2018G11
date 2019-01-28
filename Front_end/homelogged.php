@@ -46,6 +46,8 @@
     </script>
   </head>
   <body >
+
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
       <img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/>
       <a class="navbar-brand" href="#"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>

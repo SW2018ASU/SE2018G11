@@ -1,21 +1,17 @@
 <?php
 include_once("../classes/visitorclass.php");
 session_start();
-$_SESSION["favcolor"] = "green";
-$_SESSION["favanimal"] = "cat";
-
-
-echo "hello";
-
 if(Visitor::sign_up($_GET['email'],$_GET['password'],$_GET['firstname'],$_GET['lastname'])){
-user::userid($_GET['email']);
+$user=user::userid($_GET['email']);
 
-
-
+$_SESSION["user_id"] = $user['id'];
+header('Location: ../Front_end/homelogged.php');
+}
+else{
+header('Location: ../Front_end/signup.php');
 }
 
 
- header('Location: ../Front_end/homelogged.php');
 
 
 
