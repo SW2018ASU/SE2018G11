@@ -12,8 +12,8 @@ $_SESSION["user_id"] = $user['id'];
 header('Location: ../Front_end/homelogged.php');
 }
 else{
-//header('Location: ../Front_end/login.php');
-echo 'erere';
+header('Location: ../Front_end/login.php');
+
 }
 
 

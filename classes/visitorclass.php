@@ -2,6 +2,22 @@
 include_once('database.php');
 class Visitor extends Database{
 
+
+  // public static function checkemail ($email){
+  //   Database::connect();
+  //
+  //       $sql = "SELECT email,password FROM user WHERE email ='$email';";
+  //       $statement = Database::$db->prepare($sql);
+  //       $statement->execute();
+  //     $row=$statement->fetch(PDO::FETCH_ASSOC);
+  //     if($email==$row['email'])
+  //     {
+  //     return 1;
+  //
+  //     }
+  //       return 0;
+  //     }
+
   public static function sign_in ($email,$password){
     Database::connect();
 
