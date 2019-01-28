@@ -80,22 +80,22 @@
       <div class="col-lg-4 col-sm-12 bg-form ">
         <div class="container">
           <div class="jumbotron">
-            <form>
-              <div class="form-group">
+            <form method="get" Action="../Controllers/createaccount.php">
+              <div class="form-group" >
                 <label for="firstname">First name</label>
-                <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="First name">
+                <input type="text" class="form-control" name="firstname"   id="firstname" aria-describedby="emailHelp" placeholder="First name">
               </div>
               <div class="form-group">
                 <label for="lastname">Last name</label>
-                <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" placeholder="Last name">
+                <input type="text" class="form-control"name="lastname" id="lastname" aria-describedby="emailHelp" placeholder="Last name">
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
               </div>
               <button type="submit" id="submit" class="btn btn-primary">submit</button><br>
               <small >Already have account ?</small>
