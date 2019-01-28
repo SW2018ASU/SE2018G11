@@ -19,6 +19,40 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script>
       $(document).ready(function(){
+$('form').submit(function(event) {
+// get the form data
+// there are many ways to get this data using jQuery (you can use the class or id also)
+var formData = {
+'email'              : $('#email').val(),
+'password'             : $('#password').val(),
+};
+$.ajax({
+type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+url         : 'Controllers/login.php', // the url where we want to POST
+data        : formData, // our data object
+dataType    : 'json', // what type of data do we expect back from the server
+          encode          : true
+}).done(function(data) {
+
+  if(data['status']==1)
+  {
+    window.location.href = "homelogged.php";
+
+  }
+  else if(data['status']==0) {
+    alert("username and password not mathcing");
+  }
+});
+// stop the form from submitting the normal way and refreshing the page
+event.preventDefault();
+});
+
+
+
+
+
+
+
           $("#submit").click(function(){
           if(!$("#email").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>e-mail field is empty</div>");
@@ -69,7 +103,7 @@
         <div class="container">
         <div class="jumbotron">
           <!-- form for email and password -->
-          <form action="/SE2018G11/Codeguide/Controllers/login.php" method="post">
+          <form  method="post">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
               <input type="email"  name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">

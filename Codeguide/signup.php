@@ -19,6 +19,28 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script>
       $(document).ready(function(){
+
+                  $("#email").keyup(function(){
+
+                $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
+
+                if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
+
+                  $("#submit").attr("disabled", "disabled");
+                }
+                else {
+                  $("#submit").attr("disabled", false);
+
+                }
+
+
+
+                });
+
+
+            }
+            );
+
           $("#submit").click(function(){
           if(!$("#firstname").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>first name field is empty</div>");
@@ -81,7 +103,7 @@
         <div class="container">
           <div class="jumbotron">
             <!-- form -->
-            <form method="get" Action="/SE2018G11/Codeguide/Controllers/createaccount.php">
+            <form method="post" Action="/SE2018G11/Codeguide/Controllers/createaccount.php">
               <div class="form-group" >
                 <label for="firstname">First name</label>
                 <input type="text" class="form-control" name="firstname"  id="firstname" aria-describedby="emailHelp" placeholder="First name">
@@ -98,7 +120,7 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
               </div>
-              <button type="submit" id="submit" class="btn btn-primary">submit</button><br>
+              <button type="submit" id="submit" class="btn btn-primary " >submit</button><br>
               <small >Already have account ?</small>
               <a  href="login.php">log in</a>
             </form>
