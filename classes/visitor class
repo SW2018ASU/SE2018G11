@@ -1,0 +1,61 @@
+<?php
+class Visitor extends User{
+
+  function sign_in ($email,$password){
+        $sql = "SELECT email FROM registered_user WHERE email ='$email';"
+        $statement = Database::$db->prepare($sql);
+        $statement->execute();
+        if ($email=$statement)
+        {
+
+          $sql ="SELECT Password FROM registered_user WHERE Password ='$password';"
+          $statement = Database::$db->prepare($sql);
+          $statement->execute();
+          if ($password=$statement)
+              return 1;  //login success registered-user
+
+        }
+        else if {
+          $sql = "SELECT email FROM specialist WHERE email ='$email';"
+          $statement = Database::$db->prepare($sql);
+          $statement->execute();
+          if ($email=$statement)
+          {
+            $sql ="SELECT Password FROM specialist WHERE Password ='$password';"
+            $statement = Database::$db->prepare($sql);
+            $statement->execute();
+            if ($password=$statement)
+                return 1;   // login success specialist
+          }
+        }
+        else return 0; // login failed
+  }
+
+  function sign_up ($email,$password,$FirstName,$LastName){
+    $sql = "SELECT email FROM registered_user WHERE email ='$email';"
+    $statement = Database::$db->prepare($sql);
+    $statement->execute();
+    if ($email=$statement)
+    {
+        return 0; //signup error
+    }
+    $sql = "INSERT INTO registered_user (firstName,LastName,email,Password) VALUES (?,?,?,?)";
+    Database::$db->prepare($sql)->execute([$FirstName,$LastName,$email,$password]);
+    return 1; //signup success
+  }
+
+  function sign_up_specialist ($email,$password,$FirstName,$LastName,$bankinfo){
+    $sql = "SELECT email FROM specialist WHERE email ='$email';"
+    $statement = Database::$db->prepare($sql);
+    $statement->execute();
+    if ($email=$statement)
+    {
+        return 0; //signup error
+    }
+    $sql = "INSERT INTO specialist (firstName,LastName,email,Password,bankinfo) VALUES (?,?,?,?)";
+    Database::$db->prepare($sql)->execute([$FirstName,$LastName,$email,$password,$bankinfo]);
+    return 1; //signup success
+  }
+
+}
+?>
