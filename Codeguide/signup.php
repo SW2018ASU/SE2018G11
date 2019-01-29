@@ -23,13 +23,16 @@
                   $("#email").keyup(function(){
 
                 $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
+                  //this 
 
                 if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
 
                   $("#submit").attr("disabled", "disabled");
+
                 }
                 else {
                   $("#submit").attr("disabled", false);
+
 
                 }
 
