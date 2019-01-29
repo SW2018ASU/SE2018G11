@@ -23,15 +23,20 @@
                   $("#email").keyup(function(){
 
                 $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
-                  //this 
+                  //this  is simple function used to make ajax
+                  //it takes here 3 input
+                  //first > url    Secand >>data,  how ? it make  for you array with {key:value}  and put it in $_POST and send it to Controllers with url you put
+                  //third> it is function executed after it back from Controllers and put variable in paramter and this is data you  put it in echo in controller that return to you
+                  //$.post("URL",{key:value ,key:value}, function(data){function body })
+
 
                 if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
 
-                  $("#submit").attr("disabled", "disabled");
+                  $("#submit").attr("disabled", "disabled");//this disable submit button and we need to tell him email exist
 
                 }
                 else {
-                  $("#submit").attr("disabled", false);
+                  $("#submit").attr("disabled", false);//this enable submit button
 
 
                 }

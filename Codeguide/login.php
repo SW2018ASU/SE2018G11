@@ -28,10 +28,10 @@ var formData = {
 };
 $.ajax({
 type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-url         : 'Controllers/login.php', // the url where we want to POST
-data        : formData, // our data object
+url         : 'Controllers/login.php', // the url where we want to POST//where controller that we want to go to is exist
+data        : formData, // our data object //this data will be sent to contrller in $_POST
 dataType    : 'json', // what type of data do we expect back from the server
-          encode          : true
+encode          : true
 }).done(function(data) {
 
   if(data['status']==1)
