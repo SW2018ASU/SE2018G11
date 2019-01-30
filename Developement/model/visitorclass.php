@@ -1,9 +1,9 @@
 <?php
 include_once('database.php');
-class Visitor extends Database{
+class visitor extends Database{
   public static function checkemail ($email){
     Database::connect();
-  
+
         $sql = "SELECT email,password FROM user WHERE email ='$email';";
         $statement = Database::$db->prepare($sql);
         $statement->execute();
