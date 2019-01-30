@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2019 at 05:35 PM
+-- Generation Time: Jan 30, 2019 at 05:42 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -44,7 +44,7 @@ CREATE TABLE `comment` (
   `user_id` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
   `comment_text` text NOT NULL,
-  `date` date NOT NULL,
+  `dates` date NOT NULL,
   `helpful` int(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -81,7 +81,7 @@ CREATE TABLE `group_user` (
 CREATE TABLE `post` (
   `id` int(255) NOT NULL,
   `user_id` text NOT NULL,
-  `date` date NOT NULL,
+  `dates` date NOT NULL,
   `question` text NOT NULL,
   `reported` int(255) NOT NULL,
   `language` text NOT NULL,
