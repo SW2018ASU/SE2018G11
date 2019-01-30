@@ -1,7 +1,7 @@
 <?php
-  include_once("../model/visitorclass.php");
+  include_once("../model/visitor.php");
   session_start();
-  if( Visitor::sign_in($_POST['email'],$_POST['password'] )){
+  if( visitor::sign_in($_POST['email'],$_POST['password'] )){
   $user=user::userid($_POST['email']);
   $_SESSION["user_id"] = $user['id'];
   $_SESSION["user_name"] = $user['first_name'];
