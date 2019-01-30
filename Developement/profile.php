@@ -1,4 +1,7 @@
-<?php include_once("components/head_profile.php"); ?>
+<?php
+
+
+ include_once("components/head_profile.php"); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body >
