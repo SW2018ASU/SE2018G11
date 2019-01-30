@@ -2,7 +2,7 @@
 include_once('database.php');
 include_once('visitor.php');
 class user extends visitor {
-  public static function __construct($id) {
+  public  function __construct($id) {
       $sql = "SELECT * FROM user WHERE id = $id;";
       $statement = Database::$db->prepare($sql);
       $statement->execute();
@@ -11,6 +11,7 @@ class user extends visitor {
       foreach ($data as $key => $value) {
         $this->{$key} = $value;
       }
+    }
   public static function set_name($FirstName,$LastName,$email){
     $sql = "UPDATE user SET first_name = ? , last_name = ? WHERE email = ?;";
     Database::$db->prepare($sql)->execute([$FirstName,$LastName, $email]);
@@ -46,7 +47,8 @@ class user extends visitor {
                        while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                        $my_groups [] = $row;
 
-             }
+             }}
 
 }
+
 ?>

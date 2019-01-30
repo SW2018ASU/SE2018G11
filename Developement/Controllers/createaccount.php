@@ -1,8 +1,11 @@
 <?php
   session_start();
   include_once("../model/visitor.php");
+  include_once("../model/user.php");
+
+  Database::connect();
   if(Visitor::sign_up($_POST['email'],$_POST['password'],$_POST['firstname'],$_POST['lastname'])){
-    $user=user::userid($_POST['email']);
+    $user=user::get_user_info($_POST['email']);
     $_SESSION["user_id"] = $user['id'];
     $_SESSION["user_name"] = $user['first_name'];
     header('Location: ../homelogged.php');

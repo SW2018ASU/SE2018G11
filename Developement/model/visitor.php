@@ -25,8 +25,8 @@ class visitor extends Database{
         if ($password==$row['password'])
             return 1;  //login success registered-user
       }
-      else if {
-        $sql = "SELECT email,password FROM specialist WHERE email ='$email';"
+
+        $sql = "SELECT email,password FROM specialist WHERE email ='$email';";
         $statement = Database::$db->prepare($sql);
         $statement->execute();
         $row=$statement->fetch(PDO::FETCH_ASSOC);
@@ -35,11 +35,11 @@ class visitor extends Database{
           if ($password==$row['password'])
               return 2;  //login success - specialist
         }
-      }
+
       else return 0; // login failed
     }
 public static function sign_up ($email,$password,$FirstName,$LastName){
-  //Database::connect();
+  // Database::connect();
     $sql = "SELECT email FROM user WHERE email = $email;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
@@ -56,7 +56,7 @@ public static function sign_up ($email,$password,$FirstName,$LastName){
     $sql = "SELECT email FROM specialist WHERE email = $email;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
-    $row = $statement->fetch(PDO::FETCH_ASSOC)
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
     if ($email== $row['email'])
     {
         return 0; //signup error
