@@ -19,36 +19,29 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script>
       $(document).ready(function(){
-
-                  $("#email").keyup(function(){
-
-                $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
-                  //this  is simple function used to make ajax
-                  //it takes here 3 input
-                  //first > url    Secand >>data,  how ? it make  for you array with {key:value}  and put it in $_POST and send it to Controllers with url you put
-                  //third> it is function executed after it back from Controllers and put variable in paramter and this is data you  put it in echo in controller that return to you
-                  //$.post("URL",{key:value ,key:value}, function(data){function body })
-
-
-                if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
-
-                  $("#submit").attr("disabled", "disabled");//this disable submit button and we need to tell him email exist
-
-                }
-                else {
-                  $("#submit").attr("disabled", false);//this enable submit button
-
-
-                }
-
-
-
-                });
-
-
+        $("#email").keyup(function(){
+          $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
+          //this  is simple function used to make ajax
+          //it takes here 3 input
+          //first > url    Secand >>data,  how ? it make  for you array with {key:value}  and put it in $_POST and send it to Controllers with url you put
+          //third> it is function executed after it back from Controllers and put variable in paramter and this is data you  put it in echo in controller that return to you
+          //$.post("URL",{key:value ,key:value}, function(data){function body })
+          if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
+            $("#submit").attr("disabled", "disabled");//this disable submit button and we need to tell him email exist
+            if(($(".check").children().length==0)&&($("#email").val()))
+            {
+              var warning = $("<div class='mt-2 alert alert-danger' role='alert'>E-mail already exists</div>");
+              $(".check").append(warning);
+              $(".check").slideDown();
             }
-            );
-
+          }
+          else {
+            $("#submit").attr("disabled", false);//this enable submit button
+            $(".check").slideUp();
+            $(".check").children().remove();
+          }
+          });
+          });
           $("#submit").click(function(){
           if(!$("#firstname").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>first name field is empty</div>");
@@ -111,7 +104,7 @@
         <div class="container">
           <div class="jumbotron">
             <!-- form -->
-            <form method="post" Action="/SE2018G11/Codeguide/Controllers/createaccount.php">
+            <form method="post" Action="Controllers/createaccount.php">
               <div class="form-group" >
                 <label for="firstname">First name</label>
                 <input type="text" class="form-control" name="firstname"  id="firstname" aria-describedby="emailHelp" placeholder="First name">
@@ -124,6 +117,7 @@
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
+              <div class="check"></div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
