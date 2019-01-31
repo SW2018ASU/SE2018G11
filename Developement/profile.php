@@ -19,7 +19,9 @@ Database::connect();
           <div class="card mb-3">
             <div class="card-header">
               <!-- Username -->
-              <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);?>
+              <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);
+                      echo  "                 ". $post['times']. "  ".$post['dates'];
+              ?>
             </div>
             <div class="card-body">
               <!-- programming language -->
