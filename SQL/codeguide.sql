@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2019 at 05:42 PM
+-- Generation Time: Jan 31, 2019 at 01:26 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -45,7 +45,8 @@ CREATE TABLE `comment` (
   `post_id` int(255) NOT NULL,
   `comment_text` text NOT NULL,
   `dates` date NOT NULL,
-  `helpful` int(255) NOT NULL
+  `helpful` int(255) NOT NULL,
+  `times` time NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -85,8 +86,16 @@ CREATE TABLE `post` (
   `question` text NOT NULL,
   `reported` int(255) NOT NULL,
   `language` text NOT NULL,
-  `group_id` int(255) NOT NULL
+  `group_id` int(255) NOT NULL,
+  `times` time NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `user_id`, `dates`, `question`, `reported`, `language`, `group_id`, `times`) VALUES
+(1, '2', '2019-01-31', '<div>aaaaaaaaa</div>', 0, 'java', 0, '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -113,6 +122,14 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `first_name`, `email`, `password`, `last_name`) VALUES
+(1, 'O', 'O@YAHOO.COM', 'a', 'O'),
+(2, 'Omar ', 'omarnasr3939@gmail.com', 'a', 'Hesham');
 
 --
 -- Indexes for dumped tables
@@ -162,13 +179,13 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
