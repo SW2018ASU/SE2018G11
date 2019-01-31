@@ -1,7 +1,10 @@
 <?php
 
+include_once("model/post.php");
+include_once("components/head_profile.php");
+Database::connect();
 
- include_once("components/head_profile.php"); ?>
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body >
@@ -9,16 +12,20 @@
       <div class="col-lg-8 col-sm-12">
         <div class="container">
           <!-- loop for my posts -->
+          <?php
+          $posts=post::get_my_post("",$_SESSION["user_id"]);
+          foreach ($posts as $post) {
+           ?>
           <div class="card mb-3">
             <div class="card-header">
               <!-- Username -->
-              Ali Alam
+              <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);?>
             </div>
             <div class="card-body">
               <!-- programming language -->
-              <h5 class="card-title">java</h5>
+              <h5 class="card-title">  <?php echo $post["language"];?></h5>
               <!-- Question text -->
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><?php echo $post["question"];?></p>
               <hr>
               <div class="row rowC">
                 <div class="col-lg-4">
@@ -39,7 +46,7 @@
           </div>
 
 
-        
+        <?php } ?>
         </div>
       </div>
       <div class="col-lg-4 col-sm-12">

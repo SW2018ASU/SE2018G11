@@ -52,7 +52,21 @@ public static function remove_bookmarked($user_id,$post_id){
 public static function search_post($keyword)
 {
   $keyword = str_replace(" ", "%", $keyword);
-  $sql = "SELECT * FROM post WHERE question like ('%$keyword%') ORDER BY question;";
+  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  WHERE question like ('%$keyword%')  ORDER BY dates DESC;";
+  $statement = Database::$db->prepare($sql);
+  $statement->execute();
+  $posts = [];
+  while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+    $posts[] = $row;
+  }
+  return $posts;
+}
+public static function get_my_post($keyword,$user_id)
+{
+  $keyword = str_replace(" ", "%", $keyword);
+  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  WHERE question like ('%$keyword%')AND user.id=$user_id ORDER BY dates DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
   $posts = [];
