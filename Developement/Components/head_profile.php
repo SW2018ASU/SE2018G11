@@ -1,4 +1,5 @@
 <?php
+include_once("model/post.php");
 
  session_start();
 
@@ -32,6 +33,26 @@
     <script>
       $(document).ready(function(){
           $("#community").click(function(){
+
+
+            var formData = {
+                      'question'              : $("#question").val(),
+                      'language'             : $("#language").val(),
+                      };
+                      $.ajax({
+                      type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                      url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+                      data        : formData, // our data object //this data will be sent to contrller in $_POST
+                      dataType    : 'json', // what type of data do we expect back from the server
+                      encode          : true
+                      }).done(function(data) {
+
+
+                      });
+
+
+
+
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
             $("#specialist").after(warning);
@@ -131,15 +152,21 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">programming languages</label>
                   </div>
-                  <select class="custom-select" id="inputGroupSelect01">
-                    <option >Choose...</option>
-                    <option value="1">C/C++</option>
-                    <option value="2">java</option>
-                    <option value="3">python</option>
+                  <select class="custom-select" id="language" name="language">
+                    <option value="Choose...">Choose...</option>
+                    <option value="C/C++">C/C++</option>
+                    <option value="C#">C#</option>
+                    <option value="java">java</option>
+                    <option value="python">python</option>
+                    <option value="php">php</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="javascript">javascript</option>
+                    <option value="jquery">jquery</option>
                   </select>
                 </div>
                 <div class="input-group mb-3">
-                <textarea id="question" class="form-control post" aria-label="With textarea" ></textarea>
+                <textarea id="question" name="question" class="form-control post" aria-label="With textarea" ></textarea>
                 </div>
                 <button id="community" type="submit" class="btn btn-primary">Ask community</button>
                 <button id="specialist" type="submit" class="btn btn-outline-primary">Ask specialist</button><br>

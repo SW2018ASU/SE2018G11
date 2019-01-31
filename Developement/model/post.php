@@ -2,7 +2,7 @@
 include_once('database.php');
 
 class post extends Database {
-  public static function __construct($id) {
+  public  function __construct($id) {
       $sql = "SELECT * FROM post WHERE id = $id;";
       $statement = Database::$db->prepare($sql);
       $statement->execute();
@@ -11,6 +11,7 @@ class post extends Database {
       foreach ($data as $key => $value) {
         $this->{$key} = $value;
       }
+    }
 /////////3ayzen nshof date wla dates
 ///tmm b2a $dates
 public static function create_post($question,$language,$user_id,$dates)
