@@ -14,8 +14,4 @@
   echo json_encode(['status'=>0]);
 }
 
-
-
-
-
  ?>

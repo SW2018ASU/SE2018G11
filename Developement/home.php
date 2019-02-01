@@ -8,12 +8,68 @@
         background-repeat: no-repeat;
       }
     </style>
-    <meta charset="utf-8">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('#login').submit(function(event) {
+          // get the form data
+          // there are many ways to get this data using jQuery (you can use the class or id also)
+          var formData = {
+          'email'              : $('#email').val(),
+          'password'             : $('#password').val(),
+          };
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/login.php', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType    : 'json', // what type of data do we expect back from the server
+          encode          : true
+          }).done(function(data) {
+
+            if(data['status']==1)
+            {
+              window.location.href = "homelogged.php";
+
+            }
+            else if(data['status']==0) {
+              $(".check").children().remove();
+              if(($(".check").children().length==0)&&($("#email").val()))
+              {
+                var warning = $("<div class='mt-2 alert alert-danger' role='alert'>E-mail and password aren't matching</div>");
+                $(".check").append(warning);
+                $(".check").slideDown();
+                $(".check").delay(2000).slideUp();
+              }
+            }
+          });
+          // stop the form from submitting the normal way and refreshing the page
+          event.preventDefault();
+          });
+          $("#submit").click(function(){
+          if(!$("#email").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>e-mail field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          if(!$("#password").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>password field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          return true;
+        });
+      });
+    </script>
+    <meta charset="utf-8">
+    <title></title>
   </head>
   <body >
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
@@ -110,14 +166,14 @@
             <img class="mr-2" src="img/logo.png" width="60 px"  height="50 px"/>
             <span style="font-size:35px; font-weight:bold;"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</span>
             <!-- form for login -->
-            <form action="" method="post">
+            <form id="login"action="" method="post">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <input type="password" class="form-control" id="password" placeholder="Password">
               </div>
               <button type="submit" class="btn btn-primary">log in</button><br>
               <small >Don't have account ?</small>
