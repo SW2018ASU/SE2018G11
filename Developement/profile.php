@@ -13,7 +13,9 @@ Database::connect();
         <div class="container">
           <!-- loop for my posts -->
           <?php
+          if(!isset($_GET['question']))
           $posts=post::get_my_post("",$_SESSION["user_id"]);
+          else  $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
            ?>
           <div class="card mb-3">
