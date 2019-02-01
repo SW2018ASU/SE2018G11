@@ -42,22 +42,15 @@ For feedback, you can contact us .
 Team Members :
 
 1.	Mohamed Erfan Elsayed
-2.	Martin Joseph William 
-3.	Mark Youssef Shohdi 
+2.	Martin Joseph William
+3.	Mark Youssef Shohdi
 4.	Mario Hany Ghobrial
 5.	Fatema Abd Elmoniem
 6.	Karim Salah Metwali
 7.	Omar Mohamed Ali
-8.	Omar Nasr Eldin Mohamed 
+8.	Omar Nasr Eldin Mohamed
 9.	Omar Hesham Hanafy
 
 
 Please visit our website :
-  www.codeguide.epizy.com
-  
-
-
-
-
- 
-
+  www.codeguideg11.000webhostapp.com
