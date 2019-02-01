@@ -1,3 +1,7 @@
+<?php
+session_start();
+ ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -22,7 +26,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
       <img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/>
-      <a class="navbar-brand" href="#"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
+      <a class="navbar-brand" href="<?php  if(isset($_SESSION["user_id"]))  echo 'homelogged.php'; else echo 'home.php';?>"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
     </nav><br><br>
     <div class="row">
       <div class="col-8 " >
