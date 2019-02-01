@@ -1,4 +1,7 @@
-<?php include_once("components/head_homelogged.php"); ?>
+<?php include_once("components/head_homelogged.php");
+include_once("model/post.php");
+Database::connect();
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body >
@@ -6,16 +9,83 @@
       <div class="col-lg-8 col-sm-12">
         <div class="container">
           <!-- loop for posts -->
+          <?php
+          if(!isset($_GET['question']))
+          $posts=post::search_post(" ");
+          else
+          $posts=post::search_post($_GET['question']);
+          foreach ($posts as $post) {
+            ?>
           <div class="card mb-3">
             <div class="card-header">
+              <div class="row">
               <!-- username -->
-              Omar alam
+              <div class="col-lg-4">
+                <img src="img/profile.png" width="30 px">
+              <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);?>
             </div>
+            <div class="col-lg-4">
+              <img src="img/calender.png" width="20 px">
+              <?php echo $post['dates']?>
+            </div>
+            <div class="col-lg-4">
+              <img src="img/time.png" width="20 px">
+              <?php echo $post['times']?>
+            </div>
+            </div>
+            </div>
+
             <div class="card-body">
               <!-- programming language -->
-              <h5 class="card-title">java</h5>
+              <h5 class="card-title">  <?php
+              if ($post["language"]=="C/C++") {
+                ?>
+                  <img src="img/c++.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="C#") {
+                ?>
+                  <img src="img/csharp.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="java") {
+                ?>
+                  <img src="img/java.png" height="30px"alt="">
+                <?php
+              }
+              else if ($post["language"]=="python") {
+                ?>
+                  <img src="img/python.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="php") {
+                ?>
+                  <img src="img/php.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="CSS") {
+                ?>
+                  <img src="img/css.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="HTML") {
+                ?>
+                  <img src="img/html.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="javascript") {
+                ?>
+                  <img src="img/javascript.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="jquery") {
+                ?>
+                  <img src="img/jquery.png" height="30px" alt="">
+                <?php
+              }
+  echo $post["language"];?></h5>
               <!-- Question text -->
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><?php echo $post["question"]?></p>
               <hr>
               <div class="row rowC">
                 <div class="col-lg-4">
@@ -36,7 +106,8 @@
               </form>
             </div>
           </div>
-        </div>
+        <?php  }?>
+      </div>
       </div>
       <div class="col-lg-4 col-sm-12">
         <div class="container">

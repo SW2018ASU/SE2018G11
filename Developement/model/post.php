@@ -53,7 +53,7 @@ public static function search_post($keyword)
 {
   $keyword = str_replace(" ", "%", $keyword);
   $sql = "SELECT * FROM post join user on post.user_id=user.id
-  WHERE question like ('%$keyword%')  ORDER BY dates DESC;";
+  WHERE question like ('%$keyword%')  ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
   $posts = [];
