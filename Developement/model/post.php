@@ -30,6 +30,18 @@ public static function get_post($language,$dates,$question)
     $posts [] = $row;
     }
 }
+public static function get_post_by_id($id)
+{
+
+    $sql = "SELECT *,user.id as user_id ,concat (first_name,' ',last_name) as user_name FROM post  join user on post.user_id=user.id  WHERE post.id= $id ; " ;
+    $statement=Database::$db->prepare($sql);
+    $statement->execute();
+    $posts= [];
+    while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+    $posts [] = $row;
+    }
+    return $posts;
+}
 
 
 public static function edit_post($question,$language,$user_id,$dates,$post_id){
@@ -52,7 +64,7 @@ public static function remove_bookmarked($user_id,$post_id){
 public static function search_post($keyword)
 {
   $keyword = str_replace(" ", "%", $keyword);
-  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  $sql = "SELECT *,post.id as post_id FROM post join user on post.user_id=user.id
   WHERE question like ('%$keyword%')  ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();

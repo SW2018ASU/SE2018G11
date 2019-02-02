@@ -1,4 +1,9 @@
-<?php include_once("components/head_homelogged.php"); ?>
+<?php
+include_once("Components/head_homelogged.php");
+Database::connect();
+$post_id=$_GET['post_id'];
+$posts=post::get_post_by_id($post_id);
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body >
@@ -6,13 +11,20 @@
       <div class="col-lg-8 col-sm-12">
         <div class="container">
           <!-- This is th post itself -->
+          <?php
+          foreach ($posts as $post ){
+          ?>
           <div class="card mb-3">
             <div class="card-header">
-              java
+              <?php echo $post['language'] ?>
             </div>
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <h5 class="card-title">
+                <?php echo $post['user_name'] ?>
+              </h5>
+              <p class="card-text">
+                <?php echo $post['question'] ?>
+              </p>
               <hr>
               <div class="row rowC">
                 <div class="col-lg-6">
@@ -27,6 +39,7 @@
               </form>
             </div>
           </div>
+        <?php } ?>
           <!-- End post -->
           <!-- loop for comments -->
           <!-- These are the answers -->
