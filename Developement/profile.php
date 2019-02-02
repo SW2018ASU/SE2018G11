@@ -7,6 +7,19 @@ Database::connect();
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<script type="text/javascript">
+$(document).ready(function(){
+$("#test_your_self").click(function(){
+  window.location.href = "https://www.w3schools.com/html/html_quiz.asp";
+}
+)
+$("#boost").click(function(){
+  window.location.href = "https://www.w3schools.com/";
+}
+)
+})
+
+</script>
   <body >
     <div class="row">
       <div class="col-lg-8 col-sm-12">
@@ -160,8 +173,8 @@ Database::connect();
                 <a href="#" class="list-group-item list-group-item-action">Group2</a>
               </div>
             </div>
-            <button type="button" class="btn btn-light btn-lg btn-block my-2"><img src="img/test.png" class="mr-2" width="25px"> Test yourself</button>
-            <button type="button" class="btn btn-light btn-lg btn-block my-2"><img src="img/light.png" class="mr-2" width="18px"> Boost your knowledge</button>
+            <button type="button" id="test_your_self"class="btn btn-light btn-lg btn-block my-2"><img src="img/test.png" class="mr-2" width="25px"> Test yourself</button>
+            <button type="button" id="boost" class="btn btn-light btn-lg btn-block my-2"><img src="img/light.png" class="mr-2" width="18px"> Boost your knowledge</button>
           </div>
         </div>
       </div>
