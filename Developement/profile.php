@@ -17,6 +17,8 @@ $("#boost").click(function(){
   window.location.href = "https://www.w3schools.com/";
 }
 )
+
+
 })
 
 </script>
@@ -104,8 +106,17 @@ $("#boost").click(function(){
               <hr>
               <div class="row rowC">
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
+                  <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
+
+                <script type="text/javascript">
+                  $(document).ready(function(){
+                $("#answer_<?php echo $post['post_id'] ?>").click(function(){
+                  window.location.href = "answers.php?post_id=<?php echo $post['post_id'] ?> ";
+                }
+                )
+              })
+                </script>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
