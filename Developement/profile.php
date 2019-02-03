@@ -1,9 +1,7 @@
 <?php
-
 include_once("model/post.php");
 include_once("components/head_profile.php");
 Database::connect();
-
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -151,27 +149,23 @@ $("#boost").click(function(){
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="grouppage.php" method="post">
                       <div class="input-group mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">Group name</span>
                         </div>
                         <!-- input for group name -->
-                        <input type="text" class="form-control" placeholder="Enter group name" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" name="group_name" id="group_name" class="form-control" placeholder="Enter group name" aria-label="Username" aria-describedby="basic-addon1">
                       </div>
                       <div class="input-group mb-3">
                         <!-- search for members input -->
-                        <input class="form-control" type="search" placeholder="Search community for members" aria-label="Search" aria-describedby="button-addon2">
+                        <input class="form-control" name="search_users" id="search_users" type="search" placeholder="Search community for members" aria-label="Search" aria-describedby="button-addon2">
                       </div>
                       <!-- users appear by ajax on keyup -->
-                      <button type="button" class="btn btn-light mb-1"><img src="img/addMember.png" width="20 px"></button><span> Omar hesham</span><br>
-                      <button type="button" class="btn btn-light mb-1"><img src="img/addMember.png" width="20 px"></button> Mark youssef <br>
+                      <div id="search-result-container"></div>
                       <br>
                       <hr class="lead">
-                      <button id="create" type="submit" class="btn btn-outline-primary">Create group</button>
-                      <!-- button to remove selected members -->
-                      <span class="ml-2"> Omar hesham </span><button type="button" class="btn btn-light mb-1"><img src="img/removeMember.png" width="20 px"></button>
-                    </form>
+                      <button id="create" type="button" class="btn btn-outline-primary">Create group</button>
+                    <div id="final_users"></div>
                   </div>
                 </div>
               </div>
@@ -180,8 +174,14 @@ $("#boost").click(function(){
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div class="list-group">
                 <!-- loop for group names -->
-                <a href="#" class="list-group-item list-group-item-action">Group1</a>
-                <a href="#" class="list-group-item list-group-item-action">Group2</a>
+                <?php
+                  $groups=group::my_groups($_SESSION["user_id"]);
+                  foreach ($groups as $group) {
+                  ?>
+                    <a href="grouppage.php?id=<?php echo $group['group_id'];?>" class="list-group-item list-group-item-action"><?php echo $group['group_name']; ?></a>
+                  <?php
+                  }
+                 ?>
               </div>
             </div>
             <button type="button" id="test_your_self"class="btn btn-light btn-lg btn-block my-2"><img src="img/test.png" class="mr-2" width="25px"> Test yourself</button>
