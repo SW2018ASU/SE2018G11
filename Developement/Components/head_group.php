@@ -32,6 +32,14 @@ Database::connect();
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
+          $('#logout').click(function()
+          {
+          <?php
+          session_destroy();
+          unset($_COOKIE['user_id']);
+           ?>
+          }
+        )
           $("#search_users").keyup(function(){
           $('#search-result-container').html("");
 
@@ -203,7 +211,7 @@ Database::connect();
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="./profile.php">My profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="./login.php">log out</a>
+                <a class="dropdown-item" id='logout' href="./login.php">log out</a>
               </div>
             </li>
           </ul>
