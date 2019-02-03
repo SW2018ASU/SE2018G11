@@ -7,7 +7,7 @@
         <div class="container">
           <!-- loop for group posts -->
           <?php
-          $posts=post::group_post("",$_GET['id']);
+          $posts=post::group_post($_POST['keyword'],$_GET['id']);
           foreach ($posts as $post) {
            ?>
           <div class="card mb-3">
