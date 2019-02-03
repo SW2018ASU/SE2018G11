@@ -1,3 +1,13 @@
+<?php
+include_once("model/post.php");
+include_once("model/user.php");
+include_once("model/group.php");
+Database::connect();
+ session_start();
+ if(isset($_SESSION["user_id"])==0 && isset($_SESSION["user_first_name"])==0 ){
+   header('Location:home.php');
+ }
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -22,15 +32,105 @@
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
-          $("#community").click(function(){
-          if(!$("#question").val()){
-            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
-            $("#specialist").after(warning);
-            warning.slideUp(2000);
-            return false;
+          $("#search_users").keyup(function(){
+          $('#search-result-container').html("");
+
+          var formData="";
+          if($(this).val()){
+            var formData = {'search_users':$(this).val()};
           }
-          return true;
+          else if(!$(this).val()){
+            $('#search-result-container').html("");
+          }
+        $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : 'Controllers/search_user.php', // the url where we want to POST//where controller that we want to go to is exist
+        data        : formData, // our data object //this data will be sent to contrller in $_POST
+        dataType    : 'json', // what type of data do we expect back from the server
+        encode          : true
+        }).done(function(data) {
+          var child="";
+          var found=0;
+          var exist=0;
+          if(data.length!=0){
+            for(var i=0;i<5;i+=1){
+              if(data[i]){
+                found=0;
+                exist=0;
+                <?php
+                  $members=[];
+                  $members_f=group::get_members($_GET['id']);
+                  foreach ($members_f as $member_f) {
+                    $members[$member_f['first_name']." ".$member_f['last_name']]=$member_f['first_name']." ".$member_f['last_name'];
+                  }
+                 ?>
+                var members=<?php echo json_encode($members); ?>;
+                if(data[i] in members)
+                  exist=1;
+                $("#final_users span").each(function(){
+                  if(data[i]==$(this).text()){
+                    found=1;
+                  }
+                });
+                var user=$("<div><button type='button' class='btn btn-light add_user mb-1'><img src='img/addMember.png' width='20 px'></button></div>");
+                var sp_name=$("<span></span>").append(data[i]);
+                user.append(sp_name);
+              }
+              if(found==0 && exist==0)
+                $('#search-result-container').append(user);
+            }
+            $(".add_user").click(function(){
+              var remove=$("<div><button type='button' class='btn btn-light mb-1 remove_user'><img src='img/removeMember.png' width='20 px'></button></div>").append($(this).parent().children('span'));
+              $("#final_users").append(remove);
+              $(this).parent().children('button').remove();
+              $(".remove_user").click(function(){
+                $(this).parent().remove();
+              });
+            });
+            }
+          else {
+            $('#search-result-container').html("<div class='mt-2 alert alert-danger' role='alert'>No results are found</div>");
+          }
         });
+        });
+        $("#create").click(function(){
+          var users=[];
+          $("#final_users span").each(function(){
+            users.push($(this).text());
+          });
+          var formData = {'data' : users,'group_id':<?php echo json_encode($_GET['id']); ?>};
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/add_members.php?', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType    : 'json',
+          encode      : true
+          }).done(function(data) {
+            window.location.href="grouppage.php?id="+data['id'];
+          });
+        });
+        $("#community").click(function(){
+          var formData = {
+                    'question' : $("#question").val(),
+                    'language' : $("#language").val(),
+                    'group_id' : <?php echo json_encode($_GET['id']); ?>
+                    };
+        $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : 'Controllers/create_post_group.php', // the url where we want to POST//where controller that we want to go to is exist
+        data        : formData, // our data object //this data will be sent to contrller in $_POST
+        dataType    : 'json', // what type of data do we expect back from the server
+        encode          : true
+        }).done(function(data) {});
+
+        if(!$("#question").val()){
+          var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
+          $("#specialist").after(warning);
+          warning.slideUp(2000);
+          return false;
+        }
+        return true;
+      });
         $(".comment").click(function(){
           var comment= $("<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' type='button' ><img src='img/send.png'></button>");
           if($(".divC").children().length==0){
@@ -98,7 +198,7 @@
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> Martin </span>
+                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> <?php echo $_SESSION["user_first_name"]; ?></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="./profile.php">My profile</a>
@@ -109,7 +209,7 @@
           </ul>
         </div>
       </nav><br><br><br>
-      <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -119,20 +219,26 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="grouppage.php" method="post">
+              <form action="grouppage.php?id=<?php echo $_GET['id'] ?>" method="post">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">programming languages</label>
                   </div>
-                  <select class="custom-select" id="inputGroupSelect01">
-                    <option >Choose...</option>
-                    <option value="1">C/C++</option>
-                    <option value="2">java</option>
-                    <option value="3">python</option>
+                  <select class="custom-select" id="language" name="language">
+                    <option value="Choose...">Choose...</option>
+                    <option value="C/C++">C/C++</option>
+                    <option value="C#">C#</option>
+                    <option value="java">java</option>
+                    <option value="python">python</option>
+                    <option value="php">php</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="javascript">javascript</option>
+                    <option value="jquery">jquery</option>
                   </select>
                 </div>
                 <div class="input-group mb-3">
-                <textarea id="question" class="form-control post" aria-label="With textarea" ></textarea>
+                <textarea id="question" name="question" class="form-control post" aria-label="With textarea" ></textarea>
                 </div>
                 <button id="community" type="submit" class="btn btn-primary">Ask community</button>
                 <button id="specialist" type="submit" class="btn btn-outline-primary">Ask specialist</button><br>
