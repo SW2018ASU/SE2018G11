@@ -165,6 +165,7 @@ $("#boost").click(function(){
                       <br>
                       <hr class="lead">
                       <button id="create" type="button" class="btn btn-outline-primary">Create group</button>
+                      <div class="check"></div>
                     <div id="final_users"></div>
                   </div>
                 </div>
