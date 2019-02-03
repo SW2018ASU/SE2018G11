@@ -37,8 +37,6 @@
             }
           }
           else {
-            alert("af");
-
             $("#submit").attr("disabled", false);//this enable submit button
             $(".check").slideUp();
             $(".check").children().remove();
