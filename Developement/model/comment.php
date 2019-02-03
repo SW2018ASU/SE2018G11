@@ -1,8 +1,8 @@
 <?php
 include_once('database.php');
-class comments {
-public static function __construct($id) {
-    $sql = "SELECT * FROM comments WHERE id = $id;";
+class comment{
+public function __construct($id) {
+    $sql = "SELECT * FROM comment WHERE id = $id;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
     $data = $statement->fetch(PDO::FETCH_ASSOC);
@@ -12,12 +12,12 @@ public static function __construct($id) {
     }
   }
 
-  public static function  create_comment ($text,$userId,$postId){
-    $sql="INSERT INTO comment (comment_text,dates) VALUES (?,?) WHERE post_id = $postId AND user_id= $userId;";
-    Database::Database::$db->prepare($sql)->execute([$text,now()]);
+  public static function  create_comment ($text,$userId,$postId,$times,$dates){
+    $sql="INSERT INTO comment (user_id,post_id,comment_text,dates,times) VALUES (?,?,?,?,?) WHERE post_id = $postId AND user_id= $userId;";
+    Database::$db->prepare($sql)->execute([$userId,$postId,$text,$dates,$times]);
   }
   public static function show_comment($postId){
-    $sql = "SELECT dates , comment_text FROM comment WHERE post_id = $postId;";
+    $sql = "SELECT * FROM comment join user on comment.user_id=user.id WHERE post_id = $postId;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
     $comments = [];

@@ -1,6 +1,9 @@
 <?php
 include_once("model/post.php");
 include_once("components/head_profile.php");
+include_once("model/comment.php");
+
+
 Database::connect();
  ?>
 <!DOCTYPE html>
@@ -31,7 +34,7 @@ $("#boost").click(function(){
           else  $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
            ?>
-          <div class="card mb-3">
+          <div class="card mb-3" id='card_<?php echo $post['id']; ?>'>
             <div class="card-header">
               <!-- Username date time-->
               <div class="row">
@@ -102,19 +105,12 @@ $("#boost").click(function(){
               <p class="card-text" style="border:solid 1px #5f6bdd">
               <?php echo $post["question"];?></p>
               <hr>
-              <div class="row rowC">
+              <div class="row rowC<?php echo $post['post_id'] ?>">
                 <div class="col-lg-4">
                   <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
 
-                <script type="text/javascript">
-                  $(document).ready(function(){
-                $("#answer_<?php echo $post['post_id'] ?>").click(function(){
-                  window.location.href = "answers.php?post_id=<?php echo $post['post_id'] ?> ";
-                }
-                )
-              })
-                </script>
+
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
@@ -123,12 +119,59 @@ $("#boost").click(function(){
                 </div>
               </div>
               <!-- comments forms -->
-              <form class="formC" action="index.html" method="post">
-                <div class="divC"></div>
+              <form class="formC<?php echo $post['post_id'] ?>" action="index.html" method="post">
+                <div class="divC<?php echo $post['post_id'] ?>">
+<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                </div>
               </form>
             </div>
           </div>
+          <script type="text/javascript">
+          $(".divC<?php echo $post['post_id'] ?>").hide();
 
+            $(document).ready(function(){
+
+          $("#answer_<?php echo $post['post_id'] ?>").click(function(){
+            window.location.href = "answers.php?post_id=<?php echo $post['post_id'] ?> ";
+          }
+          );
+
+          $(".comment").click(function(){
+          if($(".divC<?php echo $post['post_id'] ?>").is(":visible")){
+            $(".divC<?php echo $post['post_id'] ?>").hide();
+
+          }
+          else  {
+            $(".divC<?php echo $post['post_id'] ?>").show();
+          }
+          });
+
+          $("#comment_button_<?php echo $post['post_id'] ?>").click(function(){
+          alert('comment begin');
+          var formData = {
+          'email'              : $('#email').val(),
+          'password'             : $('#password').val(),
+          };
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType    : 'json', // what type of data do we expect back from the server
+          encode          : true
+          }).done(function(data) {
+
+          window.location.href='profile.php';
+          });
+
+          });
+
+
+
+
+
+          });
+
+          </script>
 
         <?php } ?>
         </div>
