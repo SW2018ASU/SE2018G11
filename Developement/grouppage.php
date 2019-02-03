@@ -7,6 +7,7 @@
         <div class="container">
           <!-- loop for group posts -->
           <?php
+          if(!isset($_POST['keyword']))$_POST['keyword']=" ";
           $posts=post::group_post($_POST['keyword'],$_GET['id']);
           foreach ($posts as $post) {
            ?>
