@@ -70,7 +70,7 @@ public static function search_post($keyword)
 {
   $keyword = str_replace(" ", "%", $keyword);
   $sql = "SELECT *,post.id as post_id FROM post join user on post.user_id=user.id
-  WHERE question like ('%$keyword%')  ORDER BY post.id DESC;";
+  WHERE question like ('%$keyword%') AND post.group_id=0 ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
   $posts = [];
