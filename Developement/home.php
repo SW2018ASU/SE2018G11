@@ -24,6 +24,7 @@ Database::connect();
     <script>
       $(document).ready(function(){
         $('#login').submit(function(event) {
+
           // get the form data
           // there are many ways to get this data using jQuery (you can use the class or id also)
           var formData = {
@@ -105,7 +106,8 @@ Database::connect();
         </ul>
         <ul class="navbar-nav mr-5 pr-5">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="signup.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            <a class='nav-link' href="signup.php">
               Create account
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
