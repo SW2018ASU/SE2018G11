@@ -19,6 +19,11 @@ public static function create_post($question,$language,$user_id,$dates,$times)
     $sql = "INSERT INTO post (question,language,user_id,dates,times) VALUES (?,?,?,?,?)";
     Database::$db->prepare($sql)->execute([$question,$language,$user_id,$dates,$times]);
 }
+public static function create_post_group($question,$language,$user_id,$group_id,$dates,$times)
+{
+    $sql = "INSERT INTO post (question,language,user_id,group_id,dates,times) VALUES (?,?,?,?,?,?)";
+    Database::$db->prepare($sql)->execute([$question,$language,$user_id,$group_id,$dates,$times]);
+}	
 public static function get_post($language,$dates,$question)
 {
     $question = str_replace(" ", "%", $question);
@@ -77,8 +82,21 @@ public static function search_post($keyword)
 public static function get_my_post($keyword,$user_id)
 {
   $keyword = str_replace(" ", "%", $keyword);
-  $sql = "SELECT *,post.id as post_id FROM post join user on post.user_id=user.id
-  WHERE question like ('%$keyword%')AND user.id=$user_id ORDER BY post.id DESC;";
+  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  WHERE question like ('%$keyword%')AND user.id=$user_id AND post.group_id=0 ORDER BY post.id DESC;";
+  $statement = Database::$db->prepare($sql);
+  $statement->execute();
+  $posts = [];
+  while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+    $posts[] = $row;
+  }
+  return $posts;
+}
+public static function group_post($keyword,$group_id)
+{
+  $keyword = str_replace(" ", "%", $keyword);
+  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  WHERE question like ('%$keyword%')AND post.group_id=$group_id ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
   $posts = [];
