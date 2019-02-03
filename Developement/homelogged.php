@@ -149,6 +149,5 @@ Database::connect();
         </div>
       </div>
     </div>
-    </div>
   </body>
 </html>

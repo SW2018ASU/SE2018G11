@@ -1,3 +1,9 @@
+<?php
+include_once("components/head_homelogged.php");
+include_once("model/post.php");
+Database::connect();
+ ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -18,6 +24,7 @@
     <script>
       $(document).ready(function(){
         $('#login').submit(function(event) {
+
           // get the form data
           // there are many ways to get this data using jQuery (you can use the class or id also)
           var formData = {
@@ -88,41 +95,19 @@
             <!-- search form for questions -->
             <form action="home.php" method="get">
               <div class="input-group ml-5 my-2 my-lg-0">
-                <input class="form-control" type="search" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
+                <input class="form-control" type="search" placeholder="Search for questions" aria-label="Search" name='question' aria-describedby="button-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="button" id="button-addon2"><img src="img/search.png" width="20px"></button>
                 </div>
               </div>
             </form>
           </li>
-          <li class="nav-item dropdown ml-5 pl-3">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Filter posts by
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item"  href="#">C/C++</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item"  href="#">C#</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">java</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">python</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">HTML</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">CSS</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">javascript</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">jquery</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">php</a>
-            </div>
-          </li>
+
         </ul>
         <ul class="navbar-nav mr-5 pr-5">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            <a class='nav-link' href="signup.php">
               Create account
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -139,27 +124,101 @@
       <div class="col-lg-8 col-sm-12">
         <div class="container">
           <!-- loop for posts -->
+          <?php
+          if(!isset($_GET['question']))
+          $posts=post::search_post(" ");
+          else
+          $posts=post::search_post($_GET['question']);
+          foreach ($posts as $post) {
+            ?>
           <div class="card mb-3">
             <div class="card-header">
+              <div class="row">
               <!-- username -->
-              Omar alam
+              <div class="col-lg-4">
+                <img src="img/profile.png" width="30 px">
+              <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);?>
             </div>
+            <div class="col-lg-4">
+              <img src="img/calender.png" width="20 px">
+              <?php echo $post['dates']?>
+            </div>
+            <div class="col-lg-4">
+              <img src="img/time.png" width="20 px">
+              <?php echo $post['times']?>
+            </div>
+            </div>
+            </div>
+
             <div class="card-body">
               <!-- programming language -->
-              <h5 class="card-title">java</h5>
+              <h5 class="card-title">  <?php
+              if ($post["language"]=="C/C++") {
+                ?>
+                  <img src="img/c++.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="C#") {
+                ?>
+                  <img src="img/csharp.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="java") {
+                ?>
+                  <img src="img/java.png" height="30px"alt="">
+                <?php
+              }
+              else if ($post["language"]=="python") {
+                ?>
+                  <img src="img/python.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="php") {
+                ?>
+                  <img src="img/php.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="CSS") {
+                ?>
+                  <img src="img/css.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="HTML") {
+                ?>
+                  <img src="img/html.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="javascript") {
+                ?>
+                  <img src="img/javascript.png" height="30px" alt="">
+                <?php
+              }
+              else if ($post["language"]=="jquery") {
+                ?>
+                  <img src="img/jquery.png" height="30px" alt="">
+                <?php
+              }
+  echo $post["language"];?></h5>
               <!-- Question text -->
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><?php echo $post["question"]?></p>
               <hr>
-              <div class="row">
+              <div class="row rowC">
                 <div class="col-lg-12">
                   <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
               </div>
+              <!-- form for comment -->
+              <!-- go to head_homelogged.php -->
+              <!-- missing name attribute for comment found in components folder -->
+              <form class="formC" action="" method="post">
+                <div class="divC"></div>
+              </form>
             </div>
           </div>
-          <!-- end loop -->
-        </div>
+        <?php  }?>
       </div>
+      </div>
+
       <div class="col-lg-4 col-sm-12">
         <div class="container">
           <div class="jumbotron">
@@ -183,7 +242,6 @@
           </div>
         </div>
       </div>
-    </div>
     </div>
   </body>
 </html>

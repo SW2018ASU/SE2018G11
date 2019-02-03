@@ -103,11 +103,24 @@ $posts=post::get_post_by_id($post_id);
           <div class="card mb-3 ml-5">
             <!-- username appears here -->
             <div class="card-header">
+              <div class="row">
+              <!-- username -->
+              <div class="col-lg-4">
+                <img src="img/profile.png" width="30 px">
               Omar Hesham
+            </div>
+            <div class="col-lg-4">
+              <img src="img/calender.png" width="20 px">
+              <?php echo 'COMMENT DATE'?>
+            </div>
+            <div class="col-lg-4">
+              <img src="img/time.png" width="20 px">
+              <?php echo 'COMMENT TIME'?>
+            </div>
+            </div>
             </div>
             <div class="card-body">
               <!-- text goes here -->
-              <h5 class="card-title">Special title treatment</h5>
               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
               <hr>
               <div class="row">
