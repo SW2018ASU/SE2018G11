@@ -176,6 +176,7 @@
                 <input type="password" class="form-control" id="password" placeholder="Password">
               </div>
               <button type="submit" class="btn btn-primary">log in</button><br>
+               <div class="check"></div>
               <small >Don't have account ?</small>
               <a  href="signup.php">sign up</a>
             </form>
