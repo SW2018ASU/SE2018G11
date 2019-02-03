@@ -161,9 +161,9 @@ Database::connect();
               <a class="nav-link" href="./aboutus.php">About us</a>
             </li>
             <li>
-              <form action="grouppage.php" method="get">
+              <form action="grouppage.php?id=<?php echo $_GET['id'] ?>" method="post">
                 <div class="input-group ml-5 my-2 my-lg-0">
-                  <input class="form-control" type="search" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
+                  <input class="form-control" type="search" name="keyword" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="submit" id="button-addon2"><img src="img/search.png" width="20px"></button>
                   </div>
