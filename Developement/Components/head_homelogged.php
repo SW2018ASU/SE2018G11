@@ -39,6 +39,7 @@ include_once("model/post.php");
                       encode          : true
                       }).done(function(data) {
 
+                        window.location.href='homelogged.php';
 
                       });
 

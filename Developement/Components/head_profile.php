@@ -32,7 +32,7 @@ Database::connect();
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
-          
+
         $("#search_users").keyup(function(){
           $('#search-result-container').html("");
 
@@ -120,7 +120,10 @@ Database::connect();
           data        : formData, // our data object //this data will be sent to contrller in $_POST
           dataType    : 'json', // what type of data do we expect back from the server
           encode          : true
-          }).done(function(data) {});
+          }).done(function(data) {
+
+          window.location.href='profile.php';
+          });
 
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
