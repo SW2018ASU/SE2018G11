@@ -1,12 +1,12 @@
 <?php
 include_once("model/post.php");
-
+include_once("model/user.php");
+include_once("model/group.php");
+Database::connect();
  session_start();
-
  if(isset($_SESSION["user_id"])==0 && isset($_SESSION["user_first_name"])==0 ){
    header('Location:home.php');
  }
-
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -32,26 +32,86 @@ include_once("model/post.php");
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
+          
+        $("#search_users").keyup(function(){
+          $('#search-result-container').html("");
+
+          var formData="";
+          if($(this).val()){
+            var formData = {'search_users':$(this).val()};
+          }
+          else if(!$(this).val()){
+            $('#search-result-container').html("");
+          }
+        $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : 'Controllers/search_user.php', // the url where we want to POST//where controller that we want to go to is exist
+        data        : formData, // our data object //this data will be sent to contrller in $_POST
+        dataType    : 'json', // what type of data do we expect back from the server
+        encode          : true
+        }).done(function(data) {
+          var child="";
+          var found=0;
+          if(data.length!=0){
+            for(var i=0;i<5;i+=1){
+              if(data[i]){
+                found=0;
+                <?php $full_name=$_SESSION["user_first_name"]." ".$_SESSION["user_last_name"]; ?>
+                if(data[i]==<?php echo json_encode($full_name); ?>)
+                  found=1;
+                $("#final_users span").each(function(){
+                  if(data[i]==$(this).text())
+                    found=1;
+                });
+                var user=$("<div><button type='button' class='btn btn-light add_user mb-1'><img src='img/addMember.png' width='20 px'></button></div>");
+                var sp_name=$("<span></span>").append(data[i]);
+                user.append(sp_name);
+              }
+              if(found==0)
+                $('#search-result-container').append(user);
+            }
+            $(".add_user").click(function(){
+              var remove=$("<div><button type='button' class='btn btn-light mb-1 remove_user'><img src='img/removeMember.png' width='20 px'></button></div>").append($(this).parent().children('span'));
+              $("#final_users").append(remove);
+              $(this).parent().children('button').remove();
+              $(".remove_user").click(function(){
+                $(this).parent().remove();
+              });
+            });
+            }
+          else {
+            $('#search-result-container').html("<div class='mt-2 alert alert-danger' role='alert'>No results are found</div>");
+          }
+        });
+        });
+        $("#create").click(function(){
+          var users=[];
+          $("#final_users span").each(function(){
+            users.push($(this).text());
+          });
+          var formData = {'data' : users,'group_name':$("#group_name").val()};
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/create_group.php', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType: 'json',
+          encode          : true
+          }).done(function(data) {
+            window.location.href="grouppage.php?id="+data['id'];
+          });
+        });
           $("#community").click(function(){
-
-
             var formData = {
-                      'question'              : $("#question").val(),
-                      'language'             : $("#language").val(),
+                      'question' : $("#question").val(),
+                      'language' : $("#language").val(),
                       };
-                      $.ajax({
-                      type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                      url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
-                      data        : formData, // our data object //this data will be sent to contrller in $_POST
-                      dataType    : 'json', // what type of data do we expect back from the server
-                      encode          : true
-                      }).done(function(data) {
-
-
-                      });
-
-
-
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType    : 'json', // what type of data do we expect back from the server
+          encode          : true
+          }).done(function(data) {});
 
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
