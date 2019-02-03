@@ -85,6 +85,15 @@ Database::connect();
         });
         });
         $("#create").click(function(){
+         $(".check").children().remove();
+          if(($(".check").children().length==0)&&(!$("#group_name").val()))
+          {
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>Enter group name</div>");
+            $(".check").append(warning);
+            $(".check").slideDown();
+            $(".check").delay(2000).slideUp();
+            return false;
+          }
           var users=[];
           $("#final_users span").each(function(){
             users.push($(this).text());
