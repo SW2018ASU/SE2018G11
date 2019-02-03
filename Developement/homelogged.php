@@ -5,7 +5,18 @@ Database::connect();
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <body >
+    <style media="screen">
+.filterDiv {
+display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+display: block;
+}
+    </style>
     <div class="row">
       <div class="col-lg-8 col-sm-12">
         <div class="container">
@@ -17,7 +28,7 @@ Database::connect();
           $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
             ?>
-          <div class="card mb-3">
+          <div class="card mb-3 filterDiv  <?php echo $post["language"]?>">
             <div class="card-header">
               <div class="row">
               <!-- username -->
@@ -90,7 +101,7 @@ Database::connect();
               <hr>
               <div class="row rowC">
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
+                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px" >  Answers</button>
                 </div>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
@@ -118,36 +129,86 @@ Database::connect();
             <h4 class="lead">Filter posts by:</h4>
             <div class="row">
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/c++.png" width="70px"><br>C++</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/c++.png" width="70px" onclick="filterSelection('C/C++')"><br>C++</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/csharp.png" width="70px"><br>C#</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/csharp.png" width="70px" onclick="filterSelection('C#')"><br>C#</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/java.png" width="70px"><br>java</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/java.png" width="70px" onclick="filterSelection('java')"><br>java</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/python.png" width="70px"><br>python</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/python.png" width="70px" onclick="filterSelection('python')"><br>python</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/html.png" width="70px"><br>HTML</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/html.png" width="70px" onclick="filterSelection('HTML')"><br>HTML</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/css.png" width="70px"><br>CSS</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/css.png" width="70px" onclick="filterSelection('CSS')"><br>CSS</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"><br>javascript</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"onclick="filterSelection('javascript')"><br>javascript</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/jquery.png" width="70px"><br>jquery</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/jquery.png" width="70px"onclick="filterSelection('jquery')"><br>jquery</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"><br>php</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"onclick="filterSelection('php')"><br>php</button>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script type="text/javascript">
+   filterSelection("all");
+function filterSelection(c) {
+var x, i;
+x = document.getElementsByClassName("filterDiv");
+if (c == "all") c = "";
+// Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+for (i = 0; i < x.length; i++) {
+  w3RemoveClass(x[i], "show");
+  if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+}
+}
+
+// Show filtered elements
+function w3AddClass(element, name) {
+var i, arr1, arr2;
+arr1 = element.className.split(" ");
+arr2 = name.split(" ");
+for (i = 0; i < arr2.length; i++) {
+  if (arr1.indexOf(arr2[i]) == -1) {
+    element.className += " " + arr2[i];
+  }
+}
+}
+
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+var i, arr1, arr2;
+arr1 = element.className.split(" ");
+arr2 = name.split(" ");
+for (i = 0; i < arr2.length; i++) {
+  while (arr1.indexOf(arr2[i]) > -1) {
+    arr1.splice(arr1.indexOf(arr2[i]), 1);
+  }
+}
+element.className = arr1.join(" ");
+}
+
+// Add active class to the current control button (highlight it)
+// var btnContainer = document.getElementById("myBtnContainer");
+// var btns = btnContainer.getElementsByClassName("btn");
+// for (var i = 0; i < btns.length; i++) {
+// btns[i].addEventListener("click", function() {
+//   var current = document.getElementsByClassName("active");
+//   current[0].className = current[0].className.replace(" active", "");
+//   this.className += " active";
+// });
+// }
+  </script>
 </html>
