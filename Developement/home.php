@@ -105,7 +105,7 @@ Database::connect();
         </ul>
         <ul class="navbar-nav mr-5 pr-5">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="signup.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Create account
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -201,14 +201,8 @@ Database::connect();
               <p class="card-text"><?php echo $post["question"]?></p>
               <hr>
               <div class="row rowC">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                   <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
-                </div>
-                <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
-                </div>
-                <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
                 </div>
               </div>
               <!-- form for comment -->
