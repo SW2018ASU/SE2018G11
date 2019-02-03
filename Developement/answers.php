@@ -3,6 +3,7 @@ include_once("Components/head_homelogged.php");
 Database::connect();
 $post_id=$_GET['post_id'];
 $posts=post::get_post_by_id($post_id);
+$comments=comment::show_comment($post_id);
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -98,6 +99,11 @@ $posts=post::get_post_by_id($post_id);
           </div>
         <?php } ?>
           <!-- End post -->
+          <?php
+          foreach ($comments as $comment) {
+
+
+           ?>
           <!-- loop for comments -->
           <!-- These are the answers -->
           <div class="card mb-3 ml-5">
@@ -107,21 +113,21 @@ $posts=post::get_post_by_id($post_id);
               <!-- username -->
               <div class="col-lg-4">
                 <img src="img/profile.png" width="30 px">
-              Omar Hesham
+              <?php echo $comment['user_name'] ?>
             </div>
             <div class="col-lg-4">
               <img src="img/calender.png" width="20 px">
-              <?php echo 'COMMENT DATE'?>
+              <?php echo $comment['dates'] ?>
             </div>
             <div class="col-lg-4">
               <img src="img/time.png" width="20 px">
-              <?php echo 'COMMENT TIME'?>
+              <?php echo $comment['times'] ?>
             </div>
             </div>
             </div>
             <div class="card-body">
               <!-- text goes here -->
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <p class="card-text"><?php echo $comment['comment_text'] ?></p>
               <hr>
               <div class="row">
                 <div class="col-lg-4">
@@ -136,6 +142,7 @@ $posts=post::get_post_by_id($post_id);
           </div>
           <!-- end of answer -->
           <!-- end of loop -->
+        <?php } ?>
         </div>
       </div>
       <!-- Filtering posts -->

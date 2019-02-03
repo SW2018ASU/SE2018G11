@@ -1,5 +1,8 @@
 <?php
 include_once("model/post.php");
+include_once("model/comment.php");
+
+
   session_start();
 ?>
 <!DOCTYPE html>
