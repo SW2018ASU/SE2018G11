@@ -26,6 +26,7 @@
           //first > url    Secand >>data,  how ? it make  for you array with {key:value}  and put it in $_POST and send it to Controllers with url you put
           //third> it is function executed after it back from Controllers and put variable in paramter and this is data you  put it in echo in controller that return to you
           //$.post("URL",{key:value ,key:value}, function(data){function body })
+
           if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
             $("#submit").attr("disabled", "disabled");//this disable submit button and we need to tell him email exist
             if(($(".check").children().length==0)&&($("#email").val()))
@@ -36,6 +37,8 @@
             }
           }
           else {
+            alert("af");
+
             $("#submit").attr("disabled", false);//this enable submit button
             $(".check").slideUp();
             $(".check").children().remove();
