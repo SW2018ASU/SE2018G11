@@ -16,6 +16,17 @@ class user extends visitor {
     $sql = "UPDATE user SET first_name = ? , last_name = ? WHERE email = ?;";
     Database::$db->prepare($sql)->execute([$FirstName,$LastName, $email]);
   }
+  public static function get_user_name($keyword) { //return data --
+    $keyword = str_replace(" ", "%", $keyword);
+    $sql = "SELECT CONCAT(first_name,' ',last_name) AS name FROM user where first_name LIKE('$keyword%') LIMIT 5 ";
+    $statement = Database::$db->prepare($sql);
+    $statement->execute();
+    $users=[];
+    while ($row= $statement->fetch(PDO::FETCH_ASSOC)) {
+      $users[]=$row['name'];
+    }
+    return $users;
+  }
   public static function get_user_info($email) { //return data --
     $sql = "SELECT * FROM user where email='$email'";
     $statement = Database::$db->prepare($sql);
