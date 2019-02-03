@@ -1,6 +1,6 @@
 <?php
 include_once('database.php');
-class comment{
+class comment extends Database {
 public function __construct($id) {
     $sql = "SELECT * FROM comment WHERE id = $id;";
     $statement = Database::$db->prepare($sql);
@@ -13,8 +13,9 @@ public function __construct($id) {
   }
 
   public static function  create_comment ($text,$userId,$postId,$times,$dates){
-    $sql="INSERT INTO comment (user_id,post_id,comment_text,dates,times) VALUES (?,?,?,?,?) WHERE post_id = $postId AND user_id= $userId;";
+    $sql="INSERT INTO comment (user_id,post_id,comment_text,dates,times) VALUES (?,?,?,?,?);";
     Database::$db->prepare($sql)->execute([$userId,$postId,$text,$dates,$times]);
+
   }
   public static function show_comment($postId){
     $sql = "SELECT * FROM comment join user on comment.user_id=user.id WHERE post_id = $postId;";

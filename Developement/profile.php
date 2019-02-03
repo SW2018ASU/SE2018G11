@@ -5,6 +5,8 @@ include_once("model/comment.php");
 
 
 Database::connect();
+comment::create_comment("afa",1,1,date("h:ia"),date("Y/m/d"));
+
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -128,47 +130,34 @@ $("#boost").click(function(){
           </div>
           <script type="text/javascript">
           $(".divC<?php echo $post['post_id'] ?>").hide();
-
             $(document).ready(function(){
-
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
             window.location.href = "answers.php?post_id=<?php echo $post['post_id'] ?> ";
           }
           );
-
           $(".comment").click(function(){
           if($(".divC<?php echo $post['post_id'] ?>").is(":visible")){
             $(".divC<?php echo $post['post_id'] ?>").hide();
-
           }
           else  {
             $(".divC<?php echo $post['post_id'] ?>").show();
           }
           });
-
           $("#comment_button_<?php echo $post['post_id'] ?>").click(function(){
-          alert('comment begin');
           var formData = {
-          'email'              : $('#email').val(),
-          'password'             : $('#password').val(),
+          'comment_text'        : $('#comment_text').val(),
+          'post_id'             : <?php echo $post['post_id'] ?>
           };
           $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+          url         : 'Controllers/create_comment.php', // the url where we want to POST//where controller that we want to go to is exist
           data        : formData, // our data object //this data will be sent to contrller in $_POST
           dataType    : 'json', // what type of data do we expect back from the server
           encode          : true
           }).done(function(data) {
-
-          window.location.href='profile.php';
+            $(".divC<?php echo $post['post_id'] ?>").hide();
           });
-
           });
-
-
-
-
-
           });
 
           </script>
