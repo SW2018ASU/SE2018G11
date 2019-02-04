@@ -23,7 +23,7 @@ public static function create_post_group($question,$language,$user_id,$group_id,
 {
     $sql = "INSERT INTO post (question,language,user_id,group_id,dates,times) VALUES (?,?,?,?,?,?)";
     Database::$db->prepare($sql)->execute([$question,$language,$user_id,$group_id,$dates,$times]);
-}	
+}
 public static function get_post($language,$dates,$question)
 {
     $question = str_replace(" ", "%", $question);
@@ -95,7 +95,7 @@ public static function get_my_post($keyword,$user_id)
 public static function group_post($keyword,$group_id)
 {
   $keyword = str_replace(" ", "%", $keyword);
-  $sql = "SELECT * FROM post join user on post.user_id=user.id
+  $sql = "SELECT *,post.id as post_id  FROM post join user on post.user_id=user.id
   WHERE question like ('%$keyword%')AND post.group_id=$group_id ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
