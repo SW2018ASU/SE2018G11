@@ -97,7 +97,7 @@ Database::connect();
               <div class="input-group ml-5 my-2 my-lg-0">
                 <input class="form-control" type="search" placeholder="Search for questions" aria-label="Search" name='question' aria-describedby="button-addon2">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" id="button-addon2"><img src="img/search.png" width="20px"></button>
+                  <button type='submit'class="btn btn-primary" type="button" id="button-addon2"><img src="img/search.png" width="20px"></button>
                 </div>
               </div>
             </form>
