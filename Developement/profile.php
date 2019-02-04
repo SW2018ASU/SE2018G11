@@ -112,7 +112,7 @@ $("#boost").click(function(){
               <!-- comments forms -->
               <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
                 <div class="divC<?php echo $post['post_id'] ?>">
-<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='submit' ><img src='img/send.png' ></button>
+<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
                 </div>
               </form>
             </div>
@@ -125,6 +125,7 @@ $("#boost").click(function(){
                 if($comment['post_id']==$post['post_id'])
                 {
                ?>
+
               <!-- loop for comments -->
               <!-- These are the answers -->
               <div class="card mb-3 ml-5">
@@ -177,8 +178,6 @@ $("#boost").click(function(){
             }
             else  {
               $(".divA<?php echo $post['post_id'] ?>").show();
-              // location.reload();
-
             }
           }
           );
@@ -203,7 +202,10 @@ $("#boost").click(function(){
           encode          : true
           }).done(function(data) {
             $(".divC<?php echo $post['post_id'] ?>").hide();
-          });
+            $(".divA<?php echo $post['post_id'] ?>").show();
+            $('#comment_text_<?php echo $post['post_id'] ?>').val("");
+            $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"   </div>                <div class='col-lg-4'>    <img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>  Helpful</button> </div>  </div>   </div>");
+            });
           });
           });
           </script>
