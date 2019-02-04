@@ -7,7 +7,6 @@
         <div class="container">
           <!-- loop for group posts -->
           <?php
-          if(!isset($_POST['keyword']))$_POST['keyword']=" ";
           $posts=post::group_post($_POST['keyword'],$_GET['id']);
           foreach ($posts as $post) {
            ?>
@@ -67,7 +66,7 @@
                   <img src="img/html.png" height="30px" alt="">
                 <?php
               }
-              else if ($post["language"]=="js") {
+              else if ($post["language"]=="javascript") {
                 ?>
                   <img src="img/javascript.png" height="30px" alt="">
                 <?php
@@ -77,11 +76,7 @@
                   <img src="img/jquery.png" height="30px" alt="">
                 <?php
               }
-              if($post["language"]=='js'){
-                echo "javascript";
-              }else{
-                  echo $post["language"];
-              }?></h5>
+              echo $post["language"];?></h5>
               <!-- Question text -->
               <p class="card-text" style="border:solid 1px #5f6bdd">
               <?php echo $post["question"];?></p>
