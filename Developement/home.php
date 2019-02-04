@@ -1,5 +1,6 @@
 <?php
 include_once("model/post.php");
+include_once("model/comment.php");
 Database::connect();
  ?>
 
@@ -207,20 +208,12 @@ Database::connect();
               <hr>
               <div class="row rowC">
                 <div class="col-lg-12">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
+                  <button type="button" class="btn btn-light btn-lg btn-block" id="answer_<?php echo $post["post_id"] ?>"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
               </div>
               <!-- form for comment -->
               <!-- go to head_homelogged.php -->
               <!-- missing name attribute for comment found in components folder -->
-              <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
-                <div class="divC<?php echo $post['post_id'] ?>">
-                <hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div>
-                <div class="d-flex flex-row-reverse bd-highlight">
-                  <button class='btn btn-light' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
-                </div>
-                </div>
-              </form>
               <div class="divA<?php echo $post['post_id'] ?>" style="display:none"; >
                 <?php
                 $comments=comment::show_comment($post['post_id']);
@@ -267,10 +260,25 @@ Database::connect();
                 </div>
                 <!-- end of answer -->
                 <!-- end of loop -->
+              <?php }} ?>
             </div>
           </div>
-        <?php }} ?>
-
+          </div>
+          <script type="text/javascript">
+  $(".divA<?php echo $post['post_id'] ?>").hide();
+            $(document).ready(function(){
+          $("#answer_<?php echo $post['post_id'] ?>").click(function(){
+            if($(".divA<?php echo $post['post_id'] ?>").is(":visible")){
+              $(".divA<?php echo $post['post_id'] ?>").hide();
+            }
+            else  {
+              $(".divA<?php echo $post['post_id'] ?>").show();
+            }
+          }
+          );
+          });
+          </script>
+        <?php  }?>
       </div>
       </div>
 
