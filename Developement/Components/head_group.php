@@ -2,6 +2,8 @@
 include_once("model/post.php");
 include_once("model/user.php");
 include_once("model/group.php");
+include_once("model/comment.php");
+
 Database::connect();
  session_start();
  if(isset($_SESSION["user_id"])==0 && isset($_SESSION["user_first_name"])==0 ){
@@ -131,17 +133,7 @@ Database::connect();
         }
         return true;
       });
-        $(".comment").click(function(){
-          var comment= $("<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' type='button' ><img src='img/send.png'></button>");
-          if($(".divC").children().length==0){
-            $(this).parents(".rowC").next(".formC").children().append(comment);
-            $(".divC").slideDown();
-          }
-          else if($(".divC")) {
-            $(".divC").slideUp();
-            $(".divC").children().remove();
-          }
-        });
+
         $('.post').richText();
       });
     </script>
