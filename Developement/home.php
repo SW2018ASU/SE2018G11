@@ -208,7 +208,7 @@ Database::connect();
               <hr>
               <div class="row rowC">
                 <div class="col-lg-12">
-                  <button type="button" class="btn btn-light btn-lg btn-block" id="answer_<?php echo $post["post_id"] ?>"><img src="img/answer.png" width="20px">  Answers</button>
+                  <button type="button" class="btn btn-light btn-lg btn-block mb-4" id="answer_<?php echo $post["post_id"] ?>"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
               </div>
               <!-- form for comment -->
