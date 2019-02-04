@@ -187,7 +187,7 @@ Database::connect();
                   <img src="img/html.png" height="30px" alt="">
                 <?php
               }
-              else if ($post["language"]=="javascript") {
+              else if ($post["language"]=="js") {
                 ?>
                   <img src="img/javascript.png" height="30px" alt="">
                 <?php
@@ -197,7 +197,11 @@ Database::connect();
                   <img src="img/jquery.png" height="30px" alt="">
                 <?php
               }
-  echo $post["language"];?></h5>
+              if($post["language"]=='js'){
+                echo "javascript";
+              }else{
+                  echo $post["language"];
+              }?></h5>
               <!-- Question text -->
               <p class="card-text"><?php echo $post["question"]?></p>
               <hr>

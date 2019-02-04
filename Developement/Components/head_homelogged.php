@@ -160,7 +160,7 @@ include_once("model/comment.php");
                     <option value="php">php</option>
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
-                    <option value="javascript">javascript</option>
+                    <option value="js">javascript</option>
                     <option value="jquery">jquery</option>
                   </select>
                 </div>

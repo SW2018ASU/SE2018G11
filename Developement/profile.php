@@ -83,7 +83,7 @@ $("#boost").click(function(){
                   <img src="img/html.png" height="30px" alt="">
                 <?php
               }
-              else if ($post["language"]=="javascript") {
+              else if ($post["language"]=="js") {
                 ?>
                   <img src="img/javascript.png" height="30px" alt="">
                 <?php
@@ -93,7 +93,11 @@ $("#boost").click(function(){
                   <img src="img/jquery.png" height="30px" alt="">
                 <?php
               }
-              echo $post["language"];?></h5>
+              if($post["language"]=='js'){
+                echo "javascript";
+              }else{
+                  echo $post["language"];
+              }?></h5>
               <!-- Question text -->
               <p class="card-text" style="border:solid 1px #5f6bdd">
               <?php echo $post["question"];?></p>
@@ -125,7 +129,6 @@ $("#boost").click(function(){
                 if($comment['post_id']==$post['post_id'])
                 {
                ?>
-
               <!-- loop for comments -->
               <!-- These are the answers -->
               <div class="card mb-3 ml-5">

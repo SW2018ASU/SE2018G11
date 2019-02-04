@@ -85,7 +85,7 @@ display: block;
                   <img src="img/html.png" height="30px" alt="">
                 <?php
               }
-              else if ($post["language"]=="javascript") {
+              else if ($post["language"]=="js") {
                 ?>
                   <img src="img/javascript.png" height="30px" alt="">
                 <?php
@@ -95,7 +95,11 @@ display: block;
                   <img src="img/jquery.png" height="30px" alt="">
                 <?php
               }
-  echo $post["language"];?></h5>
+              if($post["language"]=='js'){
+                echo "javascript";
+              }else{
+                  echo $post["language"];
+              }?></h5>
               <!-- Question text -->
               <p class="card-text"><?php echo $post["question"]?></p>
               <hr>
@@ -147,7 +151,7 @@ display: block;
                 <button type="button" class="btn btn-outline-dark mb-2"><img src="img/css.png" width="70px" onclick="filterSelection('CSS')"><br>CSS</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"onclick="filterSelection('javascript')"><br>javascript</button>
+                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"onclick="filterSelection('js')"><br>javascript</button>
               </div>
               <div class="col-lg-4">
                 <button type="button" class="btn btn-outline-dark mb-2"><img src="img/jquery.png" width="70px"onclick="filterSelection('jquery')"><br>jquery</button>
