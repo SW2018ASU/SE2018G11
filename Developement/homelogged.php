@@ -8,14 +8,14 @@ Database::connect();
 
   <body >
     <style media="screen">
-.filterDiv {
-display: none; /* Hidden by default */
-}
+    .filterDiv {
+    display: none; /* Hidden by default */
+    }
 
-/* The "show" class is added to the filtered elements */
-.show {
-display:block;
-}
+    /* The "show" class is added to the filtered elements */
+    .show {
+    display:block;
+    }
     </style>
     <div class="row">
       <div class="col-lg-8 col-sm-12">
@@ -117,7 +117,10 @@ display:block;
               <!-- comments forms -->
               <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
                 <div class="divC<?php echo $post['post_id'] ?>">
-<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                <hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                  <button class='btn btn-light' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                </div>
                 </div>
               </form>
             </div>
@@ -250,7 +253,9 @@ display:block;
               <div class="col-lg-4">
                 <button type="button" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"onclick="filterSelection('php')"><br>php</button>
               </div>
-
+              <div class="col-lg-12">
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block " onclick="filterSelection('all')"><br>All languages</button>
+              </div>
             </div>
           </div>
         </div>
@@ -259,28 +264,28 @@ display:block;
   </body>
   <script type="text/javascript">
    filterSelection("all");
-function filterSelection(c) {
-var x, i;
-x = document.getElementsByClassName("filterDiv");
-if (c == "all") c = "";
-// Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-for (i = 0; i < x.length; i++) {
-  w3RemoveClass(x[i], "show");
-  if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-}
-}
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
+    }
 
 // Show filtered elements
-function w3AddClass(element, name) {
-var i, arr1, arr2;
-arr1 = element.className.split(" ");
-arr2 = name.split(" ");
-for (i = 0; i < arr2.length; i++) {
-  if (arr1.indexOf(arr2[i]) == -1) {
-    element.className += " " + arr2[i];
+  function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {
+        element.className += " " + arr2[i];
+      }
+    }
   }
-}
-}
 
 // Hide elements that are not selected
 function w3RemoveClass(element, name) {
