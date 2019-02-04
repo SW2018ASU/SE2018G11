@@ -1,165 +1,252 @@
-<?php include_once("components/head_group.php"); ?>
+<?php
+include_once("model/post.php");
+include_once("model/user.php");
+include_once("model/group.php");
+Database::connect();
+ session_start();
+ if(isset($_SESSION["user_id"])==0 && isset($_SESSION["user_first_name"])==0 ){
+   header('Location:home.php');
+ }
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CodeGuide</title>
+    <style media="screen">
+      body{
+        background-image: url(img/home.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="js/richtext.min.css">
+    <script src="js/jquery0.richtext.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#search_users").keyup(function(){
+          $('#search-result-container').html("");
+
+          var formData="";
+          if($(this).val()){
+            var formData = {'search_users':$(this).val()};
+          }
+          else if(!$(this).val()){
+            $('#search-result-container').html("");
+          }
+        $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : 'Controllers/search_user.php', // the url where we want to POST//where controller that we want to go to is exist
+        data        : formData, // our data object //this data will be sent to contrller in $_POST
+        dataType    : 'json', // what type of data do we expect back from the server
+        encode          : true
+        }).done(function(data) {
+          var child="";
+          var found=0;
+          var exist=0;
+          if(data.length!=0){
+            for(var i=0;i<5;i+=1){
+              if(data[i]){
+                found=0;
+                exist=0;
+                <?php
+                  $members=[];
+                  $members_f=group::get_members($_GET['id']);
+                  foreach ($members_f as $member_f) {
+                    $members[$member_f['first_name']." ".$member_f['last_name']]=$member_f['first_name']." ".$member_f['last_name'];
+                  }
+                 ?>
+                var members=<?php echo json_encode($members); ?>;
+                if(data[i] in members)
+                  exist=1;
+                $("#final_users span").each(function(){
+                  if(data[i]==$(this).text()){
+                    found=1;
+                  }
+                });
+                var user=$("<div><button type='button' class='btn btn-light add_user mb-1'><img src='img/addMember.png' width='20 px'></button></div>");
+                var sp_name=$("<span></span>").append(data[i]);
+                user.append(sp_name);
+              }
+              if(found==0 && exist==0)
+                $('#search-result-container').append(user);
+            }
+            $(".add_user").click(function(){
+              var remove=$("<div><button type='button' class='btn btn-light mb-1 remove_user'><img src='img/removeMember.png' width='20 px'></button></div>").append($(this).parent().children('span'));
+              $("#final_users").append(remove);
+              $(this).parent().children('button').remove();
+              $(".remove_user").click(function(){
+                $(this).parent().remove();
+              });
+            });
+            }
+          else {
+            $('#search-result-container').html("<div class='mt-2 alert alert-danger' role='alert'>No results are found</div>");
+          }
+        });
+        });
+        $("#create").click(function(){
+          var users=[];
+          $("#final_users span").each(function(){
+            users.push($(this).text());
+          });
+          var formData = {'data' : users,'group_id':<?php echo json_encode($_GET['id']); ?>};
+          $.ajax({
+          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : 'Controllers/add_members.php?', // the url where we want to POST//where controller that we want to go to is exist
+          data        : formData, // our data object //this data will be sent to contrller in $_POST
+          dataType    : 'json',
+          encode      : true
+          }).done(function(data) {
+            window.location.href="grouppage.php?id="+data['id'];
+          });
+        });
+        $("#community").click(function(){
+          var formData = {
+                    'question' : $("#question").val(),
+                    'language' : $("#language").val(),
+                    'group_id' : <?php echo json_encode($_GET['id']); ?>
+                    };
+        $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : 'Controllers/create_post_group.php', // the url where we want to POST//where controller that we want to go to is exist
+        data        : formData, // our data object //this data will be sent to contrller in $_POST
+        dataType    : 'json', // what type of data do we expect back from the server
+        encode          : true
+        }).done(function(data) {});
+
+        if(!$("#question").val()){
+          var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
+          $("#specialist").after(warning);
+          warning.slideUp(2000);
+          return false;
+        }
+        return true;
+      });
+        $(".comment").click(function(){
+          var comment= $("<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' type='button' ><img src='img/send.png'></button>");
+          if($(".divC").children().length==0){
+            $(this).parents(".rowC").next(".formC").children().append(comment);
+            $(".divC").slideDown();
+          }
+          else if($(".divC")) {
+            $(".divC").slideUp();
+            $(".divC").children().remove();
+          }
+        });
+        $('.post').richText();
+      });
+    </script>
+  </head>
   <body>
-     <div class="row">
-      <div class="col-lg-8 col-sm-12">
-        <div class="container">
-          <!-- loop for group posts -->
-          <?php
-          $posts=post::group_post($_POST['keyword'],$_GET['id']);
-          foreach ($posts as $post) {
-           ?>
-          <div class="card mb-3">
-            <div class="card-header">
-              <!-- Username date time-->
-              <div class="row">
-                <div class="col-lg-4">
-                  <img src="img/profile.png" width="30 px">
-                  <?php echo ucwords($post["first_name"])." ".ucwords($post["last_name"]);?>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
+        <a href="homelogged.php"><img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/></a>
+        <a class="navbar-brand" href="homelogged.php"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./aboutus.php">About us</a>
+            </li>
+            <li>
+              <form action="grouppage.php?id=<?php echo $_GET['id'] ?>" method="post">
+                <div class="input-group ml-5 my-2 my-lg-0">
+                  <input class="form-control" type="search" name="keyword" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit" id="button-addon2"><img src="img/search.png" width="20px"></button>
+                  </div>
                 </div>
-                <div class="col-lg-4">
-                  <img src="img/calender.png" width="20 px">
-                  <?php echo $post['dates']?>
-                </div>
-                <div class="col-lg-4">
-                  <img src="img/time.png" width="20 px">
-                  <?php echo $post['times']?>
-                </div>
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-5 ">
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@getbootstrap">Ask a question ?</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span><img src="img/notification.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="notifications" style="position:relative;"></span>
+                  <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">3</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#"><B>Omar Hesham</B> commented on your post</a>
+                <a class="dropdown-item" href="#"><B>Omar alam</B> commented on your post</a>
               </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
+                  <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">4</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
+                <a class="dropdown-item" href="#">Mark youssef commented on your post</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> <?php echo $_SESSION["user_first_name"]; ?></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="./profile.php">My profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="./login.php">log out</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav><br><br><br>
+            <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Your question</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <div class="card-body">
-              <!-- programming language -->
-              <h5 class="card-title">  <?php
-              if ($post["language"]=="C/C++") {
-                ?>
-                  <img src="img/c++.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="C#") {
-                ?>
-                  <img src="img/csharp.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="java") {
-                ?>
-                  <img src="img/java.png" height="30px"alt="">
-                <?php
-              }
-              else if ($post["language"]=="python") {
-                ?>
-                  <img src="img/python.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="php") {
-                ?>
-                  <img src="img/php.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="CSS") {
-                ?>
-                  <img src="img/css.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="HTML") {
-                ?>
-                  <img src="img/html.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="javascript") {
-                ?>
-                  <img src="img/javascript.png" height="30px" alt="">
-                <?php
-              }
-              else if ($post["language"]=="jquery") {
-                ?>
-                  <img src="img/jquery.png" height="30px" alt="">
-                <?php
-              }
-              echo $post["language"];?></h5>
-              <!-- Question text -->
-              <p class="card-text" style="border:solid 1px #5f6bdd">
-              <?php echo $post["question"];?></p>
-              <hr>
-              <div class="row rowC">
-                <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
+            <div class="modal-body">
+              <form action="grouppage.php?id=<?php echo $_GET['id'] ?>" method="post">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">programming languages</label>
+                  </div>
+                  <select class="custom-select" id="language" name="language">
+                    <option value="Choose...">Choose...</option>
+                    <option value="C/C++">C/C++</option>
+                    <option value="C#">C#</option>
+                    <option value="java">java</option>
+                    <option value="python">python</option>
+                    <option value="php">php</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="javascript">javascript</option>
+                    <option value="jquery">jquery</option>
+                  </select>
                 </div>
-                <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
+                <div class="input-group mb-3">
+                <textarea id="question" name="question" class="form-control post" aria-label="With textarea" ></textarea>
                 </div>
-                <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
-                </div>
-              </div>
-              <!-- comments forms -->
-              <form class="formC" action="index.html" method="post">
-                <div class="divC"></div>
+                <button id="community" type="submit" class="btn btn-primary">Ask community</button>
+                <button id="specialist" type="submit" class="btn btn-outline-primary">Ask specialist</button><br>
               </form>
             </div>
           </div>
-          <?php } ?>
-          <!-- loop end -->
         </div>
       </div>
-      <div class="col-lg-4 col-sm-12">
-        <div class="container">
-          <div class="jumbotron">
-            <img class="mr-2" src="img/logo.png" width="60 px"  height="50 px"/>
-            <span style="font-size:35px; font-weight:bold;"><?php
-            $info=group::group_info_id($_GET['id']);
-            echo $info['name'];
-             ?></span>
-            <button type="button" class="btn btn-light btn-lg btn-block mb-2" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo"><img src="img/addMember.png" class="mr-2" width="25px">  Add members</button>
-            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add member</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="input-group mb-3">
-                      <!-- search for members input -->
-                      <input class="form-control" name="search_users" id="search_users" type="search" placeholder="Search community for members" aria-label="Search" aria-describedby="button-addon2">
-                    </div>
-                    <!-- users appear by ajax on keyup -->
-                    <div id="search-result-container"></div>
-                    <br>
-                    <hr class="lead">
-                    <button id="create" type="button" class="btn btn-outline-primary">Add members</button>
-                    <div id="final_users"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <a class="btn btn-light btn-lg btn-block" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><img src="img/myGroups.png" class="mr-2" width="25px">  Group members</a>
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
-              <div class="list-group">
-                <?php
-                  $members=group::get_members($_GET['id']);
-                  foreach ($members as $member) {
-                    if($member['id']==$_SESSION["user_id"])
-                    {
-                      ?>
-                      <span class="list-group-item list-group-item-action"><?php echo "You"; ?></span>
-                      <?php
-                    }
-                    else{
-                      ?>
-                      <span class="list-group-item list-group-item-action"><?php echo $member['first_name']." ".$member['last_name']; ?></span>
-                      <?php
-                    }
-                  }
-                 ?>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
+    </header>
   </body>
 </html>
