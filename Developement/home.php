@@ -213,12 +213,64 @@ Database::connect();
               <!-- form for comment -->
               <!-- go to head_homelogged.php -->
               <!-- missing name attribute for comment found in components folder -->
-              <form class="formC" action="" method="post">
-                <div class="divC"></div>
+              <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
+                <div class="divC<?php echo $post['post_id'] ?>">
+                <hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                  <button class='btn btn-light' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                </div>
+                </div>
               </form>
+              <div class="divA<?php echo $post['post_id'] ?>" style="display:none"; >
+                <?php
+                $comments=comment::show_comment($post['post_id']);
+
+                foreach ($comments as $comment) {
+                  if($comment['post_id']==$post['post_id'])
+                  {
+                 ?>
+                <!-- loop for comments -->
+                <!-- These are the answers -->
+                <div class="card mb-3 ml-5">
+                  <!-- username appears here -->
+                  <div class="card-header">
+                    <div class="row">
+                    <!-- username -->
+                    <div class="col-lg-4">
+                      <img src="img/profile.png" width="30 px">
+                    <?php echo $comment['user_name'] ?>
+                  </div>
+                  <div class="col-lg-4">
+                    <img src="img/calender.png" width="20 px">
+                    <?php echo $comment['dates'] ?>
+                  </div>
+                  <div class="col-lg-4">
+                    <img src="img/time.png" width="20 px">
+                    <?php echo $comment['times'] ?>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- text goes here -->
+                    <p class="card-text"><?php echo $comment['comment_text'] ?></p>
+                    <hr>
+                    <div class="row">
+                      <div class="col-lg-4">
+                      </div>
+                      <div class="col-lg-4">
+                      </div>
+                      <div class="col-lg-4">
+                        <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end of answer -->
+                <!-- end of loop -->
             </div>
           </div>
-        <?php  }?>
+        <?php }} ?>
+
       </div>
       </div>
 
