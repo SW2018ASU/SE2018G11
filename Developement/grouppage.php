@@ -7,7 +7,11 @@
         <div class="container">
           <!-- loop for group posts -->
           <?php
-          $posts=post::group_post($_POST['keyword'],$_GET['id']);
+          if(isset($_POST['keyword'])){
+            $posts=post::group_post($_POST['keyword'],$_GET['id']);
+          }else{
+            $posts=post::group_post("",$_GET['id']);
+          }
           foreach ($posts as $post) {
            ?>
           <div class="card mb-3">

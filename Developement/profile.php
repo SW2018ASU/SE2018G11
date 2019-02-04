@@ -27,7 +27,7 @@ $("#boost").click(function(){
           else  $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
            ?>
-          <div class="card mb-3" id='card_<?php echo $post['id']; ?>'>
+          <div class="card mb-3 filterDiv  <?php echo $post["language"]?> " id='card_<?php echo $post['id']; ?>'>
             <div class="card-header">
               <!-- Username date time-->
               <div class="row">
