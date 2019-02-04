@@ -227,31 +227,31 @@ Database::connect();
             <h4 class="lead">Filter posts by:</h4>
             <div class="row">
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/c++.png" width="70px" onclick="filterSelection('C/C++')"><br>C++</button>
+                <button type="button" onclick="filterSelection('C/C++')" class="btn btn-outline-dark mb-2"><img src="img/c++.png" width="70px" ><br>C++</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/csharp.png" width="70px" onclick="filterSelection('C#')"><br>C#</button>
+                <button type="button" onclick="filterSelection('C#')" class="btn btn-outline-dark mb-2"><img src="img/csharp.png" width="70px" ><br>C#</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/java.png" width="70px" onclick="filterSelection('java')"><br>java</button>
+                <button type="button" onclick="filterSelection('java')" class="btn btn-outline-dark mb-2"><img src="img/java.png" width="70px" ><br>java</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/python.png" width="70px" onclick="filterSelection('python')"><br>python</button>
+                <button type="button" onclick="filterSelection('python')" class="btn btn-outline-dark mb-2"><img src="img/python.png" width="70px" ><br>python</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/html.png" width="70px" onclick="filterSelection('HTML')"><br>HTML</button>
+                <button type="button" onclick="filterSelection('HTML')" class="btn btn-outline-dark mb-2"><img src="img/html.png" width="70px" ><br>HTML</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/css.png" width="70px" onclick="filterSelection('CSS')"><br>CSS</button>
+                <button type="button" onclick="filterSelection('CSS')" class="btn btn-outline-dark mb-2"><img src="img/css.png" width="70px" ><br>CSS</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"onclick="filterSelection('js')"><br>javascript</button>
+                <button type="button" onclick="filterSelection('js')" class="btn btn-outline-dark mb-2"><img src="img/javascript.png" width="70px"><br>javascript</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/jquery.png" width="70px"onclick="filterSelection('jquery')"><br>jquery</button>
+                <button type="button" onclick="filterSelection('jquery')" class="btn btn-outline-dark mb-2"><img src="img/jquery.png" width="70px"><br>jquery</button>
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"onclick="filterSelection('php')"><br>php</button>
+                <button type="button" onclick="filterSelection('php')" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"><br>php</button>
               </div>
               <div class="col-lg-12">
                 <button type="button" class="btn btn-outline-dark btn-lg btn-block " onclick="filterSelection('all')"><br>All languages</button>
