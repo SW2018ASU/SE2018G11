@@ -101,8 +101,6 @@ $comments=comment::show_comment($post_id);
           <!-- End post -->
           <?php
           foreach ($comments as $comment) {
-
-
            ?>
           <!-- loop for comments -->
           <!-- These are the answers -->

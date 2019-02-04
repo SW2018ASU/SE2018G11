@@ -2,11 +2,7 @@
 include_once("model/post.php");
 include_once("components/head_profile.php");
 include_once("model/comment.php");
-
-
 Database::connect();
-comment::create_comment("afa",1,1,date("h:ia"),date("Y/m/d"));
-
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -17,13 +13,8 @@ $("#test_your_self").click(function(){
 }
 )
 $("#boost").click(function(){
-  window.location.href = "https://www.w3schools.com/";
-}
-)
-
-
+  window.location.href = "https://www.w3schools.com/";})
 })
-
 </script>
   <body >
     <div class="row">
@@ -111,31 +102,87 @@ $("#boost").click(function(){
                 <div class="col-lg-4">
                   <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
                 </div>
-
-
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block comment"  ><img src="img/comment.png" width="20px">  Comment</button>
+                  <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
                 </div>
               </div>
               <!-- comments forms -->
-              <form class="formC<?php echo $post['post_id'] ?>" action="index.html" method="post">
+              <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
                 <div class="divC<?php echo $post['post_id'] ?>">
-<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='submit' ><img src='img/send.png' ></button>
                 </div>
               </form>
             </div>
+            <!-- //begining of comment -->
+            <div class="divA<?php echo $post['post_id'] ?>" style="display:none"; >
+              <?php
+              $comments=comment::show_comment($post['post_id']);
+
+              foreach ($comments as $comment) {
+                if($comment['post_id']==$post['post_id'])
+                {
+               ?>
+              <!-- loop for comments -->
+              <!-- These are the answers -->
+              <div class="card mb-3 ml-5">
+                <!-- username appears here -->
+                <div class="card-header">
+                  <div class="row">
+                  <!-- username -->
+                  <div class="col-lg-4">
+                    <img src="img/profile.png" width="30 px">
+                  <?php echo $comment['user_name'] ?>
+                </div>
+                <div class="col-lg-4">
+                  <img src="img/calender.png" width="20 px">
+                  <?php echo $comment['dates'] ?>
+                </div>
+                <div class="col-lg-4">
+                  <img src="img/time.png" width="20 px">
+                  <?php echo $comment['times'] ?>
+                </div>
+                </div>
+                </div>
+                <div class="card-body">
+                  <!-- text goes here -->
+                  <p class="card-text"><?php echo $comment['comment_text'] ?></p>
+                  <hr>
+                  <div class="row">
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="col-lg-4">
+                      <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end of answer -->
+              <!-- end of loop -->
+            <?php }} ?>
+              <!-- //end of comment -->
+            </div>
+
           </div>
           <script type="text/javascript">
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
-            window.location.href = "answers.php?post_id=<?php echo $post['post_id'] ?> ";
+            if($(".divA<?php echo $post['post_id'] ?>").is(":visible")){
+              $(".divA<?php echo $post['post_id'] ?>").hide();
+            }
+            else  {
+              $(".divA<?php echo $post['post_id'] ?>").show();
+              // location.reload();
+
+            }
           }
           );
-          $(".comment").click(function(){
+          $("#comment_<?php echo $post['post_id'] ?>").click(function(){
           if($(".divC<?php echo $post['post_id'] ?>").is(":visible")){
             $(".divC<?php echo $post['post_id'] ?>").hide();
           }
@@ -145,7 +192,7 @@ $("#boost").click(function(){
           });
           $("#comment_button_<?php echo $post['post_id'] ?>").click(function(){
           var formData = {
-          'comment_text'        : $('#comment_text').val(),
+          'comment_text'        : $('#comment_text_<?php echo $post['post_id'] ?>').val(),
           'post_id'             : <?php echo $post['post_id'] ?>
           };
           $.ajax({
@@ -159,9 +206,7 @@ $("#boost").click(function(){
           });
           });
           });
-
           </script>
-
         <?php } ?>
         </div>
       </div>

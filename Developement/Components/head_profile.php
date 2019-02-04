@@ -121,8 +121,8 @@ Database::connect();
           dataType    : 'json', // what type of data do we expect back from the server
           encode          : true
           }).done(function(data) {
-
-          window.location.href='profile.php';
+            // alert('af');
+          // window.location.href='profile.php';
           });
 
           if(!$("#question").val()){

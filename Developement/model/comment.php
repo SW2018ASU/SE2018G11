@@ -18,7 +18,7 @@ public function __construct($id) {
 
   }
   public static function show_comment($postId){
-    $sql = "SELECT *,concat(first_name,' ',last_name) as user_name,comment.id as comment_id FROM comment join user on comment.user_id=user.id WHERE post_id = $postId;";
+    $sql = "SELECT *,concat(first_name,' ',last_name) as user_name,comment.id as comment_id FROM comment join user on comment.user_id=user.id WHERE post_id = $postId order by comment_id DESC ;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
     $comments = [];
