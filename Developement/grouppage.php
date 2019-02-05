@@ -91,13 +91,13 @@
                     $number=comment::get_number_comments($post['post_id']);
                    ?>
                   <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">
-                    <span style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo $number['number'];  ?></span>  Answers</button>
+                    <span id="number_<?php echo $post["post_id"] ?>" style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo $number['number'];  ?></span>  Answers</button>
                 </div>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
+                  <button type="button" id="bookmark_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
                 </div>
               </div>
               <!-- comments forms -->
@@ -165,6 +165,10 @@
           <script type="text/javascript">
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
+              $("#bookmark_<?php echo $post["post_id"] ?>").click(function(){
+                $(this).removeClass("btn-light");
+                $(this).addClass("btn-primary");
+              });
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
             if($(".divA<?php echo $post['post_id'] ?>").is(":visible")){
               $(".divA<?php echo $post['post_id'] ?>").hide();
@@ -198,6 +202,7 @@
             $(".divA<?php echo $post['post_id'] ?>").show();
             $('#comment_text_<?php echo $post['post_id'] ?>').val("");
             $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"   </div>                <div class='col-lg-4'>    <img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>  Helpful</button> </div>  </div>   </div>");
+            $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
             });
           });
           });
