@@ -104,7 +104,11 @@ $("#boost").click(function(){
               <hr>
               <div class="row rowC<?php echo $post['post_id'] ?>">
                 <div class="col-lg-4">
-                  <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">  Answers</button>
+                  <?php
+                    $number=comment::get_number_comments($post['post_id']);
+                   ?>
+                   <button type="button" class="btn btn-light btn-lg btn-block mb-4" id="answer_<?php echo $post["post_id"] ?>"><img src="img/answer.png" width="20px">
+                   <span style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo $number['number'];  ?></span>  Answers</button>
                 </div>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
