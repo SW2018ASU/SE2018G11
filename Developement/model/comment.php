@@ -85,8 +85,11 @@ public function __construct($id) {
     $sql="SELECT user_id FROM rated WHERE comment_id=$comment_id;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
-    $user=$statement->fetch(PDO::FETCH_ASSOC);
-    return $user['user_id'];
+    $users=[];
+    while ($row=$statement->fetch(PDO::FETCH_ASSOC)) {
+      $users[]=$row;
+    }
+    return $users;
 
   }
 
