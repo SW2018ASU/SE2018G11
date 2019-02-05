@@ -128,7 +128,6 @@ $("#boost").click(function(){
             <div class="divA<?php echo $post['post_id'] ?>" style="display:none"; >
               <?php
               $comments=comment::show_comment($post['post_id']);
-
               foreach ($comments as $comment) {
                 if($comment['post_id']==$post['post_id'])
                 {
