@@ -1,3 +1,6 @@
+
+//NOT USED Controller as we make add or remove bookmark in one controller
+/*
 <?php
   include_once("../model/post.php");
 
@@ -12,3 +15,4 @@ post::remove_bookmark($user_id,$post_id);
   echo json_encode(['status'=>1,'data'=>'hi']); //this will return a json with key status and value 1 to tell him it match
 
  ?>
+*/

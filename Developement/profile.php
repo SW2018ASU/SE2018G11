@@ -217,23 +217,17 @@ $("#boost").click(function(){
           });
 
        $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
-            var formData = {
+            var formData =
+            {
             'user_id'        : <?php echo $_SESSION['user_id'] ?>,
             'post_id'        : <?php echo $post['post_id'] ?>
-          };
+            };
 
-           if(!<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id']);?>){
               $.post('Controllers/bookmark.php',formData,
                     function(data,status){
-                    // alert("Data: " + data + "\nStatus: " + status);
-                    alert('succesfully bookmarked');
-                   });
-                   }
-            else {
-              <?php post::remove_bookmark($_SESSION['user_id'],$post['post_id']); ?>
-              alert('bookmark removed');
-            }
+                     alert("Data: " + data + "\nStatus: " + status);
 
+                   });
           });
           });
           </script>
