@@ -222,13 +222,17 @@ $("#boost").click(function(){
             'post_id'        : <?php echo $post['post_id'] ?>
           };
 
-
+           if(!<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id']);?>){
               $.post('Controllers/bookmark.php',formData,
                     function(data,status){
-                     alert("Data: " + data + "\nStatus: " + status);
-                      alert("<?php echo is_bookmarked(,);?>");
-                    });
-
+                    // alert("Data: " + data + "\nStatus: " + status);
+                    alert('succesfully bookmarked');
+                   });
+                   }
+            else {
+              <?php post::remove_bookmark($_SESSION['user_id'],$post['post_id']); ?>
+              alert('bookmark removed');
+            }
 
           });
           });
