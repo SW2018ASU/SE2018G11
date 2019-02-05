@@ -158,11 +158,13 @@
               </div>
               <script type="text/javascript">
                $(document).ready(function(){
-                 <?php  $user=comment::get_user_rate($comment['comment_id']);
+                 <?php  $users=comment::get_user_rate($comment['comment_id']);
                  $found=0;
-                   if ($user==$_SESSION["user_id"]) {
+                 foreach ($users as $user) {
+                   if ($user['user_id']==$_SESSION["user_id"]) {
                      $found=1;
                    }
+                 }
                   ?>
                   var found=<?php echo json_encode($found); ?>;
                   if (found) {
