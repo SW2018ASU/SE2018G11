@@ -150,11 +150,53 @@
                     <div class="col-lg-4">
                     </div>
                     <div class="col-lg-4">
-                      <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
+                      <button type="button" id='rate_<?php echo $comment['comment_id'];?>' class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">
+                      <span id="raten_<?php echo $comment['comment_id'] ?>" style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo comment::get_rate($comment['comment_id']); ?></span> Helpful</button>
                     </div>
                   </div>
                 </div>
               </div>
+              <script type="text/javascript">
+               $(document).ready(function(){
+                 <?php  $user=comment::get_user_rate($comment['comment_id']);
+                 $found=0;
+                   if ($user==$_SESSION["user_id"]) {
+                     $found=1;
+                   }
+                  ?>
+                  var found=<?php echo json_encode($found); ?>;
+                  if (found) {
+                    $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                    $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                  }
+
+                 $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
+                   var formData = {
+                   'comment_id' : <?php echo $comment['comment_id'] ?>
+                   };
+                   if(found==0) {
+                     $.post("Controllers/rate_comment.php",formData,function(data){
+                       $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
+                       $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                       $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                       found=1;
+                     });
+                   }
+                    else if (found) {
+                      $.post("Controllers/unrate_comment.php",formData,function(data){
+                        $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
+                      });
+                      $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-primary");
+                      $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-light");
+                      found=0;
+                    }
+                 });
+               });
+               </script>
+
+               <!-- end of answer -->
+               <!-- end of loop -->
+
               <!-- end of answer -->
               <!-- end of loop -->
             <?php }} ?>
