@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2019 at 10:39 PM
+-- Generation Time: Feb 05, 2019 at 11:26 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -32,6 +32,14 @@ CREATE TABLE `bookmarked` (
   `user_id` int(255) NOT NULL,
   `post_id` int(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bookmarked`
+--
+
+INSERT INTO `bookmarked` (`user_id`, `post_id`) VALUES
+(6, 29),
+(3, 29);
 
 -- --------------------------------------------------------
 
@@ -69,10 +77,11 @@ INSERT INTO `comment` (`id`, `user_id`, `post_id`, `comment_text`, `dates`, `hel
 (13, 3, 24, ';l;lk;l;', '2019-02-05', 0, '04:14:00'),
 (14, 3, 24, 'o\'\'', '2019-02-05', 0, '04:17:00'),
 (15, 3, 29, 'jkljkl', '2019-02-05', 0, '05:58:00'),
-(19, 3, 29, 'lhdlghflg', '2019-02-05', 0, '11:06:00'),
-(17, 3, 29, 'sdfs', '2019-02-05', 0, '09:55:00'),
+(19, 3, 29, 'lhdlghflg', '2019-02-05', 3, '11:06:00'),
+(17, 3, 29, 'sdfs', '2019-02-05', 3, '09:55:00'),
 (18, 3, 26, 'dgdfgdf', '2019-02-05', 0, '09:56:00'),
-(16, 3, 26, 'data science udemy', '2019-02-05', 0, '09:24:00');
+(16, 3, 26, 'data science udemy', '2019-02-05', 0, '09:24:00'),
+(20, 6, 11, 'l;kfdg;ldfkg;d', '2019-02-05', 0, '11:57:00');
 
 -- --------------------------------------------------------
 
@@ -240,6 +249,18 @@ CREATE TABLE `rated` (
   `comment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `rated`
+--
+
+INSERT INTO `rated` (`user_id`, `comment_id`) VALUES
+(3, 19),
+(3, 17),
+(6, 19),
+(6, 17),
+(7, 19),
+(7, 17);
+
 -- --------------------------------------------------------
 
 --
@@ -300,7 +321,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `groups`
