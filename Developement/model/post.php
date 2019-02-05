@@ -58,13 +58,20 @@ public static function delete_post($post_id){
     $sql = "DELETE FROM post WHERE id = $post_id;";
 			Database::$db->query($sql);
 }
-public static function bookmarked($user_id,$post_id){
+public static function bookmark($user_id,$post_id){
   $sql="INSERT INTO bookmarked (user_id,post_id) VALUES (?,?) ;";
   Database::$db->prepare($sql)->execute([$user_id,$post_id]);
 }
-public static function remove_bookmarked($user_id,$post_id){
+public static function remove_bookmark($user_id,$post_id){
   $sql="DELETE FROM bookmarked WHERE user_id=$user_id AND post_id=$post_id ;";
   Database::$db->prepare($sql)->execute();
+}
+public static function is_bookmarked($user_id,$post_id){
+  $sql="SELECT * from bookmarked WHERE user_id=$user_id AND post_id=$post_id ;";
+  $statement=Database::$db->prepare($sql)->execute();
+  while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+  }
+return ($row[$user_id]!=null);
 }
 public static function search_post($keyword)
 {

@@ -114,7 +114,7 @@ $("#boost").click(function(){
                   <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
+                  <button type="button" name="bookmark_<?php echo $post['post_id'] ?>" id="bookmark_<?php echo $post['post_id'] ?>" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
                 </div>
               </div>
               <!-- comments forms -->
@@ -214,6 +214,22 @@ $("#boost").click(function(){
             $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"   </div>                <div class='col-lg-4'>    <img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>  Helpful</button> </div>  </div>   </div>");
             $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
             });
+          });
+
+       $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
+            var formData = {
+            'user_id'        : <?php echo $_SESSION['user_id'] ?>,
+            'post_id'        : <?php echo $post['post_id'] ?>
+          };
+
+
+              $.post('Controllers/bookmark.php',formData,
+                    function(data,status){
+                     alert("Data: " + data + "\nStatus: " + status);
+                      alert("<?php echo is_bookmarked(,);?>");
+                    });
+
+
           });
           });
           </script>
