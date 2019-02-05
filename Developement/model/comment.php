@@ -44,7 +44,13 @@ public function __construct($id) {
     Database::$db->prepare($sql)->execute([$user_id,$post_id,$comment_id]);
     $sql= "UPDATE comment SET helpful = ?  WHERE id = ? ;";
     Database::$db->prepare($sql)->execute([$rate+1,$comment_id]);
-
+  }
+  public static function get_number_comments($post_id){
+    $sql="SELECT COUNT(user_id) as number FROM comment WHERE post_id=$post_id;";
+    $statement = Database::$db->prepare($sql);
+    $statement->execute();
+    $number=$statement->fetch(PDO::FETCH_ASSOC);
+    return $number;
   }
 
 }
