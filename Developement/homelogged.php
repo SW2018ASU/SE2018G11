@@ -115,7 +115,7 @@ Database::connect();
                   <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
                 <div class="col-lg-4">
-                  <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/bookmark2.png" width="20px">  Bookmark</button>
+                  <button type="button" class="btn btn-light btn-lg btn-block" id='bookmark_<?php echo $post['post_id'] ?>'name='bookmark_<?php echo $post['post_id'] ?>'><img src="img/bookmark2.png" width="20px">  Bookmark</button>
                 </div>
               </div>
               <!-- comments forms -->
@@ -181,6 +181,12 @@ Database::connect();
 
           </div>
           <script type="text/javascript">
+          if(<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id'])?> )
+          {
+            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+
+          }
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
@@ -219,6 +225,31 @@ Database::connect();
             $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
             });
           });
+          $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
+               var formData =
+               {
+               'user_id'        : <?php echo $_SESSION['user_id'] ?>,
+               'post_id'        : <?php echo $post['post_id'] ?>
+               };
+
+             if($('#bookmark_<?php echo $post["post_id"];?>').hasClass('btn-light'))
+             {
+               $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+               $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+             }
+             else
+             {
+               $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
+               $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
+
+             }
+
+                 $.post('Controllers/bookmark.php',formData,
+                       function(data,status){
+                       // alert("Data: " + data + "\nStatus: " + status);
+
+                      });
+             });
           });
           </script>
         <?php } ?>
