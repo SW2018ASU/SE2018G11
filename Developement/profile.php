@@ -177,6 +177,12 @@ $("#boost").click(function(){
 
           </div>
           <script type="text/javascript">
+          if(<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id'])?> )
+          {
+            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+
+          }
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
@@ -216,6 +222,8 @@ $("#boost").click(function(){
             });
           });
 
+
+
        $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
             var formData =
             {
@@ -223,9 +231,21 @@ $("#boost").click(function(){
             'post_id'        : <?php echo $post['post_id'] ?>
             };
 
+          if($('#bookmark_<?php echo $post["post_id"];?>').hasClass('btn-light'))
+          {
+            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+          }
+          else
+          {
+            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
+            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
+
+          }
+
               $.post('Controllers/bookmark.php',formData,
                     function(data,status){
-                     alert("Data: " + data + "\nStatus: " + status);
+                    // alert("Data: " + data + "\nStatus: " + status);
 
                    });
           });
