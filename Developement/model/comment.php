@@ -36,21 +36,58 @@ public function __construct($id) {
     $sql = "DELETE FROM comment WHERE id = $this->id;";
     Database::$db->query($sql);
   }
-  public static function rate_comment ($post_id ,$comment_id,$user_id){
-    $sql= "SELECT helpful_rate FROM comment WHERE id = ? ;";
-    $statement= Database::$db->prepare($sql)->execute([$comment_id]);
+  public static function rate_comment ($comment_id,$user_id){
+    $sql= "SELECT helpful FROM comment WHERE id = ? ;";
+    $statement= Database::$db->prepare($sql);
+    $statement->execute([$comment_id]);
     $rate = $statement->fetch(PDO::FETCH_ASSOC);
-    $sql="INSERT INTO rated (user_id) VALUES (?) WHERE post_id= ? AND comment_id = ? ;";
-    Database::$db->prepare($sql)->execute([$user_id,$post_id,$comment_id]);
-    $sql= "UPDATE comment SET helpful = ?  WHERE id = ? ;";
-    Database::$db->prepare($sql)->execute([$rate+1,$comment_id]);
+    $sql="UPDATE comment SET helpful=? WHERE id= ?  ;";
+    Database::$db->prepare($sql)->execute([$rate['helpful']+1,$comment_id]);
+    $sql="INSERT INTO rated(user_id,comment_id) VALUES (?,?);";
+    Database::$db->prepare($sql)->execute([$user_id,$comment_id]);
+    $sql= "SELECT helpful FROM comment WHERE id = ? ;";
+    $statement= Database::$db->prepare($sql);
+    $statement->execute([$comment_id]);
+    $rate = $statement->fetch(PDO::FETCH_ASSOC);
+    return $rate['helpful'];
   }
+  public static function unrate_comment ($comment_id,$user_id){
+    $sql= "SELECT helpful FROM comment WHERE id = ? ;";
+    $statement= Database::$db->prepare($sql);
+    $statement->execute([$comment_id]);
+    $rate = $statement->fetch(PDO::FETCH_ASSOC);
+    $sql="UPDATE comment SET helpful=? WHERE id= ?  ;";
+    Database::$db->prepare($sql)->execute([$rate['helpful']-1,$comment_id]);
+    $sql="DELETE FROM rated WHERE comment_id= $comment_id AND user_id=$user_id";
+    Database::$db->prepare($sql)->execute();
+    $sql= "SELECT helpful FROM comment WHERE id = ? ;";
+    $statement= Database::$db->prepare($sql);
+    $statement->execute([$comment_id]);
+    $rate = $statement->fetch(PDO::FETCH_ASSOC);
+    return $rate['helpful'];
+  }
+  public static function get_rate($comment_id){
+    $sql= "SELECT helpful FROM comment WHERE id = ? ;";
+    $statement= Database::$db->prepare($sql);
+    $statement->execute([$comment_id]);
+    $rate = $statement->fetch(PDO::FETCH_ASSOC);
+    return $rate['helpful'];
+  }
+
   public static function get_number_comments($post_id){
     $sql="SELECT COUNT(user_id) as number FROM comment WHERE post_id=$post_id;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
     $number=$statement->fetch(PDO::FETCH_ASSOC);
     return $number;
+  }
+  public static function get_user_rate ($comment_id){
+    $sql="SELECT user_id FROM rated WHERE comment_id=$comment_id;";
+    $statement = Database::$db->prepare($sql);
+    $statement->execute();
+    $user=$statement->fetch(PDO::FETCH_ASSOC);
+    return $user['user_id'];
+
   }
 
 }
