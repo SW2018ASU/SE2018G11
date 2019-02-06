@@ -29,6 +29,7 @@ include_once("model/comment.php");
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
+          $('#number_bookmarks').text($('.bookmarked').length);
           $("#community").click(function(){
             var formData = {
                       'question'              : $("#question").val(),
@@ -45,10 +46,6 @@ include_once("model/comment.php");
                         window.location.href='homelogged.php';
 
                       });
-
-
-
-
 
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
@@ -93,24 +90,26 @@ include_once("model/comment.php");
               <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@getbootstrap">Ask a question ?</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/notification.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="notifications" style="position:relative;"></span>
                   <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">3</span>
-              </a>
+              </a> -->
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#"><B>Omar Hesham</B> commented on your post</a>
                 <a class="dropdown-item" href="#"><B>Omar alam</B> commented on your post</a>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="filterSelection('bookmarked')">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
-                  <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">4</span>
-              </a> -->
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <span id="number_bookmarks"style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
+
+                  </span>
+              </a>
+              <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
                 <a class="dropdown-item" href="#">Mark commented on your post</a>
-              </div>
+              </div> -->
             </li>
 
             <li class="nav-item dropdown">

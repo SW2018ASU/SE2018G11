@@ -289,6 +289,7 @@ Database::connect();
             });
           });
           $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
+
                var formData =
                {
                'user_id'        : <?php echo $_SESSION['user_id'] ?>,
@@ -314,6 +315,7 @@ Database::connect();
                        // alert("Data: " + data + "\nStatus: " + status);
 
                       });
+                $('#number_bookmarks').text($('.bookmarked').length);
              });
           });
           </script>
@@ -355,7 +357,7 @@ Database::connect();
                 <button type="button" onclick="filterSelection('php')" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"><br>php</button>
               </div>
               <div class="col-lg-12">
-                <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2 " onclick="filterSelection('bookmarked')"><br><img src="img/bookmark2.png" width="20px">  Bookmarked</button>
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2 " onclick="filterSelection('bookmarked') "><br><img src="img/bookmark2.png" width="20px">  Bookmarked</button>
               </div>
               <div class="col-lg-12">
                 <button type="button" class="btn btn-outline-dark btn-lg btn-block " onclick="filterSelection('all')"><br>All languages</button>
