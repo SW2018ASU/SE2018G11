@@ -28,7 +28,7 @@ Database::connect();
           $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
             ?>
-          <div class="card mb-3 filterDiv  <?php echo $post["language"]?>">
+          <div id='div_<?php echo $post["post_id"]?>'  class="card mb-3 filterDiv  <?php echo $post["language"]?>  <?php   if(post::is_bookmarked($_SESSION['user_id'],$post['post_id'])) echo 'bookmarked' ;?>">
             <div class="card-header">
               <div class="row">
               <!-- username -->
@@ -299,11 +299,13 @@ Database::connect();
              {
                $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
                $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+               $('#div_<?php echo $post["post_id"];?>').addClass('bookmarked');
              }
              else
              {
                $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
                $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
+               $('#div_<?php echo $post["post_id"];?>').removeClass('bookmarked');
 
              }
 
@@ -351,6 +353,9 @@ Database::connect();
               </div>
               <div class="col-lg-4">
                 <button type="button" onclick="filterSelection('php')" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"><br>php</button>
+              </div>
+              <div class="col-lg-12">
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2 " onclick="filterSelection('bookmarked')"><br><img src="img/bookmark2.png" width="20px">  Bookmarked</button>
               </div>
               <div class="col-lg-12">
                 <button type="button" class="btn btn-outline-dark btn-lg btn-block " onclick="filterSelection('all')"><br>All languages</button>

@@ -49,7 +49,7 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
-        <a href="home.php"><img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/></a>  
+        <a href="home.php"><img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/></a>
         <a class="navbar-brand" href="#"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -83,10 +83,10 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
                   <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">4</span>
-              </a>
+              </a> -->
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
                 <a class="dropdown-item" href="#">Mark commented on your post</a>
