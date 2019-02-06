@@ -195,7 +195,7 @@ Database::connect();
                 <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> <?php echo" ".ucwords($_SESSION["user_first_name"]); ?> </span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="./login.php">log out</a>
+                <a class="dropdown-item" href="./home.php">log out</a>
               </div>
             </li>
           </ul>
