@@ -197,7 +197,7 @@ Database::connect();
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="./home.php">log out</a>
               </div>
-            </li
+            </li>
           </ul>
         </div>
       </nav><br><br><br>

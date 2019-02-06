@@ -5,6 +5,16 @@ include_once("model/comment.php");
 Database::connect();
  ?>
 <!DOCTYPE html>
+<style media="screen">
+.filterDiv {
+display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+display:block;
+}
+</style>
 <html lang="en" dir="ltr">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -27,7 +37,7 @@ $("#boost").click(function(){
           else  $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
            ?>
-          <div class="card mb-3 filterDiv  <?php echo $post["language"]?> " id='card_<?php echo $post['id']; ?>'>
+           <div id='div_<?php echo $post["post_id"]?>'  class="card mb-3 filterDiv  <?php echo $post["language"]?>  <?php   if(post::is_bookmarked($_SESSION['user_id'],$post['post_id'])) echo 'bookmarked' ;?>">
             <div class="card-header">
               <!-- Username date time-->
               <div class="row">
@@ -244,6 +254,7 @@ $("#boost").click(function(){
           }
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
+                $('#number_bookmarks').text($('.bookmarked').length);
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
             if($(".divA<?php echo $post['post_id'] ?>").is(":visible")){
               $(".divA<?php echo $post['post_id'] ?>").hide();
@@ -292,19 +303,23 @@ $("#boost").click(function(){
           {
             $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
             $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+               $('#div_<?php echo $post["post_id"];?>').addClass('bookmarked');
           }
           else
           {
             $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
             $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
+            $('#div_<?php echo $post["post_id"];?>').removeClass('bookmarked');
 
           }
+
 
               $.post('Controllers/bookmark.php',formData,
                     function(data,status){
                     // alert("Data: " + data + "\nStatus: " + status);
 
                    });
+              $('#number_bookmarks').text($('.bookmarked').length);
           });
           });
           </script>
@@ -371,4 +386,53 @@ $("#boost").click(function(){
     </div>
     </div>
   </body>
+  <script type="text/javascript">
+   filterSelection("all");
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
+    }
+
+// Show filtered elements
+  function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {
+        element.className += " " + arr2[i];
+      }
+    }
+  }
+
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+var i, arr1, arr2;
+arr1 = element.className.split(" ");
+arr2 = name.split(" ");
+for (i = 0; i < arr2.length; i++) {
+  while (arr1.indexOf(arr2[i]) > -1) {
+    arr1.splice(arr1.indexOf(arr2[i]), 1);
+  }
+}
+element.className = arr1.join(" ");
+}
+
+// Add active class to the current control button (highlight it)
+// var btnContainer = document.getElementById("myBtnContainer");
+// var btns = btnContainer.getElementsByClassName("btn");
+// for (var i = 0; i < btns.length; i++) {
+// btns[i].addEventListener("click", function() {
+//   var current = document.getElementsByClassName("active");
+//   current[0].className = current[0].className.replace(" active", "");
+//   this.className += " active";
+// });
+// }
+  </script>
 </html>
