@@ -186,7 +186,7 @@ Database::connect();
                   <span id="number_bookmarks"style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
 
                   </span>
-              </a>    
+              </a>
               <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
                 <a class="dropdown-item" href="#">Mark commented on your post</a>
