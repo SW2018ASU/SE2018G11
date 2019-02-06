@@ -207,12 +207,14 @@
 
           </div>
           <script type="text/javascript">
+          if(<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id'])?> )
+          {
+            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+
+          }
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
-              $("#bookmark_<?php echo $post["post_id"] ?>").click(function(){
-                $(this).removeClass("btn-light");
-                $(this).addClass("btn-primary");
-              });
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
             if($(".divA<?php echo $post['post_id'] ?>").is(":visible")){
               $(".divA<?php echo $post['post_id'] ?>").hide();
@@ -249,6 +251,31 @@
             $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
             });
           });
+          $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
+               var formData =
+               {
+               'user_id'        : <?php echo $_SESSION['user_id'] ?>,
+               'post_id'        : <?php echo $post['post_id'] ?>
+               };
+
+             if($('#bookmark_<?php echo $post["post_id"];?>').hasClass('btn-light'))
+             {
+               $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
+               $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
+             }
+             else
+             {
+               $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
+               $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
+
+             }
+
+                 $.post('Controllers/bookmark.php',formData,
+                       function(data,status){
+                       // alert("Data: " + data + "\nStatus: " + status);
+
+                      });
+             });
           });
           </script>
           <?php } ?>

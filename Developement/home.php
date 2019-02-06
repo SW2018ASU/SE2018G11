@@ -250,8 +250,8 @@ Database::connect();
                   <div class="card-body">
                     <!-- text goes here -->
                     <p class="card-text"><?php echo $comment['comment_text'] ?></p>
-                    <hr>
-                    <div class="row">
+                    <!-- <hr> -->
+                    <!-- <div class="row">
                       <div class="col-lg-4">
                       </div>
                       <div class="col-lg-4">
@@ -259,7 +259,7 @@ Database::connect();
                       <div class="col-lg-4">
                         <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!-- end of answer -->
