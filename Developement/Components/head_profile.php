@@ -158,7 +158,7 @@ Database::connect();
             <li>
               <form action="profile.php" method="get" >
                 <div class="input-group ml-5 my-2 my-lg-0">
-                  <input class="form-control" type="search" placeholder="Search for questions"name="question" aria-label="Search" aria-describedby="button-addon2">
+                  <input class="form-control"  name='question' type="search" placeholder="Search for questions"name="question" aria-label="Search" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="submit" id="button-addon2"><img src="img/search.png" width="20px"></button>
                   </div>
