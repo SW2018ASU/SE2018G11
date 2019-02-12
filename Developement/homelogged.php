@@ -23,9 +23,9 @@ Database::connect();
           <!-- loop for posts -->
           <?php
           if(!isset($_GET['question']))
-          $posts=post::search_post(" ","c");
+          $posts=post::search_post(" ");
           else
-          $posts=post::search_post($_GET['question'],"c");
+          $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
             ?>
           <div id='div_<?php echo $post["post_id"]?>'  class="card mb-3 filterDiv  <?php echo $post["language"]?>  <?php   if(post::is_bookmarked($_SESSION['user_id'],$post['post_id'])) echo 'bookmarked' ;?>">

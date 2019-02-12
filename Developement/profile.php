@@ -34,7 +34,7 @@ $("#boost").click(function(){
           <?php
           if(!isset($_GET['question']))
           $posts=post::get_my_post("",$_SESSION["user_id"]);
-          else  $posts=post::search_post($_GET['question'],'c');
+          else  $posts=post::search_post($_GET['question']);
           foreach ($posts as $post) {
            ?>
            <div id='div_<?php echo $post["post_id"]?>'  class="card mb-3 filterDiv  <?php echo $post["language"]?>  <?php   if(post::is_bookmarked($_SESSION['user_id'],$post['post_id'])) echo 'bookmarked' ;?>">

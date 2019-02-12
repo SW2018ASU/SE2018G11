@@ -34,7 +34,6 @@ include_once("model/comment.php");
             var formData = {
                       'question'              : $("#question").val(),
                       'language'             : $("#language").val(),
-                      'type'              : 'c'
                       };
                       $.ajax({
                       type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -48,7 +47,6 @@ include_once("model/comment.php");
 
                       });
 
-
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
             $("#specialist").after(warning);
@@ -57,33 +55,6 @@ include_once("model/comment.php");
           }
           return true;
         });
-        $("#specialist").click(function(){
-
-              var formData = {
-                        'question'              : $("#question").val(),
-                        'language'             : $("#language").val(),
-                        'type'                  : 's'
-                        };
-                        $.ajax({
-                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                        url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
-                        data        : formData, // our data object //this data will be sent to contrller in $_POST
-                        dataType    : 'json', // what type of data do we expect back from the server
-                        encode          : true
-                        }).done(function(data) {
-
-                          window.location.href='homelogged.php';
-
-                        });
-
-            if(!$("#question").val()){
-              var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
-              $("#specialist").after(warning);
-              warning.slideUp(2000);
-              return false;
-            }
-            return true;
-            });
 
         $('.post').richText();
       });
