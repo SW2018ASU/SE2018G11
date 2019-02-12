@@ -84,11 +84,12 @@ foreach ($results as $result ) {
 
 }
 
-public static function search_post($keyword)
+public static function search_post($keyword,$type)
 {
   $keyword = str_replace(" ", "%", $keyword);
   $sql = "SELECT *,post.id as post_id FROM post join user on post.user_id=user.id
-  WHERE question like ('%$keyword%') AND post.group_id=0 ORDER BY post.id DESC;";
+  -- join specialist on post.specialist_id=specialist.id
+  WHERE question like ('%$keyword%') AND post.group_id=0 AND post.type = '$type' ORDER BY post.id DESC;";
   $statement = Database::$db->prepare($sql);
   $statement->execute();
   $posts = [];
@@ -109,6 +110,17 @@ public static function get_my_post($keyword,$user_id)
     $posts[] = $row;
   }
   return $posts;
+}
+public static function is_for_specialist($post_id)
+{
+  $sql="SELECT type from post where id=$post_id ; ";
+  $statement=Database::$db->prepare($sql);
+  $statement->execute();
+  $result = $statement->fetch(PDO::FETCH_ASSOC);
+  if ($result['type']=="s")
+    return 1;
+  else return 0;
+
 }
 public static function group_post($keyword,$group_id)
 {
