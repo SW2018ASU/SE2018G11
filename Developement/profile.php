@@ -5,16 +5,6 @@ include_once("model/comment.php");
 Database::connect();
  ?>
 <!DOCTYPE html>
-<style media="screen">
-.filterDiv {
-display: none; /* Hidden by default */
-}
-
-/* The "show" class is added to the filtered elements */
-.show {
-display:block;
-}
-</style>
 <html lang="en" dir="ltr">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -27,6 +17,16 @@ $("#boost").click(function(){
 })
 </script>
   <body >
+    <style media="screen">
+    .filterDiv {
+    display: none; /* Hidden by default */
+    }
+
+    /* The "show" class is added to the filtered elements */
+    .show {
+    display:block;
+    }
+    </style>
     <div class="row">
       <div class="col-lg-8 col-sm-12">
         <div class="container">
@@ -130,7 +130,10 @@ $("#boost").click(function(){
               <!-- comments forms -->
               <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
                 <div class="divC<?php echo $post['post_id'] ?>">
-<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                <hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' id='comment_text_<?php echo $post['post_id'] ?>' aria-label='With textarea'></textarea></div>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                  <button class='btn btn-light' id='comment_button_<?php echo $post['post_id'] ?>' type='button' ><img src='img/send.png' ></button>
+                </div>
                 </div>
               </form>
             </div>
