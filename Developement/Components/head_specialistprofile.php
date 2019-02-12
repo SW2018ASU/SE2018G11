@@ -98,7 +98,7 @@
                 <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> Martin </span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="./login.php">log out</a>
+                <a id='logout' class="dropdown-item" href="Controllers/logout.php">log out</a>
               </div>
             </li>
           </ul>

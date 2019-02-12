@@ -3,8 +3,8 @@ include_once("model/post.php");
 include_once("model/comment.php");
 Database::connect();
 session_start();
-session_unset();
-session_destroy();
+if(isset($_SESSION['user_id']))
+    header('Location:homelogged.php');
  ?>
 
 <!DOCTYPE html>
