@@ -1,6 +1,7 @@
 <?php
-include_once("Components/head_homelogged.php");
+include_once("components/head_specialisthomelogged.php");
 include_once("model/post.php");
+
 Database::connect();
  ?>
 <!DOCTYPE html>
@@ -28,7 +29,7 @@ Database::connect();
           $posts=post::search_post($_GET['question'],"c");
           foreach ($posts as $post) {
             ?>
-          <div id='div_<?php echo $post["post_id"]?>'  class="card mb-3 filterDiv  <?php echo $post["language"]?>  <?php   if(post::is_bookmarked($_SESSION['user_id'],$post['post_id'])) echo 'bookmarked' ;?>">
+          <div class="card mb-3 filterDiv  <?php echo $post["language"]?>">
             <div class="card-header">
               <div class="row">
               <!-- username -->
@@ -104,19 +105,19 @@ Database::connect();
               <p class="card-text" style="border:solid 1px #5f6bdd"><?php echo $post["question"]?></p>
               <hr>
               <div class="row rowC<?php echo $post['post_id'] ?>">
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                   <?php
                     $number=comment::get_number_comments($post['post_id']);
                    ?>
                   <button type="button" id="answer_<?php echo $post["post_id"] ?>" class="btn btn-light btn-lg btn-block"><img src="img/answer.png" width="20px">
                     <span id="number_<?php echo $post["post_id"] ?>" style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo $number['number'];  ?></span>  Answers</button>
                 </div>
-                <div class="col-lg-4">
+                <!-- <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block comment" id='comment_<?php echo $post['post_id'] ?>' ><img src="img/comment.png" width="20px">  Comment</button>
                 </div>
                 <div class="col-lg-4">
                   <button type="button" class="btn btn-light btn-lg btn-block" id='bookmark_<?php echo $post['post_id'] ?>'name='bookmark_<?php echo $post['post_id'] ?>'><img src="img/bookmark2.png" width="20px">  Bookmark</button>
-                </div>
+                </div> -->
               </div>
               <!-- comments forms -->
               <form class="formC<?php echo $post['post_id'] ?>" action="profile.php" method="post">
@@ -176,60 +177,39 @@ Database::connect();
               </div>
               <script type="text/javascript">
                $(document).ready(function(){
-                 <?php  $users=comment::get_user_rate($comment['comment_id']);
+                 <?php  $user=comment::get_user_rate($comment['comment_id']);
                  $found=0;
-                 foreach ($users as $user) {
-                   if ($user['user_id']==$_SESSION["user_id"]) {
+                   if ($user==$_SESSION["specialist_id"]) {
                      $found=1;
                    }
-                 }
                   ?>
                   var found=<?php echo json_encode($found); ?>;
                   if (found) {
                     $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
                     $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
                   }
-                <?php
-                if($_SESSION["user_id"]==$comment['user_id']){
-                  ?>
-                  $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", "disabled");//this enable submit button
 
-                  <?php
-
-                }
-                else{
-
-                  ?>
-                  $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", false);//this disable submit button and we need to tell him email exist
-
-                  $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
-                    var formData = {
-                    'comment_id' : <?php echo $comment['comment_id'] ?>
-                    };
-                    if(found==0) {
-                      $.post("Controllers/rate_comment.php",formData,function(data){
+                 $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
+                   var formData = {
+                   'comment_id' : <?php echo $comment['comment_id'] ?>
+                   };
+                   if(found==0) {
+                     $.post("Controllers/rate_comment.php",formData,function(data){
+                       $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
+                       $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                       $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                       found=1;
+                     });
+                   }
+                    else if (found) {
+                      $.post("Controllers/unrate_comment.php",formData,function(data){
                         $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
-                        $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
-                        $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
-                        found=1;
                       });
+                      $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-primary");
+                      $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-light");
+                      found=0;
                     }
-                     else if (found) {
-                       $.post("Controllers/unrate_comment.php",formData,function(data){
-                         $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
-                       });
-                       $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-primary");
-                       $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-light");
-                       found=0;
-                     }
-                  });
-
-                  <?php
-
-                }
-                 ?>
-
-
+                 });
                });
                </script>
 
@@ -244,12 +224,7 @@ Database::connect();
 
           </div>
           <script type="text/javascript">
-          if(<?php echo post::is_bookmarked($_SESSION['user_id'],$post['post_id'])?> )
-          {
-            $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
-            $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
 
-          }
           $(".divC<?php echo $post['post_id'] ?>").hide();
             $(document).ready(function(){
           $("#answer_<?php echo $post['post_id'] ?>").click(function(){
@@ -284,15 +259,14 @@ Database::connect();
             $(".divC<?php echo $post['post_id'] ?>").hide();
             $(".divA<?php echo $post['post_id'] ?>").show();
             $('#comment_text_<?php echo $post['post_id'] ?>').val("");
-            $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"</div><div class='col-lg-4'><img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' disabled='disabled' id='rate_"+data['comment_id']+"'class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>                                <span id='raten_"+data['comment_id']+"' style='position:absolute; top:14px; right:40px;' class='badge badge-dark'>0</span> Helpful</button></div>  </div> </div>");
+            $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"   </div>                <div class='col-lg-4'>    <img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>  Helpful</button> </div>  </div>   </div>");
             $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
             });
           });
           $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
-
                var formData =
                {
-               'user_id'        : <?php echo $_SESSION['user_id'] ?>,
+               'user_id'        : <?php echo $_SESSION['specialist_id'] ?>,
                'post_id'        : <?php echo $post['post_id'] ?>
                };
 
@@ -300,13 +274,11 @@ Database::connect();
              {
                $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-light');
                $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-primary');
-               $('#div_<?php echo $post["post_id"];?>').addClass('bookmarked');
              }
              else
              {
                $('#bookmark_<?php echo $post["post_id"];?>').addClass('btn-light');
                $('#bookmark_<?php echo $post["post_id"];?>').removeClass('btn-primary');
-               $('#div_<?php echo $post["post_id"];?>').removeClass('bookmarked');
 
              }
 
@@ -315,7 +287,6 @@ Database::connect();
                        // alert("Data: " + data + "\nStatus: " + status);
 
                       });
-                $('#number_bookmarks').text($('.bookmarked').length);
              });
           });
           </script>
@@ -355,9 +326,6 @@ Database::connect();
               </div>
               <div class="col-lg-4">
                 <button type="button" onclick="filterSelection('php')" class="btn btn-outline-dark mb-2"><img src="img/php.png" width="70px"><br>php</button>
-              </div>
-              <div class="col-lg-12">
-                <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2 " onclick="filterSelection('bookmarked') "><br><img src="img/bookmark2.png" width="20px">  Bookmarked</button>
               </div>
               <div class="col-lg-12">
                 <button type="button" class="btn btn-outline-dark btn-lg btn-block " onclick="filterSelection('all')"><br>All languages</button>

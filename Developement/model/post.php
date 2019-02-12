@@ -14,10 +14,10 @@ class post extends Database {
     }
 /////////3ayzen nshof date wla dates
 ///tmm b2a $dates
-public static function create_post($question,$language,$user_id,$dates,$times)
+public static function create_post($question,$language,$user_id,$dates,$times,$type)
 {
-    $sql = "INSERT INTO post (question,language,user_id,dates,times) VALUES (?,?,?,?,?)";
-    Database::$db->prepare($sql)->execute([$question,$language,$user_id,$dates,$times]);
+    $sql = "INSERT INTO post (question,language,user_id,dates,times,type) VALUES (?,?,?,?,?,?)";
+    Database::$db->prepare($sql)->execute([$question,$language,$user_id,$dates,$times,$type]);
 }
 public static function create_post_group($question,$language,$user_id,$group_id,$dates,$times)
 {

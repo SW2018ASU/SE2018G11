@@ -1,9 +1,9 @@
 <?php
 include_once("model/post.php");
 include_once("model/comment.php");
+Database::connect();
   session_start();
-  if(!isset($_SESSION['user_id']))
-    header('Location:home.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -29,12 +29,11 @@ include_once("model/comment.php");
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
-          $('#number_bookmarks').text($('.bookmarked').length);
           $("#community").click(function(){
             var formData = {
                       'question'              : $("#question").val(),
                       'language'             : $("#language").val(),
-                      'type'              : 'c'
+                      'type'       : 'c'
                       };
                       $.ajax({
                       type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -44,9 +43,12 @@ include_once("model/comment.php");
                       encode          : true
                       }).done(function(data) {
 
-                        window.location.href='homelogged.php';
+                        window.location.href='specialisthomelogged.php';
 
                       });
+
+
+
 
 
           if(!$("#question").val()){
@@ -58,32 +60,35 @@ include_once("model/comment.php");
           return true;
         });
         $("#specialist").click(function(){
+          var formData = {
+                    'question'              : $("#question").val(),
+                    'language'             : $("#language").val(),
+                    'type'       :  's'
+                    };
+                    $.ajax({
+                    type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                    url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+                    data        : formData, // our data object //this data will be sent to contrller in $_POST
+                    dataType    : 'json', // what type of data do we expect back from the server
+                    encode          : true
+                    }).done(function(data) {
 
-              var formData = {
-                        'question'              : $("#question").val(),
-                        'language'             : $("#language").val(),
-                        'type'                  : 's'
-                        };
-                        $.ajax({
-                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                        url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
-                        data        : formData, // our data object //this data will be sent to contrller in $_POST
-                        dataType    : 'json', // what type of data do we expect back from the server
-                        encode          : true
-                        }).done(function(data) {
+                      window.location.href='specialisthomelogged.php';
 
-                          window.location.href='homelogged.php';
+                    });
 
-                        });
 
-            if(!$("#question").val()){
-              var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
-              $("#specialist").after(warning);
-              warning.slideUp(2000);
-              return false;
-            }
-            return true;
-            });
+
+
+
+        if(!$("#question").val()){
+          var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
+          $("#specialist").after(warning);
+          warning.slideUp(2000);
+          return false;
+        }
+        return true;
+      });
 
         $('.post').richText();
       });
@@ -104,7 +109,7 @@ include_once("model/comment.php");
               <a class="nav-link" href="./aboutus.php">About us</a>
             </li>
             <li>
-              <form action="homelogged.php" method="get">
+              <form action="specialisthomelogged.php" method="get">
                 <div class="input-group ml-5 my-2 my-lg-0">
                   <input class="form-control" type="search" name="question" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
                   <div class="input-group-append">
@@ -115,9 +120,9 @@ include_once("model/comment.php");
             </li>
           </ul>
           <ul class="navbar-nav mr-5 ">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" data-whatever="@getbootstrap">Ask a question ?</a>
-            </li>
+            </li> -->
             <li class="nav-item dropdown">
               <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/notification.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="notifications" style="position:relative;"></span>
@@ -129,11 +134,9 @@ include_once("model/comment.php");
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="filterSelection('bookmarked')">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
-                  <span id="number_bookmarks"style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
-
-                  </span>
+                  <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">4</span>
               </a>
               <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
@@ -143,12 +146,12 @@ include_once("model/comment.php");
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span><?php echo" ".ucwords($_SESSION["user_first_name"]); ?></span>
+                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span><?php echo" ".ucwords($_SESSION["specialist_first_name"]); ?></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="./profile.php">My profile</a>
+                <a class="dropdown-item" href="./profilespecialist.php">My profile</a>
                 <div class="dropdown-divider"></div>
-                <a id='logout' class="dropdown-item" href="Controllers/logout.php">log out</a>
+                <a class="dropdown-item" href="./login.php">log out</a>
               </div>
             </li>
           </ul>
@@ -178,7 +181,7 @@ include_once("model/comment.php");
                     <option value="php">php</option>
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
-                    <option value="js">javascript</option>
+                    <option value="javascript">javascript</option>
                     <option value="jquery">jquery</option>
                   </select>
                 </div>

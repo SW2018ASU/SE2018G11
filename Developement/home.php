@@ -129,9 +129,9 @@ if(isset($_SESSION['user_id']))
           <!-- loop for posts -->
           <?php
           if(!isset($_GET['question']))
-          $posts=post::search_post(" ");
+          $posts=post::search_post(" ","c");
           else
-          $posts=post::search_post($_GET['question']);
+          $posts=post::search_post($_GET['question'],"c");
           foreach ($posts as $post) {
             ?>
           <div class="card mb-3">
