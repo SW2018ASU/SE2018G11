@@ -1,9 +1,9 @@
 <?php
 include_once("model/post.php");
 include_once("model/comment.php");
-
-
   session_start();
+  if(!isset($_SESSION['user_id']))
+    header('Location:home.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

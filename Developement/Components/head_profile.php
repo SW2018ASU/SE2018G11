@@ -4,9 +4,9 @@ include_once("model/user.php");
 include_once("model/group.php");
 Database::connect();
  session_start();
- if(isset($_SESSION["user_id"])==0 && isset($_SESSION["user_first_name"])==0 ){
+ if(!isset($_SESSION['user_id']))
    header('Location:home.php');
- }
+ 
  ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
