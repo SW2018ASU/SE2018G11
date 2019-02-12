@@ -1,5 +1,5 @@
 <?php
-include_once("components/head_homelogged.php");
+include_once("Components/head_homelogged.php");
 include_once("model/post.php");
 Database::connect();
  ?>

@@ -1,4 +1,4 @@
-<?php include_once("components/head_specialistprofile.php"); ?>
+<?php include_once("Components/head_specialistprofile.php"); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body >

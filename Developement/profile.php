@@ -1,6 +1,6 @@
 <?php
 include_once("model/post.php");
-include_once("components/head_profile.php");
+include_once("Components/head_profile.php");
 include_once("model/comment.php");
 Database::connect();
  ?>

@@ -1,4 +1,4 @@
-<?php include_once("components/head_group.php"); ?>
+<?php include_once("Components/head_group.php"); ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <body>
