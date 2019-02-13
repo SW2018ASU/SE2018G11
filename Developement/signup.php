@@ -93,7 +93,7 @@
             <a class="nav-link" href="login.php">log in</a>
           </li>
           <li class="nav-item ml-3">
-            <a class="nav-link" href="premiumaccount.php" style="color:#f0bc06; font-weight:bold;">Create premium account</a>
+            <a class="nav-link" href="premiumaccount.php" style="color:#f0bc06; font-weight:bold;">BE A SPECIALIST</a>
           </li>
         </ul>
       </div>

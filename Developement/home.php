@@ -47,6 +47,11 @@ if(isset($_SESSION['user_id']))
               window.location.href = "homelogged.php";
 
             }
+            else if (data['status']==2)
+            {
+              //console.log("status= 2");
+              window.location.href = "specialisthomelogged.php";
+            }
             else if(data['status']==0) {
               $(".check").children().remove();
               if(($(".check").children().length==0)&&($("#email").val()))
@@ -129,9 +134,9 @@ if(isset($_SESSION['user_id']))
           <!-- loop for posts -->
           <?php
           if(!isset($_GET['question']))
-          $posts=post::search_post(" ");
+          $posts=post::search_post(" ","c");
           else
-          $posts=post::search_post($_GET['question']);
+          $posts=post::search_post($_GET['question'],"c");
           foreach ($posts as $post) {
             ?>
           <div class="card mb-3">
@@ -253,8 +258,8 @@ if(isset($_SESSION['user_id']))
                   <div class="card-body">
                     <!-- text goes here -->
                     <p class="card-text"><?php echo $comment['comment_text'] ?></p>
-                    <!-- <hr> -->
-                    <!-- <div class="row">
+                    <hr>
+                    <div class="row">
                       <div class="col-lg-4">
                       </div>
                       <div class="col-lg-4">
@@ -262,7 +267,7 @@ if(isset($_SESSION['user_id']))
                       <div class="col-lg-4">
                         <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
                       </div>
-                    </div> -->
+                    </div>
                   </div>
                 </div>
                 <!-- end of answer -->

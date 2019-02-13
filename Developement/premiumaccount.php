@@ -16,6 +16,66 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        $("#email").keyup(function(){
+          $.post("Controllers/ajaxcheckusername.php",{'email':$(this).val()},function(data){
+          //this  is simple function used to make ajax
+          //it takes here 3 input
+          //first > url    Secand >>data,  how ? it make  for you array with {key:value}  and put it in $_POST and send it to Controllers with url you put
+          //third> it is function executed after it back from Controllers and put variable in paramter and this is data you  put it in echo in controller that return to you
+          //$.post("URL",{key:value ,key:value}, function(data){function body })
+          if(data=="exist"){///use data to show to user below email that this email exist before and he cannot use it
+            $("#submit").attr("disabled", "disabled");//this disable submit button and we need to tell him email exist
+            if(($(".check").children().length==0)&&($("#email").val()))
+            {
+              var warning = $("<div class='mt-2 alert alert-danger' role='alert'>E-mail already exists</div>");
+              $(".check").append(warning);
+              $(".check").slideDown();
+            }
+          }
+          else {
+            $("#submit").attr("disabled", false);//this enable submit button
+            $(".check").slideUp();
+            $(".check").children().remove();
+          }
+          });
+          });
+          $("#submit").click(function(){
+          if(!$("#firstname").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>first name field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          if(!$("#lastname").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>last name field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          if(!$("#Email").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>e-mail field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          if(!$("#Password").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>password field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          if(!$("#BankInfo").val()){
+            var warning = $("<div class='mt-2 alert alert-danger' role='alert'>account number field is empty</div>");
+            $(this).after(warning);
+            warning.slideUp(2000);
+            return false;
+          }
+          return true;
+        });
+      });
+    </script>
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -43,7 +103,7 @@
       <div class="col-8 " >
         <div class="d-flex justify-content-center">
           <div class="card border-warning mx-3 my-4" style="max-width: 18rem;">
-            <div class="card-header" style="font-weight:bold">premium account</div>
+            <div class="card-header" style="font-weight:bold">Specialist answer</div>
             <div class="card-body">
               <h5 class="card-title text-warning">Features</h5>
               <div style="font-weight:bold">
@@ -52,11 +112,11 @@
               </div>
               <h5 class="card-title text-warning">Fees applied</h5>
               <img src="img/fees.png" width="30 px"  height="30 px">
-              <span style="font-weight:bold">10<span style="color:green">$</span>/month</span>
+              <span style="font-weight:bold">10<span style="color:green">$</span>/question</span>
             </div>
           </div>
           <div class="card border-info mx-3 my-4" style="max-width: 18rem;">
-            <div class="card-header" style="font-weight:bold">Free account</div>
+            <div class="card-header" style="font-weight:bold">Free answer</div>
             <div class="card-body">
               <h5 class="card-title text-info">Advantages</h5>
               <div style="font-weight:bold">
@@ -76,24 +136,28 @@
         <div class="container">
           <div class="jumbotron">
             <!-- form  -->
-            <form action="" method="post">
+            <form action="Controllers/createaccount.php" method="post">
               <div class="form-group">
                 <label for="firstname">First name</label>
-                <input type="text" class="form-control" id="firstname" aria-describedby="emailHelp" placeholder="First name">
+                <input type="text" class="form-control" name="firstname" id="firstname" aria-describedby="emailHelp" placeholder="First name">
               </div>
               <div class="form-group">
                 <label for="lastname">Last name</label>
-                <input type="text" class="form-control" id="lastname" aria-describedby="emailHelp" placeholder="Last name">
+                <input type="text" class="form-control" name="lastname" id="lastname" aria-describedby="emailHelp" placeholder="Last name">
               </div>
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="Email">Email address</label>
+                <input type="email" class="form-control" name= "Email" id="Email" aria-describedby="emailHelp" placeholder="Enter email">
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" name= "Password" id="Password" placeholder="Password">
               </div>
-              <button type="submit" class="btn btn-primary">submit for premium account</button><br>
+              <div class="form-group">
+                <label for="BankInfo">Bank Account number</label>
+                <input type="text" class="form-control" name="BankInfo" id="BankInfo" aria-describedby="emailHelp" placeholder="Enter Account Number">
+              </div>
+              <button type="submit" class="btn btn-primary">submit to be specialist</button><br>
               <small >Already have account ?</small>
               <a  href="login.php">log in</a>
             </form>

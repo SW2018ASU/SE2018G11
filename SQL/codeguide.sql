@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2019 at 11:26 PM
+-- Generation Time: Feb 13, 2019 at 01:33 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -38,8 +38,15 @@ CREATE TABLE `bookmarked` (
 --
 
 INSERT INTO `bookmarked` (`user_id`, `post_id`) VALUES
-(6, 29),
-(3, 29);
+(4, 19),
+(4, 18),
+(6, 28),
+(5, 17),
+(5, 7),
+(5, 28),
+(5, 29),
+(4, 17),
+(5, 34);
 
 -- --------------------------------------------------------
 
@@ -50,6 +57,7 @@ INSERT INTO `bookmarked` (`user_id`, `post_id`) VALUES
 CREATE TABLE `comment` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
+  `specialist_id` int(11) NOT NULL,
   `post_id` int(255) NOT NULL,
   `comment_text` text NOT NULL,
   `dates` date NOT NULL,
@@ -61,27 +69,59 @@ CREATE TABLE `comment` (
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`id`, `user_id`, `post_id`, `comment_text`, `dates`, `helpful`, `times`) VALUES
-(1, 3, 19, 'background-size:cover;', '2019-02-04', 0, '05:35:00'),
-(2, 3, 23, 'good', '2019-02-04', 0, '06:25:00'),
-(3, 3, 23, 'js is life', '2019-02-04', 0, '06:30:00'),
-(4, 3, 19, 'background-repeat:no-repeat', '2019-02-04', 0, '06:38:00'),
-(5, 3, 18, 'int , string', '2019-02-04', 0, '07:27:00'),
-(6, 3, 21, 'lkjl', '2019-02-04', 0, '08:27:00'),
-(7, 3, 22, 'zkdflz', '2019-02-04', 0, '08:28:00'),
-(8, 3, 24, 'block for div\ninline fir img', '2019-02-05', 0, '12:46:00'),
-(9, 3, 25, 'system.out.println(\"\");', '2019-02-05', 0, '02:37:00'),
-(10, 3, 21, 'sdgs.g', '2019-02-05', 0, '04:10:00'),
-(11, 3, 12, 'include <malloc.h>', '2019-02-05', 0, '04:12:00'),
-(12, 3, 12, 'include malloc.h', '2019-02-05', 0, '04:13:00'),
-(13, 3, 24, ';l;lk;l;', '2019-02-05', 0, '04:14:00'),
-(14, 3, 24, 'o\'\'', '2019-02-05', 0, '04:17:00'),
-(15, 3, 29, 'jkljkl', '2019-02-05', 0, '05:58:00'),
-(19, 3, 29, 'lhdlghflg', '2019-02-05', 3, '11:06:00'),
-(17, 3, 29, 'sdfs', '2019-02-05', 3, '09:55:00'),
-(18, 3, 26, 'dgdfgdf', '2019-02-05', 0, '09:56:00'),
-(16, 3, 26, 'data science udemy', '2019-02-05', 0, '09:24:00'),
-(20, 6, 11, 'l;kfdg;ldfkg;d', '2019-02-05', 0, '11:57:00');
+INSERT INTO `comment` (`id`, `user_id`, `specialist_id`, `post_id`, `comment_text`, `dates`, `helpful`, `times`) VALUES
+(1, 2, 0, 4, 'dsfad', '2019-02-08', 0, '07:07:00'),
+(2, 2, 0, 15, 'hey hey', '2019-02-08', 1, '10:25:00'),
+(3, 1, 0, 18, 'j xkzm kmcx', '2019-02-09', 0, '04:17:00'),
+(4, 1, 0, 18, 'ksadhikw', '2019-02-09', 0, '05:01:00'),
+(5, 1, 0, 18, 'hdsgjjdsg', '2019-02-12', 0, '10:28:00'),
+(6, 1, 0, 18, 'hey hey', '2019-02-12', 0, '01:17:00'),
+(7, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(8, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(9, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(10, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(11, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(12, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(13, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(14, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(15, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(16, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:26:00'),
+(17, 1, 0, 18, 'knock knock', '2019-02-12', 0, '01:30:00'),
+(18, 1, 0, 16, 'hello', '2019-02-12', 0, '01:31:00'),
+(19, 1, 0, 16, 'asd', '2019-02-12', 0, '02:00:00'),
+(20, 0, 1, 16, 'a7bk', '2019-02-12', 1, '02:03:00'),
+(21, 0, 1, 16, 'welcome', '2019-02-12', 1, '03:30:00'),
+(22, 2, 0, 10, 'dddd', '2019-02-12', 0, '04:33:00'),
+(23, 2, 0, 10, 'dddf', '2019-02-12', 0, '05:46:00'),
+(24, 2, 0, 10, 'dfggg', '2019-02-12', 0, '05:47:00'),
+(25, 2, 0, 8, 'hhu', '2019-02-12', 0, '06:01:00'),
+(26, 0, 1, 10, 'nji', '2019-02-12', 0, '06:02:00'),
+(27, 0, 1, 16, 'hdhdj', '2019-02-12', 1, '08:27:00'),
+(28, 4, 0, 19, 'aaaaaaaaaa', '2019-02-12', 0, '09:48:00'),
+(29, 4, 0, 23, 'fffffffffff', '2019-02-12', 0, '09:56:00'),
+(30, 4, 0, 22, 'jjjjj', '2019-02-12', 0, '09:57:00'),
+(31, 4, 0, 22, 'vvvvvvvvvvvvvvvv', '2019-02-12', 0, '09:59:00'),
+(32, 4, 0, 28, 'dfhhgggggggggggggg', '2019-02-12', 2, '10:49:00'),
+(33, 4, 0, 17, 'sssssssssssssssssssssssggggggggggggggggggg', '2019-02-12', 0, '10:49:00'),
+(34, 5, 0, 17, 'helo', '2019-02-12', 0, '10:52:00'),
+(35, 7, 0, 19, 'hggggggggggg', '2019-02-12', 0, '11:35:00'),
+(36, 0, 6, 6, 'knjn ', '2019-02-13', 0, '12:14:00'),
+(37, 0, 6, 5, 'dnvjb jdv', '2019-02-13', 0, '12:15:00'),
+(38, 8, 0, 29, ' jd nknc', '2019-02-13', 0, '12:16:00'),
+(39, 5, 0, 32, 'jnhbcas', '2019-02-13', 0, '12:41:00'),
+(40, 5, 0, 33, 'ddddddddd', '2019-02-13', 0, '12:41:00'),
+(41, 5, 0, 33, 'd', '2019-02-13', 0, '12:52:00'),
+(42, 5, 0, 33, 'ds\n', '2019-02-13', 0, '12:55:00'),
+(43, 5, 0, 34, 'hi', '2019-02-13', 0, '12:57:00'),
+(44, 5, 0, 34, 'j bn ', '2019-02-13', 0, '01:00:00'),
+(45, 5, 0, 34, 'k', '2019-02-13', 0, '01:09:00'),
+(46, 0, 1, 35, 'jjjjjjjj', '2019-02-13', 1, '01:37:00'),
+(47, 0, 1, 16, 'jbjbjsbaakSBX', '2019-02-13', 0, '01:43:00'),
+(48, 0, 1, 19, 'da', '2019-02-13', 0, '01:43:00'),
+(49, 0, 6, 35, 'mj', '2019-02-13', 0, '01:52:00'),
+(50, 0, 7, 35, 'jj', '2019-02-13', 0, '02:06:00'),
+(51, 0, 1, 35, 'knn', '2019-02-13', 0, '02:26:00'),
+(52, 0, 3, 35, 'hello\n', '2019-02-13', 0, '02:27:00');
 
 -- --------------------------------------------------------
 
@@ -92,7 +132,7 @@ INSERT INTO `comment` (`id`, `user_id`, `post_id`, `comment_text`, `dates`, `hel
 CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
   `admin_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` text NOT NULL,
   `number_of_members` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -101,20 +141,8 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `admin_id`, `name`, `number_of_members`) VALUES
-(27, 3, 'software', 0),
-(28, 6, 'php_group', 0),
-(29, 3, 'web', 0),
-(30, 3, 'codeGuide', 0),
-(31, 3, 'front end', 0),
-(32, 3, 'back end', 0),
-(33, 3, 'back end', 0),
-(34, 3, 'back end', 0),
-(35, 7, 'jquery', 0),
-(36, 3, '', 0),
-(37, 3, 'machine learning', 0),
-(38, 3, 'sw2018', 0),
-(39, 3, 'omar_group', 0),
-(40, 3, 'exams', 0);
+(1, 4, 'a', 0),
+(2, 8, 'hello', 0);
 
 -- --------------------------------------------------------
 
@@ -123,8 +151,8 @@ INSERT INTO `groups` (`id`, `admin_id`, `name`, `number_of_members`) VALUES
 --
 
 CREATE TABLE `group_user` (
-  `group_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `group_id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -132,59 +160,13 @@ CREATE TABLE `group_user` (
 --
 
 INSERT INTO `group_user` (`group_id`, `user_id`) VALUES
-(27, 3),
-(27, 6),
-(27, 2),
-(28, 6),
-(28, 2),
-(28, 3),
-(29, 3),
-(29, 6),
-(29, 2),
-(29, 2),
-(29, 2),
-(29, 6),
-(29, 6),
-(29, 6),
-(29, 6),
-(29, 6),
-(29, 3),
-(29, 3),
-(29, 6),
-(29, 3),
-(29, 3),
-(29, 3),
-(30, 3),
-(30, 6),
-(30, 2),
-(31, 3),
-(31, 6),
-(31, 2),
-(32, 3),
-(32, 3),
-(32, 3),
-(35, 7),
-(35, 2),
-(35, 3),
-(35, 6),
-(36, 3),
-(36, 6),
-(36, 7),
-(28, 7),
-(27, 7),
-(37, 3),
-(37, 6),
-(37, 7),
-(38, 3),
-(38, 6),
-(38, 7),
-(39, 3),
-(39, 6),
-(39, 7),
-(39, 2),
-(40, 3),
-(40, 6),
-(40, 2);
+(1, 4),
+(1, 3),
+(1, 2),
+(2, 8),
+(2, 1),
+(2, 2),
+(2, 5);
 
 -- --------------------------------------------------------
 
@@ -195,48 +177,56 @@ INSERT INTO `group_user` (`group_id`, `user_id`) VALUES
 CREATE TABLE `post` (
   `id` int(255) NOT NULL,
   `user_id` text NOT NULL,
+  `specialist_id` int(11) NOT NULL,
   `dates` date NOT NULL,
   `question` text NOT NULL,
   `reported` int(255) NOT NULL,
   `language` text NOT NULL,
   `group_id` int(255) NOT NULL,
-  `times` time NOT NULL
+  `times` time NOT NULL,
+  `type` varchar(256) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`id`, `user_id`, `dates`, `question`, `reported`, `language`, `group_id`, `times`) VALUES
-(1, '2', '2019-01-31', '<div>aaaaaaaaa</div>', 0, 'java', 0, '00:00:00'),
-(2, '3', '2019-01-31', '<div>Function rand()</div>', 0, 'C/C++', 0, '03:09:00'),
-(3, '3', '2019-01-31', '<div>What is the name of the <font color=\"#008000\">function which&nbsp;</font><span style=\"color: rgb(255, 0, 0); font-size: 1rem;\">returns number of elements of array</span><span style=\"color: rgb(0, 128, 0); font-size: 1rem;\">?</span></div>', 0, 'python', 0, '04:07:00'),
-(4, '3', '2019-01-31', '<div>what is the input of date</div>', 0, 'HTML', 0, '04:09:00'),
-(5, '3', '2019-01-31', '<div><b><i><u>count()</u></i></b>&nbsp; function of array?</div>', 0, 'php', 0, '07:18:00'),
-(6, '3', '2019-01-31', '<div>how to hold <b>value</b> of input?</div>', 0, 'javascript', 0, '07:19:00'),
-(7, '3', '2019-01-31', '<div>jquery -&gt;&gt;&gt; ajax post help</div>', 0, 'jquery', 0, '07:26:00'),
-(8, '3', '2019-01-31', '<div>inheritance in java</div>', 0, 'java', 0, '11:31:00'),
-(9, '3', '2019-02-02', '<div>how to send array from js to php</div>', 0, 'php', 0, '07:51:00'),
-(10, '6', '2019-02-02', '<div>CONCAT in sql with php</div>', 0, 'php', 0, '07:52:00'),
-(11, '6', '2019-02-02', '<div>hoe to obtain descendants of certain selector</div>', 0, 'jquery', 0, '07:53:00'),
-(12, '3', '2019-02-03', '<div><b><i>malloc()</i></b> function?</div>', 0, 'C/C++', 27, '12:47:00'),
-(13, '3', '2019-02-03', 'class modal implementation??', 0, 'CSS', 28, '12:49:00'),
-(14, '3', '2019-02-03', '<div>class database with <b><i>PDO ?</i></b></div>', 0, 'php', 0, '12:51:00'),
-(15, '3', '2019-02-03', '<div>border style_&gt;&gt;&gt;&gt; green solid 5px;&nbsp;</div>', 0, 'CSS', 0, '12:53:00'),
-(16, '3', '2019-02-03', '<div>Best techniques for supervised learning by using python</div>', 0, 'python', 37, '01:55:00'),
-(17, '3', '2019-02-03', '<div>how to start learning <b>c#</b></div>', 0, 'C#', 0, '03:24:00'),
-(18, '3', '2019-02-03', '<div>data types in <b><i>C#</i></b>?</div>', 0, 'C#', 0, '03:25:00'),
-(19, '3', '2019-02-03', '<div>how to make an image background of site</div>', 0, 'HTML', 0, '03:26:00'),
-(20, '3', '2019-02-03', '<div>for in python</div>', 0, 'python', 39, '04:12:00'),
-(21, '3', '2019-02-04', '<div>zckjhfzkjd</div>', 0, 'java', 27, '04:40:00'),
-(22, '6', '2019-02-04', '<div>;;dg</div>', 0, 'python', 28, '04:44:00'),
-(23, '3', '2019-02-04', '<div>js</div>', 0, 'js', 0, '05:53:00'),
-(24, '3', '2019-02-05', '<div>difference between display: block , inline-block</div>', 0, 'CSS', 0, '12:42:00'),
-(25, '3', '2019-02-05', '<div>how to print on screen?</div>', 0, 'java', 40, '02:36:00'),
-(26, '3', '2019-02-05', '<div><b>python statistics ??</b></div>', 0, 'python', 0, '04:31:00'),
-(27, '3', '2019-02-05', '<div>div tags</div>', 0, 'HTML', 27, '04:32:00'),
-(28, '3', '2019-02-05', '<div>;lk;k;</div><div>;oi</div>', 0, 'python', 27, '04:33:00'),
-(29, '3', '2019-02-05', '<div style=\"text-align: center;\">klj;</div><div><br></div>', 0, 'php', 0, '04:34:00');
+INSERT INTO `post` (`id`, `user_id`, `specialist_id`, `dates`, `question`, `reported`, `language`, `group_id`, `times`, `type`) VALUES
+(1, '2', 0, '2019-01-31', '<div>aaaaaaaaa</div>', 0, 'java', 0, '00:00:00', 'c'),
+(2, '3', 0, '2019-02-05', '<br>', 0, 'Choose...', 0, '06:44:00', 'c'),
+(3, '3', 0, '2019-02-05', '<div><br></div>', 0, 'Choose...', 0, '06:45:00', 'c'),
+(4, '2', 0, '2019-02-05', '<div>mostag</div>', 0, 'C/C++', 0, '10:58:00', 'c'),
+(5, '2', 0, '2019-02-05', '<div>hello world</div>', 0, 'python', 0, '10:59:00', 's'),
+(6, '2', 0, '2019-02-08', '<div>sdgsdvsd</div>', 0, 'Choose...', 0, '07:07:00', 's'),
+(7, '2', 0, '2019-02-08', 'hello!', 0, 'C/C++', 0, '08:07:00', 'c'),
+(8, '2', 0, '2019-02-08', '<div><br></div>', 0, 'Choose...', 0, '08:08:00', 's'),
+(9, '2', 0, '2019-02-08', '<div>iohkljk</div>', 0, 'Choose...', 0, '08:09:00', 'c'),
+(10, '2', 0, '2019-02-08', '<div>nlkklkm,.</div>', 0, 'Choose...', 0, '08:09:00', 's'),
+(11, '2', 0, '2019-02-08', '<div>dfdsvdsv</div>', 0, 'C#', 0, '08:16:00', 'c'),
+(12, '', 0, '0000-00-00', '', 0, '', 0, '00:00:00', ''),
+(13, '', 0, '0000-00-00', '', 0, '', 0, '00:00:00', ''),
+(14, '2', 0, '2019-02-08', '<div>dsvdscxz</div>', 0, 'Choose...', 0, '09:24:00', 'c'),
+(15, '2', 0, '2019-02-08', '<div>sacsas</div>', 0, 'Choose...', 0, '09:25:00', 'c'),
+(16, '2', 0, '2019-02-08', '<div>help me specialist</div>', 0, 'C/C++', 0, '10:24:00', 's'),
+(17, '2', 0, '2019-02-09', '<div>bukjbnk</div>', 0, 'php', 0, '02:54:00', 'c'),
+(18, '2', 0, '2019-02-09', '<div>hjkjhklj</div>', 0, 'php', 0, '02:54:00', 's'),
+(19, '2', 0, '2019-02-12', '<div>dafds</div>', 0, 'java', 0, '08:29:00', 's'),
+(20, '4', 0, '2019-02-12', '<div>aaaaaaaaaaaaaaaaaaaaaaaaaaa</div>', 0, 'python', 0, '09:48:00', ''),
+(21, '4', 0, '2019-02-12', '<div>a</div>', 0, 'HTML', 0, '09:49:00', ''),
+(22, '4', 0, '2019-02-12', '<div>ff</div>', 0, 'CSS', 0, '09:49:00', ''),
+(23, '4', 0, '2019-02-12', '<div>a</div>', 0, 'CSS', 1, '09:56:00', ''),
+(24, '4', 0, '2019-02-12', '<div>aaaaaaaaaaaaaaa</div>', 0, 'python', 0, '10:09:00', ''),
+(25, '4', 0, '2019-02-12', '<div>g9u</div>', 0, 'CSS', 0, '10:27:00', ''),
+(26, '4', 0, '2019-02-12', '<div>gggggggggggggggggggg</div>', 0, 'php', 0, '10:28:00', ''),
+(27, '4', 0, '2019-02-12', '<div>wwwwwwwww</div>', 0, 'php', 0, '10:38:00', ''),
+(28, '4', 0, '2019-02-12', '<div>a</div>', 0, 'java', 0, '10:48:00', 'c'),
+(29, '8', 0, '2019-02-13', '<div>a</div>', 0, 'java', 0, '12:16:00', 'c'),
+(30, '8', 0, '2019-02-13', '<div>k</div>', 0, 'javascript', 2, '12:22:00', ''),
+(31, '5', 0, '2019-02-13', '<div>kkk</div>', 0, 'python', 2, '12:36:00', ''),
+(32, '5', 0, '2019-02-13', '<div>hell</div><div><br></div>', 0, 'HTML', 2, '12:37:00', ''),
+(33, '5', 0, '2019-02-13', '<div>hell</div><div><br></div>', 0, 'C#', 0, '12:40:00', 'c'),
+(34, '5', 0, '2019-02-13', '<div>hello sp</div>', 0, 'python', 0, '12:56:00', 's'),
+(35, '5', 0, '2019-02-13', '<div>kkkk</div>', 0, 'java', 0, '01:36:00', 's');
 
 -- --------------------------------------------------------
 
@@ -247,19 +237,56 @@ INSERT INTO `post` (`id`, `user_id`, `dates`, `question`, `reported`, `language`
 CREATE TABLE `rated` (
   `user_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rated`
 --
 
 INSERT INTO `rated` (`user_id`, `comment_id`) VALUES
-(3, 19),
-(3, 17),
-(6, 19),
-(6, 17),
-(7, 19),
-(7, 17);
+(2, 21),
+(2, 20),
+(2, 27),
+(5, 32),
+(7, 32),
+(5, 2),
+(5, 46);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `specialist`
+--
+
+CREATE TABLE `specialist` (
+  `id` int(11) NOT NULL,
+  `s_first_name` varchar(256) NOT NULL,
+  `s_last_name` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `bank_info` int(11) NOT NULL,
+  `number_of_answers` int(11) NOT NULL,
+  `cash` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `specialist`
+--
+
+INSERT INTO `specialist` (`id`, `s_first_name`, `s_last_name`, `email`, `password`, `bank_info`, `number_of_answers`, `cash`) VALUES
+(1, 'kareem', 'salah', 'salahno1@yahoo.com', '1234', 11, 182, 80),
+(2, 'qt', 'qta', 'qt@gmail.com', '0', 0, 0, 0),
+(3, 'qt', 'qtaaa', 'a@gmail.com', '0', 0, 1, 0),
+(4, 'alaa', 'alaa', 'alaa@gmail.com', 'a', 565, 0, 0),
+(5, 'dddddd', 'ddddddddddd', 'ddddd@yahoo.com', '0', 123, 0, 0),
+(6, 'daq', 'daq', 'daq@yahoo.com', '1', 0, 3, 0),
+(7, 'special', 'special', 'sp@gmail.com', '0', 1, 1, 0),
+(8, 's2', 's2', 's2@yahoo.com', '0', 0, 0, 0),
+(9, 'la2', 'la2', 'la2@gmail.com', '0', 0, 0, 0),
+(10, '0', '0', '1@yahoo.com', '0', 0, 0, 0),
+(11, 'kl', 'kl', 'kl@uah', '#g', 0, 0, 0),
+(12, 'aaa', 'aaaa', 'aaa@yahoo.com', 'aaa', 0, 0, 0),
+(13, 'jjjj', 'jjjjj', 'jjjjsjsj@gsxhbh', '1234', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -280,10 +307,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `email`, `password`, `last_name`) VALUES
-(7, 'omar', 'omar@gmail.com', 'omar', 'alam'),
+(1, 'O', 'O@YAHOO.COM', 'a', 'O'),
 (2, 'Omar ', 'omarnasr3939@gmail.com', 'a', 'Hesham'),
-(3, 'martin', 'martin@gmail.com', 'martin', 'joseph'),
-(6, 'mark', 'mark@gmail.com', 'mark', 'youssef');
+(3, 'kareem', 'kemo@yahoo.com', '1234', 'salah'),
+(4, 'AHMED', 'a@gmail.com', 'a', 'AHMED'),
+(5, 'fatma', 'fatma@gmail.com', 'q', 'fatma'),
+(7, 'qt', 'qat@gmail.com', '0', 'sf'),
+(8, 'jio', 'jio@yahoo.com', '0', 'jio');
 
 --
 -- Indexes for dumped tables
@@ -308,6 +338,12 @@ ALTER TABLE `post`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `specialist`
+--
+ALTER TABLE `specialist`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -321,25 +357,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `specialist`
+--
+ALTER TABLE `specialist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

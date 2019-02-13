@@ -17,8 +17,18 @@ public function __construct($id) {
     Database::$db->prepare($sql)->execute([$userId,$postId,$text,$dates,$times]);
 
   }
+  public static function  create_specialist_comment ($text,$userId,$postId,$times,$dates){
+    $sql="INSERT INTO comment (specialist_id,post_id,comment_text,dates,times) VALUES (?,?,?,?,?);";
+    Database::$db->prepare($sql)->execute([$userId,$postId,$text,$dates,$times]);
+
+  }
   public static function show_comment($postId){
-    $sql = "SELECT *,concat(first_name,' ',last_name) as user_name,comment.id as comment_id FROM comment join user on comment.user_id=user.id WHERE post_id = $postId order by comment_id DESC ;";
+    $sql = "SELECT *,concat(first_name,' ',last_name) as user_name,
+     concat(s_first_name,' ',s_last_name) as specialist_name,
+      comment.id as comment_id FROM comment
+      LEFT join user on comment.user_id=user.id
+      left join specialist on comment.specialist_id=specialist.id
+      WHERE post_id = $postId order by comment_id DESC ;";
     $statement = Database::$db->prepare($sql);
     $statement->execute();
     $comments = [];
@@ -27,6 +37,7 @@ public function __construct($id) {
     }
     return $comments;
   }
+
 
   public static function edit_comment($comment_text,$comment_date){
     $sql= "UPDATE comment SET comment_text = ? ,dates = ? WHERE id = ? ;";
@@ -90,9 +101,7 @@ public function __construct($id) {
       $users[]=$row;
     }
     return $users;
-
   }
-
 }
 
 

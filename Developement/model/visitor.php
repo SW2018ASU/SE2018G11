@@ -25,7 +25,9 @@ class visitor extends Database{
         if ($password==$row['password'])
             return 1;  //login success registered-user
       }
-
+      else return 0;
+}
+public static function sign_in_specialist ($email,$password){
         $sql = "SELECT email,password FROM specialist WHERE email ='$email';";
         $statement = Database::$db->prepare($sql);
         $statement->execute();
@@ -33,7 +35,7 @@ class visitor extends Database{
         if($email==$row['email'])
         {
           if ($password==$row['password'])
-              return 2;  //login success - specialist
+              return 1;  //login success - specialist
         }
 
       else return 0; // login failed
@@ -61,7 +63,7 @@ public static function sign_up ($email,$password,$FirstName,$LastName){
     {
         return 0; //signup error
     }
-    $sql = "INSERT INTO specialist (first_name,last_name,email,password,bankinfo) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO specialist (s_first_name,s_last_name,email,password,bank_info) VALUES (?,?,?,?,?)";
     Database::$db->prepare($sql)->execute([$FirstName,$LastName,$email,$password,$bankinfo]);
     return 1; //signup success
   }

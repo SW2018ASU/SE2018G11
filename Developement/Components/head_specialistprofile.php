@@ -1,3 +1,15 @@
+<?php
+include_once("model/post.php");
+include_once("model/specialist.php");
+include_once("model/comment.php");
+Database::connect();
+ session_start();
+ if(!isset($_SESSION['specialist_id']))
+   header('Location:home.php');
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -31,26 +43,15 @@
           }
           return true;
         });
-        $(".comment").click(function(){
-          var comment= $("<hr class='lead'><div class='input-group my-1'><div class='input-group-prepend'><span class='input-group-text'>Your comment</span></div><textarea class='form-control' aria-label='With textarea'></textarea></div><button class='btn btn-light float-right' type='button' ><img src='img/send.png'></button>");
-          if($(".divC").children().length==0){
-            $(this).parents(".rowC").next(".formC").children().append(comment);
-            $(".divC").slideDown();
-          }
-          else if($(".divC")) {
-            $(".divC").slideUp();
-            $(".divC").children().remove();
-          }
-        });
-        $('.post').richText();
       });
+
     </script>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
         <a href="home.php"><img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/></a>
-        <a class="navbar-brand" href="#"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
+        <a class="navbar-brand" href="specialisthomelogged.php"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,9 +62,9 @@
               <a class="nav-link" href="./aboutus.php">About us</a>
             </li>
             <li>
-              <form action="profile.php" method="get">
+              <form action="profilespecialist.php" method="get">
                 <div class="input-group ml-5 my-2 my-lg-0">
-                  <input class="form-control" type="search" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
+                  <input class="form-control" type="search" name= "question" placeholder="Search for questions" aria-label="Search" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="submit" id="button-addon2"><img src="img/search.png" width="20px"></button>
                   </div>
@@ -73,32 +74,32 @@
           </ul>
           <ul class="navbar-nav mr-5 ">
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/notification.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="notifications" style="position:relative;"></span>
                   <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">3</span>
-              </a>
+              </a> -->
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#"><B>Omar Hesham</B> commented on your post</a>
                 <a class="dropdown-item" href="#"><B>Omar alam</B> commented on your post</a>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <!-- <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <!-- <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
                   <span style="position:absolute; top:6px; right:0px;" class="badge badge-danger">4</span>
-              </a> -->
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              </a>
+              <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
                 <a class="dropdown-item" href="#">Mark commented on your post</a>
-              </div>
-            </li>
+              </div> -->
+            <!-- </li> -->
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> Martin </span>
+                <img src="img/profile.png" width="30 px"  height="30 px" alt=""><span> <?php echo" ".ucwords($_SESSION["specialist_first_name"]);?> </span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a id='logout' class="dropdown-item" href="Controllers/logout.php">log out</a>
+                <a class="dropdown-item" href="Controllers/logout.php">log out</a>
               </div>
             </li>
           </ul>

@@ -39,6 +39,11 @@
               window.location.href = "homelogged.php";
 
             }
+            else if (data['status']==2)
+            {
+              //console.log("status= 2");
+              window.location.href = "specialisthomelogged.php";
+            }
             else if(data['status']==0) {
               $(".check").children().remove();
               if(($(".check").children().length==0)&&($("#email").val()))

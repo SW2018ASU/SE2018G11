@@ -1,9 +1,9 @@
 <?php
 include_once("model/post.php");
 include_once("model/comment.php");
-  session_start();
-  if(!isset($_SESSION['user_id']))
-    header('Location:home.php');
+session_start();
+if(!isset($_SESSION['user_id']))
+  header('Location:home.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -29,11 +29,12 @@ include_once("model/comment.php");
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
-          $('#number_bookmarks').text($('.bookmarked').length);
+        $('#number_bookmarks').text($('.bookmarked').length);
           $("#community").click(function(){
             var formData = {
                       'question'              : $("#question").val(),
                       'language'             : $("#language").val(),
+                      'type'              : 'c'
                       };
                       $.ajax({
                       type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -47,6 +48,7 @@ include_once("model/comment.php");
 
                       });
 
+
           if(!$("#question").val()){
             var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
             $("#specialist").after(warning);
@@ -55,6 +57,37 @@ include_once("model/comment.php");
           }
           return true;
         });
+        $("#specialist").click(function(){
+
+              var formData = {
+                        'question'              : $("#question").val(),
+                        'language'             : $("#language").val(),
+                        'type'                  : 's'
+                        };
+                        $.ajax({
+                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                        url         : 'Controllers/create_post.php', // the url where we want to POST//where controller that we want to go to is exist
+                        data        : formData, // our data object //this data will be sent to contrller in $_POST
+                        dataType    : 'json', // what type of data do we expect back from the server
+                        encode          : true
+                        }).done(function(data) {
+
+                          window.location.href='homelogged.php';
+
+                        });
+
+
+
+
+
+            if(!$("#question").val()){
+              var warning = $("<div class='mt-2 alert alert-danger' role='alert'>You should put a question</div>");
+              $("#specialist").after(warning);
+              warning.slideUp(2000);
+              return false;
+            }
+            return true;
+            });
 
         $('.post').richText();
       });
@@ -100,10 +133,9 @@ include_once("model/comment.php");
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="filterSelection('bookmarked')">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="filterSelection('bookmarked')">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
-                  <span id="number_bookmarks"style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
-
+                  <span id="number_bookmarks" style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
                   </span>
               </a>
               <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
