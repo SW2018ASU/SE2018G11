@@ -104,7 +104,7 @@ Database::connect();
           var formData = {'data' : users,'group_id':<?php echo json_encode($_GET['id']); ?>};
           $.ajax({
           type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'Controllers/add_members.php?', // the url where we want to POST//where controller that we want to go to is exist
+          url         : 'Controllers/add_members.php', // the url where we want to POST//where controller that we want to go to is exist
           data        : formData, // our data object //this data will be sent to contrller in $_POST
           dataType    : 'json',
           encode      : true
