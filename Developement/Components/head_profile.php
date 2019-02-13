@@ -31,7 +31,7 @@ if(!isset($_SESSION['user_id']))
     <script src="js/jquery0.richtext.js"></script>
     <script>
       $(document).ready(function(){
-
+        $('#number_bookmarks').text($('.bookmarked').length);
         $("#search_users").keyup(function(){
           $('#search-result-container').html("");
 
@@ -206,9 +206,10 @@ if(!isset($_SESSION['user_id']))
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="filterSelection('bookmarked')">
                   <span><img src="img/bookmarks.png" width="30px" data-toggle="tooltip" data-placement="bottom" title="bookmarks" style="position:relative;"></span>
-                  <span id="number_bookmarks" style="position:absolute; top:6px; right:0px;" class="badge badge-danger"></span>
+                  <span id="number_bookmarks" style="position:absolute; top:6px; right:0px;" class="badge badge-danger">
+                  </span>
               </a>
               <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Omar Hesham commented on your post</a>
