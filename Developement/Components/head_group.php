@@ -234,7 +234,6 @@ Database::connect();
                 <textarea id="question" name="question" class="form-control post" aria-label="With textarea" ></textarea>
                 </div>
                 <button id="community" type="submit" class="btn btn-primary">Ask community</button>
-                <button id="specialist" type="submit" class="btn btn-outline-primary">Ask specialist</button><br>
               </form>
             </div>
           </div>

@@ -3,8 +3,10 @@ include_once("model/post.php");
 include_once("model/comment.php");
 Database::connect();
   session_start();
-  if(!isset($_SESSION['specialist_id']))
-    header('Location:home.php');
+  if(isset($_SESSION['user_id']))
+    header('Location:homelogged.php');
+  else if(!isset($_SESSION['specialist_id']))
+     header('Location:home.php');
 
 ?>
 <!DOCTYPE html>
