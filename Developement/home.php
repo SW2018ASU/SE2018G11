@@ -265,7 +265,8 @@ if(isset($_SESSION['user_id']))
                       <div class="col-lg-4">
                       </div>
                       <div class="col-lg-4">
-                        <button type="button" class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">  Helpful</button>
+                        <button disabled type="button" id='rate_<?php echo $comment['comment_id'];?>' class="btn btn-light btn-lg btn-block"><img src="img/helpful.png" width="20px">
+                        <span id="raten_<?php echo $comment['comment_id'] ?>" style="position:absolute; top:14px; right:40px;" class="badge badge-dark"><?php echo comment::get_rate($comment['comment_id']); ?></span> Helpful</button>
                       </div>
                     </div>
                   </div>

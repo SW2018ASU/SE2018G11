@@ -158,24 +158,37 @@
                 </div>
               </div>
               <script type="text/javascript">
-               $(document).ready(function(){
-                 <?php  $users=comment::get_user_rate($comment['comment_id']);
-                 $found=0;
-                 foreach ($users as $user) {
-                   if ($user['user_id']==$_SESSION["user_id"]) {
-                     $found=1;
-                   }
-                 }
-                  ?>
-                  var found=<?php echo json_encode($found); ?>;
-                  if (found) {
-                    $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
-                    $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+              $(document).ready(function(){
+                <?php  $users=comment::get_user_rate($comment['comment_id']);
+                $found=0;
+                foreach ($users as $user) {
+                  if ($user['user_id']==$_SESSION["user_id"]) {
+                    $found=1;
                   }
+                }
+                 ?>
+                 var found=<?php echo json_encode($found); ?>;
+                 if (found) {
+                   $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                   $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                 }
+               <?php
+               if($_SESSION["user_id"]==$comment['user_id']){
+                 ?>
+                 $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", "disabled");//this enable submit button
+
+                 <?php
+
+               }
+               else{
+
+                 ?>
+                 $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", false);//this disable submit button and we need to tell him email exist
 
                  $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
                    var formData = {
-                   'comment_id' : <?php echo $comment['comment_id'] ?>
+                   'comment_id' : <?php echo $comment['comment_id'] ?>,
+                   'post_id' : <?php echo $comment['post_id'] ?>,
                    };
                    if(found==0) {
                      $.post("Controllers/rate_comment.php",formData,function(data){
@@ -194,8 +207,15 @@
                       found=0;
                     }
                  });
-               });
-               </script>
+
+                 <?php
+
+               }
+                ?>
+
+
+              });
+              </script>
 
                <!-- end of answer -->
                <!-- end of loop -->

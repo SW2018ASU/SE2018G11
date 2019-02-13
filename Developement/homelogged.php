@@ -175,63 +175,65 @@ Database::connect();
                 </div>
               </div>
               <script type="text/javascript">
-               $(document).ready(function(){
-                 <?php  $users=comment::get_user_rate($comment['comment_id']);
-                 $found=0;
-                 foreach ($users as $user) {
-                   if ($user['user_id']==$_SESSION["user_id"]) {
-                     $found=1;
-                   }
-                 }
-                  ?>
-                  var found=<?php echo json_encode($found); ?>;
-                  if (found) {
-                    $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
-                    $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+              $(document).ready(function(){
+                <?php  $users=comment::get_user_rate($comment['comment_id']);
+                $found=0;
+                foreach ($users as $user) {
+                  if ($user['user_id']==$_SESSION["user_id"]) {
+                    $found=1;
                   }
-                <?php
-                if($_SESSION["user_id"]==$comment['user_id']){
-                  ?>
-                  $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", "disabled");//this enable submit button
-
-                  <?php
-
-                }
-                else{
-
-                  ?>
-                  $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", false);//this disable submit button and we need to tell him email exist
-
-                  $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
-                    var formData = {
-                    'comment_id' : <?php echo $comment['comment_id'] ?>
-                    };
-                    if(found==0) {
-                      $.post("Controllers/rate_comment.php",formData,function(data){
-                        $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
-                        $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
-                        $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
-                        found=1;
-                      });
-                    }
-                     else if (found) {
-                       $.post("Controllers/unrate_comment.php",formData,function(data){
-                         $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
-                       });
-                       $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-primary");
-                       $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-light");
-                       found=0;
-                     }
-                  });
-
-                  <?php
-
                 }
                  ?>
+                 var found=<?php echo json_encode($found); ?>;
+                 if (found) {
+                   $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                   $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                 }
+               <?php
+               if($_SESSION["user_id"]==$comment['user_id']){
+                 ?>
+                 $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", "disabled");//this enable submit button
+
+                 <?php
+
+               }
+               else{
+
+                 ?>
+                 $("#rate_<?php echo $comment['comment_id'];?>").attr("disabled", false);//this disable submit button and we need to tell him email exist
+
+                 $("#rate_<?php echo $comment['comment_id'];?>").click(function(){
+                   var formData = {
+                   'comment_id' : <?php echo $comment['comment_id'] ?>,
+                   'post_id' : <?php echo $comment['post_id'] ?>,
+                   };
+                   if(found==0) {
+                     $.post("Controllers/rate_comment.php",formData,function(data){
+                       $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
+                       $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-light");
+                       $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-primary");
+                       found=1;
+                     });
+                   }
+                    else if (found) {
+                      $.post("Controllers/unrate_comment.php",formData,function(data){
+                        $("#raten_<?php echo $comment['comment_id'] ?>").html(data);
+                      });
+                      $("#rate_<?php echo $comment['comment_id'];?>").removeClass("btn-primary");
+                      $("#rate_<?php echo $comment['comment_id'];?>").addClass("btn-light");
+                      found=0;
+                    }
+                 });
+
+                 <?php
+
+               }
+                ?>
 
 
-               });
-               </script>
+              });
+              </script>
+
 
                <!-- end of answer -->
                <!-- end of loop -->
@@ -281,11 +283,12 @@ Database::connect();
           dataType    : 'json', // what type of data do we expect back from the server
           encode          : true
           }).done(function(data) {
+            
             $(".divC<?php echo $post['post_id'] ?>").hide();
             $(".divA<?php echo $post['post_id'] ?>").show();
             $('#comment_text_<?php echo $post['post_id'] ?>').val("");
             $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"</div><div class='col-lg-4'><img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' disabled='disabled' id='rate_"+data['comment_id']+"'class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>                                <span id='raten_"+data['comment_id']+"' style='position:absolute; top:14px; right:40px;' class='badge badge-dark'>0</span> Helpful</button></div>  </div> </div>");
-            $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number'])
+            $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number']);
             });
           });
           $('#bookmark_<?php echo $post["post_id"];?>').click(function(){

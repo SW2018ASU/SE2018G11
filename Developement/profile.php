@@ -277,24 +277,26 @@ $("#boost").click(function(){
           }
           });
           $("#comment_button_<?php echo $post['post_id'] ?>").click(function(){
-          var formData = {
-          'comment_text'        : $('#comment_text_<?php echo $post['post_id'] ?>').val(),
-          'post_id'             : <?php echo $post['post_id'] ?>
-          };
-          $.ajax({
-          type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-          url         : 'Controllers/create_comment.php', // the url where we want to POST//where controller that we want to go to is exist
-          data        : formData, // our data object //this data will be sent to contrller in $_POST
-          dataType    : 'json', // what type of data do we expect back from the server
-          encode          : true
-          }).done(function(data) {
-            $(".divC<?php echo $post['post_id'] ?>").hide();
-            $(".divA<?php echo $post['post_id'] ?>").show();
-            $('#comment_text_<?php echo $post['post_id'] ?>').val("");
-            $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"</div><div class='col-lg-4'><img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' disabled='disabled' id='rate_"+data['comment_id']+"'class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>                                <span id='raten_"+data['comment_id']+"' style='position:absolute; top:14px; right:40px;' class='badge badge-dark'>0</span> Helpful</button></div>  </div> </div>");
-            $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number']);
-            });
-          });
+            var formData = {
+            'comment_text'        : $('#comment_text_<?php echo $post['post_id'] ?>').val(),
+            'post_id'             : <?php echo $post['post_id'] ?>
+            };
+            $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : 'Controllers/create_comment.php', // the url where we want to POST//where controller that we want to go to is exist
+            data        : formData, // our data object //this data will be sent to contrller in $_POST
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true
+            }).done(function(data) {
+          
+              $(".divC<?php echo $post['post_id'] ?>").hide();
+              $(".divA<?php echo $post['post_id'] ?>").show();
+              $('#comment_text_<?php echo $post['post_id'] ?>').val("");
+              $(".divA<?php echo $post['post_id'] ?>").prepend("<div class='card mb-3 ml-5'><div class='card-header'><div class='row'><div class='col-lg-4'> <img src='img/profile.png' width='30 px'>  "+data['user_name']+"</div><div class='col-lg-4'><img src='img/calender.png' width='20 px'> "+ data['dates'] +"   </div>    <div class='col-lg-4'> <img src='img/time.png' width='20 px'>     " +data['times']+"        </div> </div>     </div>     <div class='card-body'>   <p class='card-text'>"+data['comment_text']+"</p><hr><div class='row'><div class='col-lg-4'></div><div class='col-lg-4'></div><div class='col-lg-4'><button type='button' disabled='disabled' id='rate_"+data['comment_id']+"'class='btn btn-light btn-lg btn-block'><img src='img/helpful.png' width='20px'>                                <span id='raten_"+data['comment_id']+"' style='position:absolute; top:14px; right:40px;' class='badge badge-dark'>0</span> Helpful</button></div>  </div> </div>");
+              $("#number_<?php echo $post["post_id"] ?>").html(data['comments_number']);
+              });
+        });
+
 
        $('#bookmark_<?php echo $post["post_id"];?>').click(function(){
             var formData =
