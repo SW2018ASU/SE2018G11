@@ -100,7 +100,7 @@ Database::connect();
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
         <a href="homelogged.php"><img class="mr-2" src="img/logo.png" width="40 px"  height="35 px"/></a>
-        <a class="navbar-brand" href="homelogged.php"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
+        <a class="navbar-brand" href="specialisthomelogged.php"><span style="color:#5f6bdd;">C</span>ode<span style="color:#5f6bdd;">G</span>uide</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
